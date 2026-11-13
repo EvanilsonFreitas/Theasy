@@ -1,0 +1,99 @@
+import { cn } from '@/lib/utils'
+
+/**
+ * Símbolo ThEasy: dois colchetes que se encaixam ao redor de uma estrela.
+ * Vetorizado a partir da referência institucional (vídeo/arte enviada pela
+ * ThEasy), preservando a geometria: colchetes com simetria de rotação e a
+ * estrela central de quatro pontas com lados côncavos. Substituir pelo
+ * arquivo vetorial oficial quando ele estiver disponível.
+ */
+const BRACKET =
+  'M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z'
+const STAR =
+  'M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z'
+
+export function Symbol({
+  className,
+  title,
+  animated = false,
+}: {
+  className?: string
+  title?: string
+  /** Colchetes se encaixam e a estrela aparece (uma vez, respeita movimento reduzido). */
+  animated?: boolean
+}) {
+  return (
+    <svg
+      viewBox="160 160 704 704"
+      fill="currentColor"
+      className={cn('shrink-0', animated && 'symbol-animated', className)}
+      role={title ? 'img' : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+    >
+      <path className="symbol-a" d={BRACKET} />
+      <g className="symbol-b">
+        <path transform="rotate(180 512 512)" d={BRACKET} />
+      </g>
+      <path className="symbol-star" d={STAR} />
+    </svg>
+  )
+}
+
+/**
+ * Assinatura completa: símbolo + THEASY (+ descritor opcional).
+ * O logotipo tipográfico é composto em Archivo, a família mais próxima
+ * disponível do desenho da arte de referência.
+ */
+export function Logo({
+  className,
+  tone = 'ink',
+  tagline = false,
+  size = 'md',
+}: {
+  className?: string
+  tone?: 'ink' | 'on-ink'
+  tagline?: boolean
+  size?: 'md' | 'lg'
+}) {
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center',
+        size === 'lg' ? 'gap-4' : 'gap-2.5',
+        className,
+      )}
+    >
+      <Symbol
+        className={cn(
+          'text-purple-500',
+          size === 'lg' ? 'size-16 sm:size-20' : 'size-8 md:size-9',
+        )}
+      />
+      <span className="flex flex-col">
+        <span
+          className={cn(
+            'leading-none font-[560] tracking-[0.02em] [font-stretch:100%]',
+            size === 'lg'
+              ? 'text-[2.75rem] sm:text-[3.5rem]'
+              : 'text-[1.375rem] md:text-[1.5rem]',
+            tone === 'ink' ? 'text-ink' : 'text-on-ink',
+          )}
+        >
+          THEASY
+        </span>
+        {tagline && (
+          <span
+            className={cn(
+              'mt-1.5 leading-none font-normal',
+              size === 'lg' ? 'text-base sm:text-lg' : 'text-[11px]',
+              tone === 'ink' ? 'text-ink-3' : 'text-on-ink-3',
+            )}
+          >
+            Business Intelligence &amp; Consulting
+          </span>
+        )}
+      </span>
+    </span>
+  )
+}

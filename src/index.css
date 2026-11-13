@@ -1,0 +1,281 @@
+@import 'tailwindcss';
+
+/*
+ * ThEasy — design tokens
+ * ---------------------------------------------------------------------------
+ * Base clara, tipografia forte, roxo usado só onde algo se resolve
+ * (ação principal, estado ativo, a decisão). Racional completo em DESIGN.md.
+ * A paleta roxa é PROVISÓRIA: não há HEX institucional validado.
+ */
+
+@theme {
+  /* Tipografia */
+  --font-sans: 'Archivo Variable', 'Archivo Fallback', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Neutros (levemente frios, com subtom violeta) */
+  --color-paper: #ffffff;
+  --color-paper-2: #f6f5f8;
+  --color-paper-3: #eeecf2;
+  --color-ink: #16131d;
+  --color-ink-2: #4a4654; /* texto secundário — 9:1 sobre branco */
+  --color-ink-3: #6e6a78; /* rótulos e metadados — 5,3:1 sobre branco */
+  --color-rule: #e4e1ea; /* linhas de pauta (decorativas) */
+  --color-rule-strong: #8e8999; /* bordas de campos — 3,4:1 (WCAG 1.4.11) */
+  --color-ink-line: #2e2a36; /* regras sobre fundo tinta */
+  --color-on-ink: #f4f2f7;
+  --color-on-ink-2: #c9c5d2;
+  --color-on-ink-3: #a9a4b5;
+
+  /* Roxo ThEasy: lavanda do símbolo, aproximado da arte institucional
+     (vídeo). HEX oficial ainda a validar; ver DESIGN.md. */
+  --color-purple-50: #f3f0fe;
+  --color-purple-100: #e7e1fd;
+  --color-purple-300: #b9a8f8; /* texto/acento sobre tinta: 8,7:1 */
+  --color-purple-500: #8b6cf0; /* cor do símbolo (gráfico, 3,8:1 sobre branco) */
+  --color-purple-600: #5b3cd6; /* ação e texto em roxo: 6,9:1 sobre branco */
+  --color-purple-800: #3f27a3; /* hover / pressionado */
+
+  --color-danger: #b42318;
+  --color-success: #146c43;
+
+  /* Movimento */
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Layout */
+  --container-page: 80rem;
+  --breakpoint-xs: 26rem;
+
+  --animate-fade-in: fade-in 360ms var(--ease-snap) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Métrica de fallback para reduzir layout shift enquanto a Archivo carrega */
+@font-face {
+  font-family: 'Archivo Fallback';
+  src: local('Arial');
+  size-adjust: 98%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5.5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'ss01', 'kern';
+  }
+
+  ::selection {
+    background: var(--color-purple-100);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-purple-600);
+    outline-offset: 3px;
+  }
+
+  .on-ink :focus-visible {
+    outline-color: var(--color-purple-300);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Escala tipográfica — a largura comprimida da Archivo nos títulos dá o
+ * ritmo de relatório; o texto corrido fica em largura normal.
+ * ------------------------------------------------------------------------ */
+@utility type-display {
+  font-size: clamp(2.875rem, 1.6rem + 5.2vw, 6rem);
+  font-weight: 620;
+  font-stretch: 78%;
+  letter-spacing: -0.035em;
+  word-spacing: 0.06em;
+  line-height: 0.94;
+}
+
+@utility type-h2 {
+  font-size: clamp(2.25rem, 1.5rem + 3.2vw, 4rem);
+  font-weight: 620;
+  font-stretch: 78%;
+  letter-spacing: -0.033em;
+  word-spacing: 0.06em;
+  line-height: 0.98;
+}
+
+@utility type-h3 {
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
+  font-weight: 580;
+  font-stretch: 86%;
+  letter-spacing: -0.018em;
+  word-spacing: 0.03em;
+  line-height: 1.15;
+}
+
+@utility type-lead {
+  font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
+  line-height: 1.55;
+}
+
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+/* --------------------------------------------------------------------------
+ * Revelação de títulos por máscara — aplicada apenas a títulos de seção.
+ * Sem JS ou com movimento reduzido, o conteúdo aparece no estado final.
+ * ------------------------------------------------------------------------ */
+.reveal-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.reveal-line > span {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] .reveal-line > span {
+    transform: translateY(105%);
+    transition: transform 720ms var(--ease-snap);
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  .js [data-reveal].is-in .reveal-line > span {
+    transform: none;
+  }
+
+  .js [data-rise] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 560ms var(--ease-snap),
+      transform 560ms var(--ease-snap);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
+
+  .js [data-rise].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Barra de progresso do caso ilustrativo (hero) */
+@keyframes stage-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Pequeno pulso no conector do pipeline ilustrativo */
+/* Símbolo animado: os colchetes se encaixam e a estrela acende */
+@media (prefers-reduced-motion: no-preference) {
+  .symbol-animated .symbol-a {
+    animation: symbol-in-a 900ms var(--ease-snap) both;
+  }
+  .symbol-animated .symbol-b {
+    animation: symbol-in-b 900ms var(--ease-snap) both;
+  }
+  .symbol-animated .symbol-star {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: symbol-star 700ms 450ms var(--ease-snap) both;
+  }
+}
+
+@keyframes symbol-in-a {
+  from {
+    transform: translate(-90px, -90px);
+    opacity: 0;
+  }
+}
+
+@keyframes symbol-in-b {
+  from {
+    transform: translate(90px, 90px);
+    opacity: 0;
+  }
+}
+
+@keyframes symbol-star {
+  from {
+    transform: scale(0.2) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes travel {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Utilitário: listas roláveis horizontalmente sem barra visível */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
