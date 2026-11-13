@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ThEasy, Home mobile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#16131D}a:hover{color:#5B3CD6}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+</style>
+</helmet>
+<div style="width: 390px; height: 3900px; overflow: hidden; background: #FFFFFF; color: #16131D; font-family: 'Archivo', sans-serif; position: relative">
+<header style="height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid #E4E1EA">
+<span style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><svg viewBox="160 160 704 704" width="32" height="32" aria-hidden="true" fill="#8B6CF0"><path d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"></path><path transform="rotate(180 512 512)" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"></path><path d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"></path></svg><span style="display: block; line-height: 1"><span style="display: block; font-size: 20px; font-weight: 560; letter-spacing: 0.02em; color: #16131D">THEASY</span></span></span>
+<button onClick="{{toggle}}" aria-expanded="{{menuOpen}}" style="font: inherit; font-size: 15px; font-weight: 560; min-height: 44px; padding: 0 14px; border: 1px solid #16131D; background: #FFFFFF; cursor: pointer">{{menuLabel}}</button>
+</header>
+<sc-if value="{{open}}" hint-placeholder-val="{{false}}">
+<nav aria-label="Menu" style="position: absolute; top: 64px; left: 0; right: 0; height: 780px; background: #16131D; color: #F4F2F7; padding: 24px 16px; box-sizing: border-box; display: flex; flex-direction: column; z-index: 2">
+<a href="#" style="color: #F4F2F7; text-decoration: none; font-size: 40px; font-weight: 620; font-stretch: 80%; letter-spacing: -0.02em; padding: 14px 0; border-bottom: 1px solid #2E2A36; display: flex; justify-content: space-between"><span>Soluções</span><span class="mono" style="color: #A9A4B5">01</span></a>
+<a href="#" style="color: #F4F2F7; text-decoration: none; font-size: 40px; font-weight: 620; font-stretch: 80%; letter-spacing: -0.02em; padding: 14px 0; border-bottom: 1px solid #2E2A36; display: flex; justify-content: space-between"><span>Abordagem</span><span class="mono" style="color: #A9A4B5">02</span></a>
+<a href="#" style="color: #F4F2F7; text-decoration: none; font-size: 40px; font-weight: 620; font-stretch: 80%; letter-spacing: -0.02em; padding: 14px 0; border-bottom: 1px solid #2E2A36; display: flex; justify-content: space-between"><span>Aplicações</span><span class="mono" style="color: #A9A4B5">03</span></a>
+<a href="#" style="color: #F4F2F7; text-decoration: none; font-size: 40px; font-weight: 620; font-stretch: 80%; letter-spacing: -0.02em; padding: 14px 0; border-bottom: 1px solid #2E2A36; display: flex; justify-content: space-between"><span>Sobre</span><span class="mono" style="color: #A9A4B5">04</span></a>
+<a href="#" style="margin-top: auto; text-decoration: none; background: #B9A8F8; color: #16131D; padding: 18px; font-size: 17px; font-weight: 620; text-align: center">Conversar sobre seu desafio →</a>
+</nav>
+</sc-if>
+<section style="padding: 40px 16px 32px; display: flex; flex-direction: column; gap: 20px; border-bottom: 1px solid #E4E1EA">
+<p class="mono" style="margin: 0; color: #6E6A78">Dados · Sistemas · Gestão</p>
+<h1 style="margin: 0; font-size: 46px; line-height: .95; font-weight: 620; font-stretch: 78%; letter-spacing: -0.035em">Começamos pelo problema. <span style="color: #6E6A78">A tecnologia vem depois.</span></h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A4654">A ThEasy entende o desafio da sua operação antes de recomendar qualquer ferramenta, e depois constrói o que for preciso.</p>
+<a href="#" style="text-decoration: none; background: #5B3CD6; color: #FFFFFF; padding: 16px; font-weight: 600; text-align: center">Conversar sobre seu desafio →</a>
+<a href="#" style="text-decoration: none; border: 1px solid #16131D; padding: 15px; font-weight: 560; text-align: center">Ver problemas que resolvemos</a>
+</section>
+<section style="padding: 32px 16px; border-bottom: 1px solid #E4E1EA">
+<div style="border: 1px solid #16131D">
+<div style="display: flex; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid #16131D"><span class="mono">Folha de trabalho</span><span class="mono" style="color: #6E6A78">Ilustrativo</span></div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid #E4E1EA">
+<span style="padding: 10px 8px; background: #16131D; color: #FFFFFF; box-shadow: inset 0 -3px 0 #5B3CD6"><span class="mono" style="display: block; font-size: 10px">01</span><span style="font-size: 13px; font-weight: 600">Desafio</span></span>
+<span style="padding: 10px 8px"><span class="mono" style="display: block; font-size: 10px">02</span><span style="font-size: 13px; font-weight: 600">Estrutura</span></span>
+<span style="padding: 10px 8px"><span class="mono" style="display: block; font-size: 10px">03</span><span style="font-size: 13px; font-weight: 600">Solução</span></span>
+<span style="padding: 10px 8px"><span class="mono" style="display: block; font-size: 10px">04</span><span style="font-size: 13px; font-weight: 600">Decisão</span></span>
+</div>
+<div style="padding: 16px"><p style="margin: 0 0 16px; font-size: 21px; line-height: 1.2; font-weight: 560; font-stretch: 88%">“O faturamento cresce, mas a margem não acompanha. Onde estamos perdendo dinheiro?”</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px"><span style="border: 1px dashed #A9A4B5; padding: 6px 10px; transform: rotate(-2deg)">Vendas no ERP</span><span style="border: 1px dashed #A9A4B5; padding: 6px 10px; transform: rotate(1.5deg)">custos_v7_FINAL.xlsx</span><span style="border: 1px dashed #A9A4B5; padding: 6px 10px">Comissões</span></div></div>
+</div>
+</section>
+<section style="padding: 40px 16px; border-bottom: 1px solid #E4E1EA">
+<p class="mono" style="margin: 0 0 12px; color: #6E6A78">§ 01 · Problemas reais</p>
+<h2 style="margin: 0 0 20px; font-size: 36px; line-height: .98; font-weight: 620; font-stretch: 78%; letter-spacing: -0.03em">Algum destes soa familiar?</h2>
+<div style="display: flex; gap: 8px; overflow: hidden; margin-bottom: 8px"><span style="padding: 10px 14px; background: #16131D; color: #FFFFFF; font-size: 14px">Todas</span><span style="padding: 10px 14px; border: 1px solid #E4E1EA; font-size: 14px">Financeiro</span><span style="padding: 10px 14px; border: 1px solid #E4E1EA; font-size: 14px">Operações</span></div>
+<div style="border-top: 1px solid #16131D">
+<div style="padding: 18px 0; border-bottom: 1px solid #E4E1EA"><p style="margin: 0 0 8px; font-size: 19px; line-height: 1.25; font-weight: 520">Cada área apresenta um número diferente para o mesmo indicador.</p><span class="mono" style="color: #6E6A78">Gestão → BI e indicadores</span></div>
+<div style="padding: 18px 0; border-bottom: 1px solid #E4E1EA"><p style="margin: 0 0 8px; font-size: 19px; line-height: 1.25; font-weight: 520">Fechar o mês ainda depende de planilhas que só uma pessoa entende.</p><span class="mono" style="color: #6E6A78">Financeiro → Dados e automação</span></div>
+<div style="padding: 18px 0; border-bottom: 1px solid #E4E1EA"><p style="margin: 0 0 8px; font-size: 19px; line-height: 1.25; font-weight: 520">Não sabemos com segurança quais produtos dão lucro.</p><span class="mono" style="color: #6E6A78">Financeiro → Rentabilidade e preço</span></div>
+</div>
+</section>
+<section style="padding: 40px 16px; background: #F6F5F8; border-bottom: 1px solid #E4E1EA">
+<p class="mono" style="margin: 0 0 12px; color: #6E6A78">§ 02 · Soluções</p>
+<h2 style="margin: 0 0 24px; font-size: 36px; line-height: .98; font-weight: 620; font-stretch: 78%; letter-spacing: -0.03em">Cinco frentes, uma pergunta.</h2>
+<div style="border-top: 1px solid #16131D">
+<div style="padding: 16px 0; border-bottom: 1px solid #D9D5E0"><div style="display: flex; justify-content: space-between; font-size: 22px; font-weight: 640; font-stretch: 85%; color: #5B3CD6"><span>01 BI e Analytics</span><span aria-hidden="true">menos</span></div><p style="margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: #4A4654">Indicadores que todos aceitam e painéis que respondem às perguntas da gestão.</p></div>
+<div style="padding: 16px 0; border-bottom: 1px solid #D9D5E0; display: flex; justify-content: space-between; font-size: 20px; font-weight: 480; font-stretch: 85%"><span>02 Dados e Engenharia</span><span aria-hidden="true">+</span></div>
+<div style="padding: 16px 0; border-bottom: 1px solid #D9D5E0; display: flex; justify-content: space-between; font-size: 20px; font-weight: 480; font-stretch: 85%"><span>03 Sistemas sob medida</span><span aria-hidden="true">+</span></div>
+<div style="padding: 16px 0; border-bottom: 1px solid #D9D5E0; display: flex; justify-content: space-between; font-size: 20px; font-weight: 480; font-stretch: 85%"><span>04 Automação</span><span aria-hidden="true">+</span></div>
+<div style="padding: 16px 0; border-bottom: 1px solid #D9D5E0; display: flex; justify-content: space-between; font-size: 20px; font-weight: 480; font-stretch: 85%"><span>05 Consultoria de negócios</span><span aria-hidden="true">+</span></div>
+</div>
+</section>
+<section style="padding: 40px 16px; background: #16131D; color: #F4F2F7">
+<p class="mono" style="margin: 0 0 12px; color: #A9A4B5">§ 03 · Abordagem</p>
+<h2 style="margin: 0 0 24px; font-size: 36px; line-height: .98; font-weight: 620; font-stretch: 78%; letter-spacing: -0.03em">Entender antes de recomendar.</h2>
+<div style="border-left: 1px solid #4A4654; padding-left: 16px; display: flex; flex-direction: column; gap: 20px">
+<div><span class="mono" style="color: #B9A8F8">01</span><p style="margin: 4px 0 0; font-size: 20px; font-weight: 620">Entender</p></div>
+<div><span class="mono" style="color: #B9A8F8">02</span><p style="margin: 4px 0 0; font-size: 20px; font-weight: 620">Diagnosticar</p></div>
+<div><span class="mono" style="color: #B9A8F8">03</span><p style="margin: 4px 0 0; font-size: 20px; font-weight: 620">Desenhar e construir</p></div>
+<div><span class="mono" style="color: #B9A8F8">04</span><p style="margin: 4px 0 0; font-size: 20px; font-weight: 620">Implantar</p></div>
+<div><span class="mono" style="color: #B9A8F8">05</span><p style="margin: 4px 0 0; font-size: 20px; font-weight: 620">Evoluir</p></div>
+</div>
+</section>
+<section style="padding: 40px 16px">
+<p class="mono" style="margin: 0 0 12px; color: #6E6A78">§ 05 · Primeira conversa</p>
+<h2 style="margin: 0 0 20px; font-size: 40px; line-height: .95; font-weight: 620; font-stretch: 78%; letter-spacing: -0.03em">Conte qual é o desafio.</h2>
+<label for="m-desafio" class="mono" style="display: block; margin-bottom: 8px">O que está acontecendo?</label>
+<textarea id="m-desafio" rows="4" style="width: 100%; box-sizing: border-box; font: inherit; font-size: 16px; padding: 12px; border: 1px solid #A9A4B5"></textarea>
+<a href="#" style="display: block; margin-top: 12px; text-decoration: none; background: #5B3CD6; color: #FFFFFF; padding: 16px; font-weight: 600; text-align: center">Continuar para o contato →</a>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":3900}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { open: false }; }
+  renderVals() {
+    var self = this;
+    return { open: this.state.open, menuOpen: this.state.open ? 'true' : 'false', menuLabel: this.state.open ? 'Fechar' : 'Menu',
+      toggle: function(){ self.setState({ open: !self.state.open }); } };
+  }
+}
+</script>
+</body>
+</html>
