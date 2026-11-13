@@ -1,12 +1,18 @@
 import type { SolutionSlug } from './solutions'
 
 export type Area =
-  'Financeiro' | 'Operações' | 'Comercial' | 'Tecnologia' | 'Gestão'
+  | 'Financeiro'
+  | 'Operações'
+  | 'Comercial'
+  | 'Logística'
+  | 'Tecnologia'
+  | 'Gestão'
 
 export const areas: Area[] = [
   'Financeiro',
   'Operações',
   'Comercial',
+  'Logística',
   'Tecnologia',
   'Gestão',
 ]

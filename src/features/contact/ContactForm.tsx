@@ -118,7 +118,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
         ref={resultRef}
         tabIndex={-1}
         role="status"
-        className="border-ink flex flex-col gap-5 border p-6 outline-none sm:p-10"
+        className="win e3 flex flex-col gap-5 rounded-[18px] border border-purple-600 p-6 outline-none sm:p-10"
       >
         <span className="type-mono text-purple-600">Mensagem enviada</span>
         <p className="type-h2">Recebemos sua mensagem.</p>
@@ -141,7 +141,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
     <form
       noValidate
       onSubmit={(e) => void handleSubmit(onSubmit)(e)}
-      className="border-ink flex flex-col gap-6 border p-5 sm:p-8 lg:p-10"
+      className="win e2 border-line relative flex flex-col gap-6 rounded-[18px] border p-5 sm:p-8"
       aria-labelledby="form-title"
     >
       <div className="flex flex-col gap-1">
@@ -237,7 +237,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
           ref={resultRef}
           tabIndex={-1}
           role="alert"
-          className="border-danger text-danger border-l-[3px] bg-[#fdf3f2] p-4 text-sm outline-none"
+          className="border-danger/40 bg-danger-bg text-danger rounded-lg border p-4 text-sm outline-none"
         >
           {status.message}
         </div>
@@ -248,7 +248,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
           ref={resultRef}
           tabIndex={-1}
           role="alert"
-          className="flex flex-col gap-3 border border-purple-600 bg-purple-50 p-4 outline-none sm:p-5"
+          className="flex flex-col gap-3 rounded-xl border border-purple-600 bg-purple-50 p-4 outline-none sm:p-5"
         >
           <p className="font-semibold">
             O envio online ainda não está ativo neste site.
@@ -257,7 +257,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
             Sua mensagem <strong>não foi enviada</strong>. Copie o texto abaixo
             e guarde a mensagem até o canal de envio estar disponível.
           </p>
-          <pre className="border-rule bg-paper max-h-48 overflow-auto border p-3 font-mono text-xs whitespace-pre-wrap">
+          <pre className="border-rule bg-paper max-h-48 overflow-auto rounded-lg border p-3 font-mono text-xs whitespace-pre-wrap">
             {status.text}
           </pre>
           <Button

@@ -1,50 +1,64 @@
 @import 'tailwindcss';
 
 /*
- * ThEasy — design tokens
+ * ThEasy · design tokens v2 ("Arquitetura conectada")
  * ---------------------------------------------------------------------------
- * Base clara, tipografia forte, roxo usado só onde algo se resolve
- * (ação principal, estado ativo, a decisão). Racional completo em DESIGN.md.
- * A paleta roxa é PROVISÓRIA: não há HEX institucional validado.
+ * Superfícies claras e neutras; roxo como assinatura e sinal (ação, conexão
+ * ativa, informação relevante). Gramática gráfica derivada do símbolo:
+ * nós em colchete (raios opostos 12/4), estrela de junção e conectores
+ * ortogonais de traço uniforme. Racional completo em DESIGN.md.
+ * A paleta roxa segue PROVISÓRIA: não há HEX institucional validado.
  */
 
 @theme {
   /* Tipografia */
-  --font-sans: 'Archivo Variable', 'Archivo Fallback', system-ui, sans-serif;
+  --font-sans:
+    'Instrument Sans Variable', 'Instrument Fallback', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
 
-  /* Neutros (levemente frios, com subtom violeta) */
-  --color-paper: #ffffff;
-  --color-paper-2: #f6f5f8;
-  --color-paper-3: #eeecf2;
-  --color-ink: #16131d;
-  --color-ink-2: #4a4654; /* texto secundário — 9:1 sobre branco */
-  --color-ink-3: #6e6a78; /* rótulos e metadados — 5,3:1 sobre branco */
-  --color-rule: #e4e1ea; /* linhas de pauta (decorativas) */
-  --color-rule-strong: #8e8999; /* bordas de campos — 3,4:1 (WCAG 1.4.11) */
-  --color-ink-line: #2e2a36; /* regras sobre fundo tinta */
+  /* Neutros */
+  --color-page: #fafafb; /* fundo da página */
+  --color-paper: #ffffff; /* superfícies */
+  --color-paper-2: #f4f3f7; /* áreas rebaixadas */
+  --color-paper-3: #ecebf0;
+  --color-ink: #15131b;
+  --color-ink-2: #4b4756; /* texto de apoio, 8,9:1 sobre branco */
+  --color-ink-3: #6f6a7a; /* rótulos, 5,3:1 sobre branco */
+  --color-rule: #e7e5ec; /* bordas e guias (decorativas) */
+  --color-line: #d6d2de; /* nós, cards técnicos */
+  --color-wire: #cfcad9; /* conectores em repouso */
+  --color-rule-strong: #8e8999; /* bordas de campos, 3,4:1 (WCAG 1.4.11) */
+  --color-ink-line: #34303d; /* linhas sobre fundo escuro */
+  --color-ink-soft: #1e1b26; /* superfície sobre fundo escuro */
   --color-on-ink: #f4f2f7;
   --color-on-ink-2: #c9c5d2;
   --color-on-ink-3: #a9a4b5;
 
-  /* Roxo ThEasy: lavanda do símbolo, aproximado da arte institucional
-     (vídeo). HEX oficial ainda a validar; ver DESIGN.md. */
-  --color-purple-50: #f3f0fe;
-  --color-purple-100: #e7e1fd;
-  --color-purple-300: #b9a8f8; /* texto/acento sobre tinta: 8,7:1 */
-  --color-purple-500: #8b6cf0; /* cor do símbolo (gráfico, 3,8:1 sobre branco) */
-  --color-purple-600: #5b3cd6; /* ação e texto em roxo: 6,9:1 sobre branco */
+  /* Roxo ThEasy (símbolo #8B6CF0, aproximado da arte institucional) */
+  --color-purple-50: #f6f3ff;
+  --color-purple-100: #ece7fe;
+  --color-purple-300: #b9a8f8; /* dados secundários; texto sobre tinta 8,7:1 */
+  --color-purple-500: #8b6cf0; /* símbolo e elementos gráficos */
+  --color-purple-600: #5b3cd6; /* ação, conexão ativa, texto: 6,9:1 */
+  --color-purple-700: #4a2fb8; /* texto sobre roxo 50 */
   --color-purple-800: #3f27a3; /* hover / pressionado */
 
-  --color-danger: #b42318;
-  --color-success: #146c43;
+  /* Semânticas (usadas em interfaces demonstrativas e formulários) */
+  --color-ok: #0e6b53;
+  --color-ok-bg: #e6f4ef;
+  /* Atenção: no roxo oficial (sem amarelo), mais escuro que o roxo de ação */
+  --color-warn: #3f27a3;
+  --color-warn-bg: #efeafd;
+  --color-danger: #a11f14;
+  --color-danger-bg: #fdecea;
+  --color-success: #0e6b53;
 
   /* Movimento */
   --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
   /* Layout */
-  --container-page: 80rem;
+  --container-page: 82rem;
   --breakpoint-xs: 26rem;
 
   --animate-fade-in: fade-in 360ms var(--ease-snap) both;
@@ -59,13 +73,13 @@
   }
 }
 
-/* Métrica de fallback para reduzir layout shift enquanto a Archivo carrega */
+/* Métrica de fallback para reduzir layout shift enquanto a fonte carrega */
 @font-face {
-  font-family: 'Archivo Fallback';
+  font-family: 'Instrument Fallback';
   src: local('Arial');
-  size-adjust: 98%;
-  ascent-override: 92%;
-  descent-override: 22%;
+  size-adjust: 97%;
+  ascent-override: 98%;
+  descent-override: 25%;
   line-gap-override: 0%;
 }
 
@@ -84,8 +98,7 @@
   }
 
   body {
-    @apply bg-paper text-ink font-sans antialiased;
-    font-feature-settings: 'ss01', 'kern';
+    @apply bg-page text-ink font-sans antialiased;
   }
 
   ::selection {
@@ -118,109 +131,135 @@
 }
 
 /* --------------------------------------------------------------------------
- * Escala tipográfica — a largura comprimida da Archivo nos títulos dá o
- * ritmo de relatório; o texto corrido fica em largura normal.
+ * Escala tipográfica v2: hierarquia por precisão, não por tamanho.
+ * Display até 56px; títulos de seção até 40px.
  * ------------------------------------------------------------------------ */
 @utility type-display {
-  font-size: clamp(2.875rem, 1.6rem + 5.2vw, 6rem);
-  font-weight: 620;
-  font-stretch: 78%;
-  letter-spacing: -0.035em;
-  word-spacing: 0.06em;
-  line-height: 0.94;
+  font-size: clamp(2.125rem, 1.55rem + 2.4vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.026em;
+  line-height: 1.05;
 }
 
 @utility type-h2 {
-  font-size: clamp(2.25rem, 1.5rem + 3.2vw, 4rem);
-  font-weight: 620;
-  font-stretch: 78%;
-  letter-spacing: -0.033em;
-  word-spacing: 0.06em;
-  line-height: 0.98;
+  font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 @utility type-h3 {
-  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
-  font-weight: 580;
-  font-stretch: 86%;
-  letter-spacing: -0.018em;
-  word-spacing: 0.03em;
-  line-height: 1.15;
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 @utility type-lead {
-  font-size: clamp(1.0625rem, 0.98rem + 0.35vw, 1.25rem);
-  line-height: 1.55;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.6;
 }
 
 @utility type-mono {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.71875rem;
   font-weight: 400;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   line-height: 1.4;
+}
+
+/* Rótulo mono sem caixa alta: nomes de tabela, registros, código. */
+@utility type-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  line-height: 1.55;
 }
 
 @utility container-page {
   width: 100%;
   max-width: var(--container-page);
   margin-inline: auto;
-  padding-inline: clamp(1rem, 4vw, 3rem);
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+/*
+ * Moldura contínua: as bordas laterais do container atravessam todas as
+ * seções (guias estruturais). Some no mobile, onde encostaria na tela.
+ */
+@utility frame {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+  @media (width >= 48rem) {
+    border-inline: 1px solid var(--color-rule);
+  }
+}
+
+/* Nó em colchete: cantos opostos arredondados, como o símbolo. */
+@utility bracket {
+  border-radius: 12px 4px 12px 4px;
+}
+
+@utility bracket-sm {
+  border-radius: 9px 3px 9px 3px;
 }
 
 /* --------------------------------------------------------------------------
- * Revelação de títulos por máscara — aplicada apenas a títulos de seção.
- * Sem JS ou com movimento reduzido, o conteúdo aparece no estado final.
+ * Profundidade (Soft Technical Depth): cinco níveis de elevação.
+ * E0 integrado · E1 card · E2 interface · E3 ativo · E4 flutuante.
  * ------------------------------------------------------------------------ */
-.reveal-line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+@utility e1 {
+  box-shadow: 0 1px 2px rgb(21 19 27 / 0.05);
 }
 
-.reveal-line > span {
-  display: block;
+@utility e2 {
+  box-shadow:
+    0 1px 2px rgb(21 19 27 / 0.05),
+    0 12px 32px -12px rgb(21 19 27 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .js [data-reveal] .reveal-line > span {
-    transform: translateY(105%);
-    transition: transform 720ms var(--ease-snap);
-    transition-delay: calc(var(--i, 0) * 70ms);
-  }
+@utility e3 {
+  box-shadow:
+    0 2px 6px rgb(21 19 27 / 0.06),
+    0 24px 48px -16px rgb(63 39 163 / 0.28);
+}
 
-  .js [data-reveal].is-in .reveal-line > span {
-    transform: none;
-  }
+@utility e4 {
+  box-shadow: 0 16px 40px -10px rgb(21 19 27 / 0.3);
+}
 
-  .js [data-rise] {
-    opacity: 0;
-    transform: translateY(16px);
-    transition:
-      opacity 560ms var(--ease-snap),
-      transform 560ms var(--ease-snap);
-    transition-delay: calc(var(--i, 0) * 60ms);
-  }
+/* Palco técnico: superfície rebaixada com malha de pontos e luz difusa. */
+@utility stage {
+  background:
+    radial-gradient(
+      70% 60% at 75% 12%,
+      rgb(139 108 240 / 0.12),
+      transparent 70%
+    ),
+    radial-gradient(#dad6e3 1px, transparent 1.2px) 0 0 / 18px 18px,
+    var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+}
 
-  .js [data-rise].is-in {
-    opacity: 1;
-    transform: none;
+/* Material das janelas demonstrativas: branco com leve gradiente. */
+@utility win {
+  background: linear-gradient(180deg, #ffffff, #fcfbfe);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* Barra de progresso do caso ilustrativo (hero) */
-@keyframes stage-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-/* Pequeno pulso no conector do pipeline ilustrativo */
 /* Símbolo animado: os colchetes se encaixam e a estrela acende */
 @media (prefers-reduced-motion: no-preference) {
   .symbol-animated .symbol-a {
@@ -257,29 +296,21 @@
   }
 }
 
-@keyframes travel {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(400%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
 /* Utilitário: listas roláveis horizontalmente sem barra visível */
 .no-scrollbar {
   scrollbar-width: none;
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Conector com fluxo ativo (tracejado em movimento). */
+@keyframes wire-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+.wire-flow {
+  stroke-dasharray: 4 6;
+  animation: wire-flow 0.9s linear infinite;
 }

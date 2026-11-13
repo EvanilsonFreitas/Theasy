@@ -2,7 +2,7 @@ import { forwardRef, useId, type ComponentProps, type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 const control =
-  'w-full border border-rule-strong bg-paper px-4 py-3.5 text-base text-ink placeholder:text-ink-3 transition-[border-color,box-shadow] duration-150 hover:border-ink focus:border-purple-600 focus:outline-none focus-visible:outline-none focus:shadow-[0_0_0_2px_var(--color-purple-600)] aria-[invalid=true]:border-danger aria-[invalid=true]:shadow-none aria-[invalid=true]:focus:shadow-[0_0_0_2px_var(--color-danger)]'
+  'w-full rounded-lg border border-rule-strong bg-paper px-3.5 py-3 text-base text-ink shadow-[inset_0_1px_2px_rgb(21_19_27/0.04)] placeholder:text-ink-3 transition-[border-color,box-shadow] duration-150 hover:border-ink focus:border-purple-600 focus:outline-none focus-visible:outline-none focus:shadow-[0_0_0_3px_var(--color-purple-100)] aria-[invalid=true]:border-danger aria-[invalid=true]:shadow-none aria-[invalid=true]:focus:shadow-[0_0_0_2px_var(--color-danger)]'
 
 interface FieldShellProps {
   id: string
@@ -16,9 +16,9 @@ interface FieldShellProps {
 function FieldShell({ id, label, hint, error, optional, children }: FieldShellProps) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="type-mono flex justify-between gap-4 text-ink">
+      <label htmlFor={id} className="flex justify-between gap-4 text-[14px] font-[560] text-ink">
         <span>{label}</span>
-        {optional && <span className="text-ink-3 normal-case tracking-normal">opcional</span>}
+        {optional && <span className="font-normal text-ink-3">opcional</span>}
       </label>
       {children}
       {hint && !error && (

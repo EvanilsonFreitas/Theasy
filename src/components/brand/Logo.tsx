@@ -42,8 +42,9 @@ export function Symbol({
 
 /**
  * Assinatura completa: símbolo + THEASY (+ descritor opcional).
- * O logotipo tipográfico é composto em Archivo, a família mais próxima
- * disponível do desenho da arte de referência.
+ * O logotipo tipográfico é composto em Instrument Sans. A entrelinha do
+ * nome é ajustada à altura das maiúsculas para que nome e descritor formem
+ * um bloco compacto, centrado na altura do símbolo.
  */
 export function Logo({
   className,
@@ -60,7 +61,7 @@ export function Logo({
     <span
       className={cn(
         'inline-flex items-center',
-        size === 'lg' ? 'gap-4' : 'gap-2.5',
+        size === 'lg' ? 'gap-4' : 'gap-2.5 md:gap-3',
         className,
       )}
     >
@@ -70,13 +71,18 @@ export function Logo({
           size === 'lg' ? 'size-16 sm:size-20' : 'size-8 md:size-9',
         )}
       />
-      <span className="flex flex-col">
+      <span
+        className={cn(
+          'flex flex-col justify-center',
+          size === 'lg' ? 'gap-2.5 sm:gap-3' : 'gap-[5px]',
+        )}
+      >
         <span
           className={cn(
-            'leading-none font-[560] tracking-[0.02em] [font-stretch:100%]',
+            'leading-[0.74] font-semibold tracking-[0.03em]',
             size === 'lg'
-              ? 'text-[2.75rem] sm:text-[3.5rem]'
-              : 'text-[1.375rem] md:text-[1.5rem]',
+              ? 'text-[2.5rem] sm:text-[3.25rem]'
+              : 'text-[1.3125rem] md:text-[1.4375rem]',
             tone === 'ink' ? 'text-ink' : 'text-on-ink',
           )}
         >
@@ -85,8 +91,10 @@ export function Logo({
         {tagline && (
           <span
             className={cn(
-              'mt-1.5 leading-none font-normal',
-              size === 'lg' ? 'text-base sm:text-lg' : 'text-[11px]',
+              'leading-[1] font-normal whitespace-nowrap',
+              size === 'lg'
+                ? 'text-[15px] sm:text-[17px]'
+                : 'xs:block hidden text-[10.5px] md:text-[11px]',
               tone === 'ink' ? 'text-ink-3' : 'text-on-ink-3',
             )}
           >

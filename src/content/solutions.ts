@@ -26,8 +26,9 @@ export const solutions: Solution[] = [
   {
     slug: 'bi-analytics',
     num: '01',
-    name: 'BI e analytics',
-    short: 'Indicadores confiáveis e painéis para decidir.',
+    name: 'BI e Analytics',
+    short:
+      'Indicadores confiáveis e painéis que respondem perguntas de gestão.',
     lead: 'Indicadores que todas as áreas aceitam e painéis que respondem às perguntas da gestão, em vez de apenas exibir números.',
     when: [
       'Cada área apresenta um número diferente para o mesmo indicador',
@@ -48,8 +49,8 @@ export const solutions: Solution[] = [
   {
     slug: 'dados-engenharia',
     num: '02',
-    name: 'Dados e engenharia',
-    short: 'Dados tratados, integrados e confiáveis.',
+    name: 'Engenharia de dados',
+    short: 'Fontes integradas, tratadas e modeladas em uma base única.',
     lead: 'A base que sustenta qualquer análise: dados de várias origens tratados, integrados e organizados para serem confiáveis.',
     when: [
       'A informação está espalhada entre ERP, CRM e planilhas',
@@ -71,7 +72,7 @@ export const solutions: Solution[] = [
     slug: 'sistemas',
     num: '03',
     name: 'Sistemas sob medida',
-    short: 'Aplicações para processos que software pronto não atende.',
+    short: 'Aplicações web e integrações do tamanho da operação.',
     lead: 'Aplicações web e sistemas de gestão para processos que nenhum software pronto atende bem, desenhados a partir de como a sua operação funciona.',
     when: [
       'O processo é específico do seu negócio',
@@ -93,7 +94,7 @@ export const solutions: Solution[] = [
     slug: 'automacao',
     num: '04',
     name: 'Automação de processos',
-    short: 'Menos retrabalho e tarefas manuais.',
+    short: 'Tarefas repetitivas substituídas por fluxos confiáveis.',
     lead: 'Tarefas manuais e repetitivas passam a rodar sozinhas, com rastreabilidade, e a equipe volta a trabalhar no que exige julgamento.',
     when: [
       'Informação é copiada e colada entre sistemas',
@@ -114,8 +115,8 @@ export const solutions: Solution[] = [
   {
     slug: 'consultoria',
     num: '05',
-    name: 'Consultoria de negócios',
-    short: 'Custos, preço, rentabilidade e desempenho.',
+    name: 'Consultoria financeira e de gestão',
+    short: 'Custos, preço, margem e processos com critério.',
     lead: 'Controladoria, custos, preço e rentabilidade: a análise de negócio que define o que medir, onde agir e o que mudar.',
     when: [
       'O preço é definido sem clareza sobre o custo real',

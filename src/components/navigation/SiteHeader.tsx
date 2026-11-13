@@ -87,11 +87,13 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        'bg-paper sticky top-0 z-40 border-b transition-colors duration-200',
-        scrolled || open ? 'border-rule' : 'border-transparent',
+        'sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-200',
+        scrolled || open
+          ? 'border-rule bg-paper shadow-[0_8px_24px_-16px_rgb(21_19_27/0.25)]'
+          : 'border-rule bg-paper',
       )}
     >
-      <div className="container-page flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+      <div className="frame flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
         <Link to="/" className="-m-2 p-2" aria-label="ThEasy, página inicial">
           <Logo tagline />
         </Link>
@@ -132,7 +134,7 @@ export function SiteHeader() {
           <button
             ref={menuButton}
             type="button"
-            className="border-ink inline-flex min-h-11 items-center gap-2.5 border px-3.5 text-[15px] font-medium lg:hidden"
+            className="border-line bg-paper inline-flex min-h-11 items-center gap-2.5 rounded-lg border px-3.5 text-[15px] font-medium lg:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
             onClick={() => setOpen((o) => !o)}
@@ -194,7 +196,7 @@ export function SiteHeader() {
                         onClick={() => setOpen(false)}
                         className={({ isActive }) =>
                           cn(
-                            'flex min-h-16 items-baseline justify-between gap-4 py-3.5 text-[2.5rem] leading-none font-[620] tracking-[-0.02em] [font-stretch:80%]',
+                            'flex min-h-16 items-baseline justify-between gap-4 py-4 text-[1.75rem] leading-none font-semibold tracking-[-0.02em]',
                             isActive ? 'text-purple-300' : 'text-on-ink',
                           )
                         }

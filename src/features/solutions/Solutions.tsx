@@ -1,23 +1,24 @@
-import { Link } from 'react-router-dom'
 import { Seo } from '@/components/seo/Seo'
-import { PageIntro } from '@/components/ui/PageIntro'
 import { ButtonLink } from '@/components/ui/Button'
-import { SolutionArtifact } from '@/components/solutions/SolutionArtifact'
+import { PageHero } from '@/components/system/PageHero'
+import { Section } from '@/components/system/Section'
+import { ServiceGlyph } from '@/components/system/Glyphs'
+import { SystemMapCompact } from '@/components/system/SystemMap'
+import { demoBySlug } from '@/components/demos'
 import { solutions } from '@/content/solutions'
-import { problems } from '@/content/problems'
-import { solutionIcons } from '@/content/icons'
-import { IconMark } from '@/components/ui/IconMark'
+import { cn } from '@/lib/utils'
 
 export function Solutions() {
   return (
     <>
       <Seo
         title="Soluções"
-        description="BI e Analytics, Dados e Engenharia, Sistemas sob medida, Automação de processos e Consultoria de negócios: o que cada frente resolve e entrega."
+        description="BI e Analytics, Engenharia de dados, Sistemas sob medida, Automação de processos e Consultoria financeira e de gestão: o que cada competência resolve e entrega, com demonstrações."
       />
-      <PageIntro
+      <PageHero
+        id="solucoes-title"
         label="Soluções"
-        title={'Cinco frentes,\ncombinadas conforme\no problema.'}
+        title="Cinco competências, combinadas conforme o problema."
         intro={
           <p>
             Cada frente existe por conta própria, mas muitos problemas pedem a
@@ -25,79 +26,75 @@ export function Solutions() {
             painel só é útil se o processo por trás funciona.
           </p>
         }
-      >
-        <nav aria-label="Frentes nesta página" className="mt-12 lg:mt-16">
-          <ol className="border-ink grid border-t sm:grid-cols-2 lg:grid-cols-5">
-            {solutions.map((s) => (
-              <li
-                key={s.slug}
-                className="border-rule border-b lg:border-r lg:last:border-r-0"
-              >
-                <a
-                  href={`#${s.slug}`}
-                  className="group hover:bg-paper-2 flex min-h-full flex-col gap-2 py-4 pr-4 transition-colors duration-150 lg:px-4 lg:first:pl-0"
-                >
-                  <span className="flex items-center justify-between gap-3">
-                    <IconMark
-                      icon={solutionIcons[s.slug]}
-                      size="sm"
-                      className="group-hover:border-purple-600 group-hover:text-purple-600"
+        aside={
+          <nav
+            aria-label="Competências nesta página"
+            className="e2 win border-line rounded-2xl border p-2"
+          >
+            <ol className="flex flex-col">
+              {solutions.map((s) => (
+                <li key={s.slug}>
+                  <a
+                    href={`#${s.slug}`}
+                    className="group grid min-h-14 grid-cols-[36px_minmax(0,1fr)_auto] items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-purple-50"
+                  >
+                    <ServiceGlyph
+                      slug={s.slug}
+                      className="text-ink-3 transition-colors group-hover:text-purple-600"
                     />
+                    <span className="flex flex-col">
+                      <span className="text-[15px] font-semibold group-hover:text-purple-700">
+                        {s.name}
+                      </span>
+                      <span className="text-ink-2 text-[13px] leading-snug">
+                        {s.short}
+                      </span>
+                    </span>
                     <span className="type-mono text-ink-3">{s.num}</span>
-                  </span>
-                  <span className="text-lg font-[620] tracking-[-0.015em] [font-stretch:85%] group-hover:text-purple-600">
-                    {s.name}
-                  </span>
-                  <span className="text-ink-2 text-sm">{s.short}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      </PageIntro>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        }
+      />
 
       {solutions.map((s, idx) => {
-        const related = problems.filter((p) => p.solution === s.slug)
+        const Demo = demoBySlug[s.slug]
         return (
-          <section
+          <Section
             key={s.slug}
             id={s.slug}
-            aria-labelledby={`${s.slug}-title`}
-            className={
-              'border-rule scroll-mt-20 border-b py-16 sm:py-20 lg:py-28 ' +
-              (idx % 2 === 1 ? 'bg-paper-2' : '')
-            }
+            tone={idx % 2 ? 'paper' : 'page'}
+            labelledBy={`${s.slug}-title`}
+            className="scroll-mt-16"
           >
-            <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
-              <div className="flex flex-col gap-4 lg:sticky lg:top-28 lg:self-start">
-                <IconMark icon={solutionIcons[s.slug]} size="lg" active />
-                <span className="type-mono text-purple-600">
-                  {s.num} / 0{solutions.length}
-                </span>
-                <h2 id={`${s.slug}-title`} data-reveal="" className="type-h2">
-                  <span className="reveal-line">
-                    <span>{s.name}</span>
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-10">
+              <div className="flex flex-col gap-5 lg:sticky lg:top-28 lg:self-start">
+                <div className="flex items-center gap-3">
+                  <span className="bracket flex size-12 items-center justify-center border border-purple-600 bg-purple-50 text-purple-600">
+                    <ServiceGlyph slug={s.slug} className="size-7" />
                   </span>
+                  <span className="type-mono text-purple-600">
+                    {s.num} / 0{solutions.length}
+                  </span>
+                </div>
+                <h2 id={`${s.slug}-title`} className="type-h2">
+                  {s.name}
                 </h2>
-                <p className="type-mono text-ink-3 tracking-normal normal-case">
-                  Ferramentas, conforme o projeto: {s.tools.join(' · ')}
-                </p>
-              </div>
+                <p className="type-lead text-ink-2">{s.lead}</p>
 
-              <div className="grid gap-12">
-                <p className="type-h3 max-w-[30em]">{s.lead}</p>
-
-                <div className="grid gap-10 md:grid-cols-2">
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
                   <div>
-                    <h3 className="type-mono text-ink-3 mb-3">
-                      Faz sentido quando
+                    <h3 className="type-mono text-ink-3 mb-2.5">
+                      Quando faz sentido
                     </h3>
-                    <ul className="text-ink-2 grid gap-2.5 leading-normal">
+                    <ul className="flex flex-col gap-2 text-[14.5px] leading-snug">
                       {s.when.map((w) => (
-                        <li key={w} className="grid grid-cols-[1rem_1fr] gap-2">
+                        <li key={w} className="flex gap-2.5">
                           <span
                             aria-hidden="true"
-                            className="mt-[0.55em] block size-1.5 bg-purple-500"
+                            className="bg-warn mt-[7px] size-1.5 shrink-0 rounded-full"
                           />
                           {w}
                         </li>
@@ -105,86 +102,80 @@ export function Solutions() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="type-mono text-ink-3 mb-1">
+                    <h3 className="type-mono text-ink-3 mb-2.5">
                       O que entregamos
                     </h3>
-                    <ol className="border-ink border-t">
-                      {s.deliver.map((d, i) => (
-                        <li
-                          key={d}
-                          className="border-rule grid grid-cols-[2rem_1fr] gap-2 border-b py-3"
-                        >
-                          <span className="type-mono text-ink-3 pt-0.5">
-                            {i + 1}
-                          </span>
+                    <ul className="flex flex-col gap-2 text-[14.5px] leading-snug">
+                      {s.deliver.map((d) => (
+                        <li key={d} className="flex gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="mt-[7px] size-1.5 shrink-0 rounded-full bg-purple-600"
+                          />
                           {d}
                         </li>
                       ))}
-                    </ol>
+                    </ul>
                   </div>
                 </div>
-
-                <div className="grid gap-10 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] md:items-start">
-                  <SolutionArtifact kind={s.artifact} />
-                  <div className="flex flex-col gap-5">
-                    {related.length > 0 && (
-                      <div>
-                        <h3 className="type-mono text-ink-3 mb-3">
-                          Situações típicas
-                        </h3>
-                        <ul className="grid gap-3">
-                          {related.map((p) => (
-                            <li
-                              key={p.text}
-                              className="border-rule border-l-2 pl-3 leading-snug"
-                            >
-                              “{p.text}”
-                              <span className="type-mono text-ink-3 mt-1 block">
-                                {p.area}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    <ButtonLink
-                      to={`/contato?assunto=${s.slug}`}
-                      variant="secondary"
-                      arrow
-                      className="self-start"
+                <div className="border-rule flex flex-wrap items-center gap-2 border-t pt-4">
+                  <span className="type-mono text-ink-3 mr-1">Ferramentas</span>
+                  {s.tools.map((t) => (
+                    <span
+                      key={t}
+                      className="bracket-sm border-line bg-paper border px-2 py-1 text-[12.5px]"
                     >
-                      Conversar sobre {s.name}
-                    </ButtonLink>
-                  </div>
+                      {t}
+                    </span>
+                  ))}
                 </div>
+                <ButtonLink
+                  to={`/contato?assunto=${s.slug}`}
+                  variant="secondary"
+                  size="md"
+                  arrow
+                  className="self-start"
+                >
+                  Conversar sobre {s.name}
+                </ButtonLink>
+              </div>
+
+              <div
+                className={cn(
+                  'stage min-w-0 self-start rounded-[18px] p-3 sm:p-6',
+                )}
+              >
+                <Demo />
               </div>
             </div>
-          </section>
+          </Section>
         )
       })}
 
-      <section className="py-16 sm:py-24">
-        <div className="container-page flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
-          <p className="type-h2 max-w-[14em]">
-            Não sabe qual frente procurar? Normal.
-          </p>
-          <div className="flex flex-col items-start gap-3">
-            <p className="text-ink-2 max-w-[28em]">
-              Descreva a situação. Identificar a frente certa é o primeiro passo
-              do nosso trabalho, não do seu.
+      <Section tone="paper" labelledBy="combinacao-title">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-14">
+          <div className="flex flex-col gap-5">
+            <p className="type-mono text-ink-3">Combinação</p>
+            <h2 id="combinacao-title" className="type-h2">
+              Na prática, as frentes trabalham juntas.
+            </h2>
+            <p className="type-lead text-ink-2">
+              A consultoria define o contexto e a direção; dados, BI, sistemas e
+              automações se conectam a uma mesma base. A primeira conversa serve
+              para entender quais frentes o seu problema realmente pede.
             </p>
-            <ButtonLink to="/contato" arrow>
-              Conversar sobre seu desafio
-            </ButtonLink>
-            <Link
-              to="/aplicacoes"
-              className="inline-flex min-h-11 items-center text-sm underline underline-offset-4 hover:text-purple-600"
-            >
-              Ou veja aplicações por área de negócio
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink to="/contato" arrow>
+                Conversar com a ThEasy
+              </ButtonLink>
+              <ButtonLink to="/aplicacoes" variant="secondary">
+                Ver aplicações
+              </ButtonLink>
+            </div>
           </div>
+          <SystemMapCompact active={null} />
         </div>
-      </section>
+      </Section>
     </>
   )
 }

@@ -9,9 +9,9 @@
 export const site = {
   name: 'ThEasy',
   /** Descrição curta usada em metadados e no rodapé. */
-  tagline: 'Dados, sistemas e gestão a partir do problema.',
+  tagline: 'Dados, BI e sistemas para fazer sua empresa funcionar melhor.',
   description:
-    'Consultoria em BI, dados, sistemas sob medida, automação e gestão. A ThEasy entende o desafio do seu negócio antes de recomendar a tecnologia e depois constrói a solução.',
+    'Consultoria em dados, tecnologia e gestão: BI e Analytics, engenharia de dados, sistemas sob medida, automação de processos e consultoria financeira para transformar desafios operacionais em soluções práticas.',
   /** URL pública do site (sem barra final). Defina VITE_SITE_URL no build. */
   url: (import.meta.env.VITE_SITE_URL ?? '').replace(/\/$/, ''),
   locale: 'pt_BR',
@@ -24,13 +24,13 @@ export interface NavItem {
 
 export const primaryNav: NavItem[] = [
   { to: '/solucoes', label: 'Soluções' },
-  { to: '/abordagem', label: 'Abordagem' },
   { to: '/aplicacoes', label: 'Aplicações' },
+  { to: '/abordagem', label: 'Como trabalhamos' },
   { to: '/sobre', label: 'Sobre' },
 ]
 
 export const contactCta = {
   to: '/contato',
-  label: 'Conversar sobre seu desafio',
+  label: 'Conversar com a ThEasy',
   short: 'Falar com a ThEasy',
 } as const

@@ -5,9 +5,9 @@ export function NotFound() {
   return (
     <>
       <Seo title="Página não encontrada" noindex />
-      <section className="container-page flex min-h-[70vh] flex-col justify-center gap-8 py-20">
+      <section className="frame bg-paper flex min-h-[70vh] flex-col justify-center gap-7 py-20">
         <p className="type-mono text-ink-3">Erro 404</p>
-        <h1 className="type-display max-w-[11em]">
+        <h1 className="type-display max-w-[16ch]">
           Esta página não existe{' '}
           <span className="text-ink-3">ou mudou de lugar.</span>
         </h1>

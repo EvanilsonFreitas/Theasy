@@ -2,14 +2,16 @@ import { Link } from 'react-router-dom'
 import { Logo } from '@/components/brand/Logo'
 import { primaryNav, site } from '@/content/site'
 import { solutions } from '@/content/solutions'
-import { STAGES } from '@/content/stages'
+import { Star } from '@/components/system/Star'
+
+const LAYERS = ['Fontes', 'Integração', 'Base', 'Aplicações', 'Decisão']
 
 export function SiteFooter() {
   const year = new Date().getFullYear()
   return (
-    <footer className="border-ink bg-paper border-t">
-      <div className="container-page grid gap-12 pt-14 pb-10 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)] md:gap-8">
-        <div className="flex flex-col gap-5">
+    <footer className="bg-paper">
+      <div className="frame border-rule grid gap-12 border-t pt-14 pb-10 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
+        <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
           <Link
             to="/"
             aria-label="ThEasy, página inicial"
@@ -19,22 +21,25 @@ export function SiteFooter() {
           </Link>
           <p className="text-ink-2 max-w-[24em]">{site.tagline}</p>
           <ol
-            className="mt-2 flex flex-wrap gap-x-3 gap-y-1"
-            aria-label="Do desafio à decisão"
+            className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1"
+            aria-label="Arquitetura de uma solução ThEasy"
           >
-            {STAGES.map((s, i) => (
+            {LAYERS.map((l, i) => (
               <li
-                key={s}
-                className="type-mono text-ink-3 flex items-center gap-3"
+                key={l}
+                className="type-mono text-ink-3 flex items-center gap-2.5 text-[10.5px]"
               >
-                <span
-                  className={
-                    i === STAGES.length - 1 ? 'text-purple-600' : undefined
-                  }
-                >
-                  0{i + 1} {s}
-                </span>
-                {i < STAGES.length - 1 && <span aria-hidden="true">→</span>}
+                {i === LAYERS.length - 1 ? (
+                  <span className="flex items-center gap-1.5 text-purple-600">
+                    <Star size={9} />
+                    {l}
+                  </span>
+                ) : (
+                  l
+                )}
+                {i < LAYERS.length - 1 && (
+                  <span aria-hidden="true" className="bg-line h-px w-3" />
+                )}
               </li>
             ))}
           </ol>
@@ -87,9 +92,9 @@ export function SiteFooter() {
           </ul>
         </nav>
       </div>
-      <div className="container-page border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t py-6 text-sm">
+      <div className="frame border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t py-6 text-sm">
         <p>© {year} ThEasy</p>
-        <p>Consultoria em dados, sistemas e gestão</p>
+        <p>Consultoria em dados, tecnologia e gestão</p>
       </div>
     </footer>
   )

@@ -1,58 +1,65 @@
 export interface ApproachStep {
   num: string
   name: string
+  /** Frase curta para a linha do tempo da home. */
+  short: string
   summary: string
   detail: string
   questions: string[]
   output: string
 }
 
+/** Método de trabalho: cinco etapas, cada uma com uma entrega concreta. */
 export const approach: ApproachStep[] = [
   {
     num: '01',
-    name: 'Entender',
+    name: 'Diagnóstico',
+    short: 'Entendemos o negócio, os processos e os dados disponíveis.',
     summary:
-      'Conversas com quem vive o problema: rotina, números, sistemas e restrições. Ainda sem falar de ferramenta.',
+      'Conversas com quem vive o problema e leitura dos números, sistemas e planilhas que existem hoje. Ainda sem falar de ferramenta.',
     detail:
-      'Ouvimos as áreas envolvidas, olhamos os relatórios e planilhas que existem hoje e entendemos como a decisão é tomada na prática. O objetivo é chegar a uma pergunta central bem formulada.',
+      'Ouvimos as áreas envolvidas, avaliamos a qualidade dos dados e entendemos como a decisão é tomada na prática. Muitas vezes o problema aparente é sintoma de outro; o diagnóstico separa causa de sintoma e ordena prioridades pelo impacto no negócio.',
     questions: [
       'Que decisão está difícil de tomar?',
-      'O que custa caro hoje: tempo, dinheiro ou confiança?',
-      'Quem usa a informação e quem a produz?',
+      'O problema é de processo, de informação ou de sistema?',
+      'Os dados necessários existem e são confiáveis?',
     ],
-    output: 'Resumo da situação e da pergunta central',
+    output: 'Mapa do problema e prioridades',
   },
   {
     num: '02',
-    name: 'Diagnosticar',
+    name: 'Desenho da solução',
+    short: 'Definimos arquitetura, escopo e indicadores de sucesso.',
     summary:
-      'Levantamento de dados, processos e custos para separar causa de sintoma e decidir o que resolver primeiro.',
+      'A solução do tamanho do problema: o que entra, o que fica de fora e como saberemos que funcionou.',
     detail:
-      'Avaliamos a qualidade dos dados, os processos e a estrutura de custos envolvida. Muitas vezes o problema aparente é sintoma de outro. O diagnóstico ordena prioridades pelo impacto no negócio, não pela complexidade técnica.',
+      'Combinamos as competências necessárias (dados, BI, sistemas, automação, gestão) em uma arquitetura única e definimos escopo, etapas e critérios de aceite com quem vai usar.',
     questions: [
-      'Os dados necessários existem? São confiáveis?',
-      'O problema é de processo, de informação ou de sistema?',
-      'O que traz resultado mais cedo?',
+      'Qual é a menor entrega que já muda a rotina?',
+      'Que fontes, telas e regras fazem parte do escopo?',
+      'Quais indicadores mostram que deu certo?',
     ],
-    output: 'Diagnóstico com prioridades e proposta de escopo',
+    output: 'Proposta e arquitetura',
   },
   {
     num: '03',
-    name: 'Desenhar e construir',
+    name: 'Desenvolvimento',
+    short: 'Construímos em ciclos curtos, validando cada entrega.',
     summary:
-      'A solução do tamanho do problema, construída em ciclos curtos e validada com quem vai usar.',
+      'Construção em etapas que a sua equipe consegue avaliar, para corrigir a rota cedo.',
     detail:
-      'Pode ser um modelo de precificação, um painel, um pipeline de dados, uma automação ou um sistema. Construímos em etapas que a sua equipe consegue avaliar, para corrigir a rota cedo.',
+      'Pode ser um modelo de precificação, um painel, um pipeline de dados, uma automação ou um sistema. Cada ciclo termina com algo funcionando e validado por quem usa.',
     questions: [
-      'Qual é a menor entrega que já muda a rotina?',
       'Quem valida cada etapa?',
       'O que precisa estar documentado?',
+      'Que dados reais usamos para testar?',
     ],
-    output: 'Entregas incrementais, testadas com a equipe',
+    output: 'Versões funcionando',
   },
   {
     num: '04',
-    name: 'Implantar',
+    name: 'Implantação',
+    short: 'Colocamos em uso, com treinamento e documentação.',
     summary:
       'Colocar em uso de verdade: dados em produção, pessoas treinadas, rotina e responsáveis definidos.',
     detail:
@@ -60,13 +67,14 @@ export const approach: ApproachStep[] = [
     questions: [
       'Quem mantém a solução no dia a dia?',
       'Como a atualização acontece?',
-      'Quais indicadores mostram que está funcionando?',
+      'O que fazer quando algo foge da regra?',
     ],
-    output: 'Solução em operação, com documentação',
+    output: 'Solução em uso',
   },
   {
     num: '05',
-    name: 'Evoluir',
+    name: 'Evolução',
+    short: 'Acompanhamos o uso e ajustamos conforme o negócio muda.',
     summary:
       'Acompanhar o uso, medir o efeito e ajustar conforme o negócio muda.',
     detail:
@@ -76,6 +84,6 @@ export const approach: ApproachStep[] = [
       'O que mudou no negócio desde a implantação?',
       'Qual é o próximo problema que vale resolver?',
     ],
-    output: 'Plano de evolução e suporte',
+    output: 'Melhorias contínuas',
   },
 ]
