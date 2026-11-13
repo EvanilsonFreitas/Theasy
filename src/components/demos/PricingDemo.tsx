@@ -15,7 +15,7 @@ const PRODUCTS = [
 ]
 
 const brl = (v: number) =>
-  'R$ ' +
+  'R$ ' +
   v.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -132,7 +132,7 @@ export function PricingDemo() {
           ))}
         </div>
       }
-      bodyClassName="grid @2xl:grid-cols-[260px_minmax(0,1fr)]"
+      bodyClassName="grid grid-cols-[minmax(0,1fr)] @2xl:grid-cols-[260px_minmax(0,1fr)]"
     >
       <div className="border-rule bg-page flex flex-col gap-4 border-b p-4 @2xl:border-r @2xl:border-b-0">
         <Slider
@@ -213,6 +213,12 @@ export function PricingDemo() {
             }
             className="border-line relative flex h-40 items-end gap-3 border-b px-1"
           >
+            {isNaN(price) && (
+              <p className="text-ink-2 m-auto max-w-[24em] text-center text-[13px]">
+                Combinação inviável: despesas e margem somam quase todo o preço.
+                Reduza algum percentual para ver a cascata.
+              </p>
+            )}
             {steps.map((s, i) => (
               <div key={s.label} className="relative h-full flex-1">
                 <span
@@ -224,7 +230,7 @@ export function PricingDemo() {
                     transform: `translateY(${-(s.from / price) * 100}%) scaleY(${s.v / price})`,
                   }}
                 />
-                {i > 0 && i < 4 && (
+                {i > 0 && i < 4 && s.v > 0 && (
                   <span
                     aria-hidden="true"
                     className="border-ink-3 absolute -left-3 w-3 border-t border-dashed"

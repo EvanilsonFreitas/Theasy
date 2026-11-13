@@ -74,15 +74,16 @@ export function Logo({
       <span
         className={cn(
           'flex flex-col justify-center',
-          size === 'lg' ? 'gap-2.5 sm:gap-3' : 'gap-[5px]',
+          size === 'lg' ? 'gap-2.5 sm:gap-3' : 'gap-[4px]',
         )}
       >
         <span
           className={cn(
-            'leading-[0.74] font-semibold tracking-[0.03em]',
+            'font-semibold tracking-[0.03em]',
             size === 'lg'
               ? 'text-[2.5rem] sm:text-[3.25rem]'
               : 'text-[1.3125rem] md:text-[1.4375rem]',
+            'leading-[0.74]',
             tone === 'ink' ? 'text-ink' : 'text-on-ink',
           )}
         >
@@ -91,10 +92,11 @@ export function Logo({
         {tagline && (
           <span
             className={cn(
-              'leading-[1] font-normal whitespace-nowrap',
+              'font-normal whitespace-nowrap',
               size === 'lg'
                 ? 'text-[15px] sm:text-[17px]'
                 : 'xs:block hidden text-[10.5px] md:text-[11px]',
+              'leading-none',
               tone === 'ink' ? 'text-ink-3' : 'text-on-ink-3',
             )}
           >

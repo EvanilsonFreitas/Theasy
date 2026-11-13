@@ -297,21 +297,21 @@ export function BIDemo() {
               className="bg-paper flex flex-col gap-1 px-4 py-3.5"
             >
               <dt className="type-mono text-ink-3 text-[9.5px]">{label}</dt>
+              <dd className="text-[21px] font-semibold tracking-[-0.01em] whitespace-nowrap tabular-nums @2xl:text-[23px]">
+                {i === 0 ? fmt(rev[n - 1]) : k.value}
+              </dd>
               <dd className="flex items-end justify-between gap-2">
-                <span className="text-[21px] font-semibold tracking-[-0.01em] tabular-nums @2xl:text-[23px]">
-                  {i === 0 ? fmt(rev[n - 1]) : k.value}
+                <span className={cn('text-xs', k.up ? 'text-ok' : 'text-warn')}>
+                  <span aria-hidden="true">{k.up ? '▲' : '▼'} </span>
+                  <span className="sr-only">
+                    {k.up ? 'Alta de ' : 'Queda de '}
+                  </span>
+                  {k.delta}
                 </span>
                 <Spark
                   data={k.spark}
                   seed={i + (period === 'mes' ? 1 : period === 'tri' ? 5 : 9)}
                 />
-              </dd>
-              <dd className={cn('text-xs', k.up ? 'text-ok' : 'text-warn')}>
-                <span aria-hidden="true">{k.up ? '▲' : '▼'} </span>
-                <span className="sr-only">
-                  {k.up ? 'Alta de ' : 'Queda de '}
-                </span>
-                {k.delta}
               </dd>
             </div>
           )

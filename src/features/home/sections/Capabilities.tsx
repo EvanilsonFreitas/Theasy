@@ -133,7 +133,7 @@ export function Capabilities() {
           id="painel-competencia"
           role="tabpanel"
           aria-labelledby={`tab-${s.slug}`}
-          className="stage relative min-w-0 rounded-[18px] p-3 sm:p-6 xl:p-8"
+          className="stage relative min-w-0 self-start rounded-[18px] p-3 sm:p-6 xl:p-8"
         >
           <AnimatePresence mode="wait" initial={false}>
             <m.div

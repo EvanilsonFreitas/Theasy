@@ -55,7 +55,7 @@ export function SectorShowcase() {
         <div
           role="group"
           aria-label="Setor"
-          className="xs:grid-cols-2 grid grid-cols-1 gap-2 sm:grid-cols-3 lg:grid-cols-2"
+          className="xs:grid-cols-2 grid flex-1 auto-rows-fr grid-cols-1 gap-2 sm:grid-cols-3 lg:grid-cols-2"
         >
           {sectors.map((sec, i) => {
             const on = i === active
@@ -66,13 +66,13 @@ export function SectorShowcase() {
                   aria-pressed={on}
                   onClick={() => setActive(i)}
                   className={cn(
-                    'group flex w-full items-center gap-2.5 rounded-xl border p-1.5 pr-2.5 text-left transition-[border-color,box-shadow,background-color] duration-200',
+                    'group flex h-full w-full items-center gap-2.5 rounded-xl border p-1.5 pr-2.5 text-left transition-[border-color,box-shadow,background-color] duration-200',
                     on
                       ? 'e3 bg-paper border-purple-600'
                       : 'border-rule hover:border-line hover:bg-page',
                   )}
                 >
-                  <span className="relative size-11 shrink-0 overflow-hidden rounded-lg">
+                  <span className="relative size-11 shrink-0 overflow-hidden rounded-lg lg:size-14">
                     <Photo
                       name={sec.image}
                       alt=""
@@ -92,7 +92,7 @@ export function SectorShowcase() {
             )
           })}
         </div>
-        <p className="text-ink-2 mt-auto px-1 pt-1 text-[13.5px]">
+        <p className="text-ink-2 px-1 pt-1 text-[13.5px]">
           O problema muda de nome entre setores; a lógica de solução se repete.
         </p>
       </div>

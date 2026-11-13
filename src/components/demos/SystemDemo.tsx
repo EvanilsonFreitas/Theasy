@@ -117,13 +117,13 @@ export function SystemDemo() {
     <DemoFrame
       title="Gestão de pedidos"
       badge="Interface demonstrativa"
-      bodyClassName="grid @2xl:grid-cols-[124px_minmax(0,1fr)_214px]"
+      bodyClassName="grid grid-cols-[minmax(0,1fr)] @2xl:grid-cols-[124px_minmax(0,1fr)_214px]"
     >
       <nav
         aria-label="Módulos do sistema demonstrativo"
         className="bg-ink text-on-ink-2 p-2.5"
       >
-        <ul className="no-scrollbar flex gap-1 overflow-x-auto @2xl:flex-col">
+        <ul className="flex flex-wrap gap-1 @2xl:flex-col">
           {MODULES.map((mod, i) => (
             <li key={mod}>
               <span

@@ -48,7 +48,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
                 x={b.x}
                 y="184"
                 textAnchor="middle"
-                className="fill-ink-3 font-mono text-[8px] uppercase"
+                className="fill-ink-3 font-mono text-[9.5px] uppercase"
               >
                 {b.l}
               </text>
@@ -64,7 +64,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
               <text
                 x="18"
                 y={y + 4}
-                className="fill-ink-2 font-mono text-[8px]"
+                className="fill-ink-2 font-mono text-[9.5px]"
               >
                 L{r + 1}
               </text>
@@ -111,7 +111,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             x="267"
             y="132"
             textAnchor="middle"
-            className="fill-warn font-mono text-[7.5px]"
+            className="fill-warn font-mono text-[9px]"
           >
             parada: setup
           </text>
@@ -140,7 +140,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
                 x="160"
                 y={40 + i * 40}
                 textAnchor="middle"
-                className={`font-mono text-[8.5px] uppercase ${i === 3 ? 'fill-white' : 'fill-ink-2'}`}
+                className={`font-mono text-[9.5px] uppercase ${i === 3 ? 'fill-white' : 'fill-ink-2'}`}
               >
                 {l}
               </text>
@@ -155,7 +155,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             x="300"
             y="94"
             textAnchor="end"
-            className="fill-ink-3 font-mono text-[7.5px]"
+            className="fill-ink-3 font-mono text-[9px]"
           >
             regra de desconto
           </text>
@@ -189,7 +189,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
                 x={x as number}
                 y={(y as number) + (i === 1 || i === 3 ? -14 : 22)}
                 textAnchor="middle"
-                className="fill-ink-2 font-mono text-[8px]"
+                className="fill-ink-2 font-mono text-[9.5px]"
               >
                 {l}
               </text>
@@ -203,7 +203,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             rx="5"
             className="fill-paper stroke-line"
           />
-          <text x="176" y="169" className="fill-ink-2 font-mono text-[8px]">
+          <text x="176" y="169" className="fill-ink-2 font-mono text-[9.5px]">
             status visível ao cliente
           </text>
           {star(30, 128, 0.04)}
@@ -228,7 +228,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
               <text
                 x={(x as number) + 10}
                 y={(y as number) + 18}
-                className="fill-ink-3 font-mono text-[7.5px] uppercase"
+                className="fill-ink-3 font-mono text-[9px] uppercase"
               >
                 {l}
               </text>
@@ -270,7 +270,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             x="286"
             y="122"
             textAnchor="end"
-            className="fill-ink-3 font-mono text-[7.5px]"
+            className="fill-ink-3 font-mono text-[9px]"
           >
             meta
           </text>
@@ -297,7 +297,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
                 x={(x as number) + 42}
                 y={(y as number) + 19}
                 textAnchor="middle"
-                className="fill-ink-2 font-mono text-[8px]"
+                className="fill-ink-2 font-mono text-[9.5px]"
               >
                 {l}
               </text>
@@ -320,7 +320,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             x="188"
             y="94"
             textAnchor="middle"
-            className="fill-white font-mono text-[8px]"
+            className="fill-white font-mono text-[9.5px]"
           >
             API
           </text>
@@ -328,7 +328,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             x="188"
             y="107"
             textAnchor="middle"
-            className="fill-purple-100 font-mono text-[7px]"
+            className="fill-purple-100 font-mono text-[9px]"
           >
             monitorada
           </text>
@@ -350,7 +350,7 @@ export function AreaIllustration({ area }: { area: AreaKey }) {
             x="279"
             y="100"
             textAnchor="middle"
-            className="fill-ink-2 font-mono text-[8px]"
+            className="fill-ink-2 font-mono text-[9.5px]"
           >
             base
           </text>

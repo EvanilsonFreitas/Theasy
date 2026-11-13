@@ -125,7 +125,7 @@ export function DataDemo() {
                 />
               ))}
               <path d="M286 145H322" strokeWidth="1.4" className={wire(1)} />
-              <path d="M466 145H488" strokeWidth="1.4" className={wire(2)} />
+              <path d="M478 145H488" strokeWidth="1.4" className={wire(2)} />
               {OUT_Y.map((y) => (
                 <path
                   key={y}
@@ -161,7 +161,7 @@ export function DataDemo() {
             </div>
 
             <div
-              className={cn(box(2), 'h-[104px] w-[144px] px-3 py-2.5')}
+              className={cn(box(2), 'h-[104px] w-[156px] px-3 py-2.5')}
               style={{ left: 322, top: 93 }}
             >
               <StageHead name="Tratamento" state={st(2)} />
@@ -199,7 +199,7 @@ export function DataDemo() {
                   x="48"
                   y="51"
                   textAnchor="middle"
-                  className="fill-white font-mono text-[7px]"
+                  className="fill-white font-mono text-[9px]"
                 >
                   fato
                 </text>
@@ -231,7 +231,7 @@ export function DataDemo() {
                     x={x as number}
                     y={y as number}
                     textAnchor="middle"
-                    className="fill-ink-2 font-mono text-[6.5px]"
+                    className="fill-ink-2 font-mono text-[9px]"
                   >
                     {t}
                   </text>
@@ -280,7 +280,7 @@ export function DataDemo() {
       <div className="bg-rule grid gap-px @2xl:grid-cols-[1fr_1fr]">
         <div className="bg-paper p-4">
           <p className="type-mono text-ink-3 mb-2 text-[9.5px]">Execução</p>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 @md:grid-cols-3 @2xl:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-x-5 gap-y-1.5 @md:grid-cols-2">
             {STAGES.map((s, i) => (
               <li
                 key={s.name}

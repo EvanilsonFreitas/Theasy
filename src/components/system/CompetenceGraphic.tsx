@@ -88,7 +88,7 @@ export function CompetenceGraphic() {
           {n.t}
         </span>
       ))}
-      <span className="bracket e3 bg-ink text-on-ink absolute top-[63%] left-[57%] px-3 py-1.5 text-[12.5px] whitespace-nowrap">
+      <span className="bracket e3 bg-ink text-on-ink absolute top-[63%] left-[60%] hidden px-3 py-1.5 text-[12.5px] whitespace-nowrap sm:block">
         Solução em uso
       </span>
     </figure>

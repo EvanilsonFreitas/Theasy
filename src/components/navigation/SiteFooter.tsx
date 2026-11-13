@@ -38,7 +38,9 @@ export function SiteFooter() {
                   l
                 )}
                 {i < LAYERS.length - 1 && (
-                  <span aria-hidden="true" className="bg-line h-px w-3" />
+                  <span aria-hidden="true" className="text-purple-500">
+                    →
+                  </span>
                 )}
               </li>
             ))}

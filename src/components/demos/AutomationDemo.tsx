@@ -45,9 +45,9 @@ const NODES: Record<
     text: 'do ERP',
   },
   cond: {
-    x: 318,
+    x: 316,
     y: 86,
-    w: 124,
+    w: 132,
     h: 78,
     kind: 'Condição',
     title: 'Totais conferem?',
@@ -63,9 +63,9 @@ const NODES: Record<
     text: 'e painel',
   },
   done: {
-    x: 632,
+    x: 626,
     y: 18,
-    w: 112,
+    w: 130,
     h: 60,
     kind: 'Resultado',
     title: 'Resumo enviado',
@@ -81,9 +81,9 @@ const NODES: Record<
     text: 'com a divergência',
   },
   alert: {
-    x: 632,
+    x: 626,
     y: 172,
-    w: 112,
+    w: 130,
     h: 60,
     kind: 'Resultado',
     title: 'Alerta enviado',
@@ -97,17 +97,17 @@ const EDGES: { from: NodeId; to: NodeId; d: string; label?: string }[] = [
   {
     from: 'cond',
     to: 'act',
-    d: 'M442 125C460 125 456 48 474 48',
+    d: 'M448 125C462 125 458 48 474 48',
     label: 'sim',
   },
-  { from: 'act', to: 'done', d: 'M602 48H628' },
+  { from: 'act', to: 'done', d: 'M602 48H626' },
   {
     from: 'cond',
     to: 'exc',
-    d: 'M442 125C460 125 456 202 474 202',
+    d: 'M448 125C462 125 458 202 474 202',
     label: 'não',
   },
-  { from: 'exc', to: 'alert', d: 'M602 202H628' },
+  { from: 'exc', to: 'alert', d: 'M602 202H626' },
 ]
 
 const MANUAL = [
@@ -263,7 +263,8 @@ export function AutomationDemo() {
                           : s === 'done'
                             ? 'e1 bg-paper border-purple-300'
                             : 'border-line bg-paper',
-                        s === 'off' && 'opacity-45',
+                        s === 'off' &&
+                          'bg-page text-ink-2 [&_span]:text-ink-3 border-dashed',
                         id === 'cond' && 'bg-purple-50/50',
                         (id === 'exc' || id === 'alert') &&
                           s !== 'off' &&
@@ -359,7 +360,7 @@ export function AutomationDemo() {
                 <span
                   aria-hidden="true"
                   className={cn(
-                    'relative h-4 w-7 rounded-full transition-colors',
+                    'relative block h-4 w-7 shrink-0 rounded-full transition-colors',
                     diverge ? 'bg-warn' : 'bg-line',
                   )}
                 >

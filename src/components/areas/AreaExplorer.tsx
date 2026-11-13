@@ -28,7 +28,7 @@ export function AreaExplorer({
       <div className="grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <div
           role="group"
-          aria-label="Área da empresa"
+          aria-label="Área da empresa em destaque"
           className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-2"
         >
           {contexts.map((c, i) => {
@@ -40,7 +40,7 @@ export function AreaExplorer({
                 aria-pressed={on}
                 onClick={() => setActive(i)}
                 className={cn(
-                  'group flex flex-col items-start gap-2.5 rounded-xl border p-3.5 text-left transition-[background-color,border-color,box-shadow] duration-200 sm:p-4',
+                  'group flex flex-col items-start justify-between gap-2.5 rounded-xl border p-3.5 text-left transition-[background-color,border-color,box-shadow] duration-200 sm:p-4',
                   on
                     ? 'e3 bg-paper border-purple-600'
                     : 'border-rule bg-paper hover:border-line hover:bg-page',

@@ -29,7 +29,7 @@ export function Transformation({
     <div>
       <div
         role="group"
-        aria-label="Área da empresa"
+        aria-label="Situação por área"
         className="flex flex-wrap gap-1.5"
       >
         {scenarios.map((s, i) => (
