@@ -1,8 +1,15 @@
 # ThEasy · Design e decisões técnicas
 
 Documento de referência do redesign do site institucional (branch
-`feat/theasy-redesign`). Explica a direção de arte, o sistema visual, a
-arquitetura e o que ainda depende de informação externa.
+`feat/theasy-redesign`).
+
+> **Versão atual: v2.1 "Arquitetura conectada".** A direção v1 ("Caderno de
+> decisão", seções 1 a 7 abaixo) foi reprovada e substituída. Decisões da
+> versão atual: [docs/design/benchmark-v2.md](docs/design/benchmark-v2.md)
+> (benchmark visual) e
+> [docs/design/refinamento-v2.1.md](docs/design/refinamento-v2.1.md)
+> (direção, sistema visual, componentes, movimento). As seções 1 a 7 ficam
+> como histórico da v1; as seções 8 e 10 valem para a versão atual.
 
 ## 1. Diagnóstico do site anterior (ONEB)
 
@@ -199,8 +206,10 @@ Testado localmente: sucesso (endpoint simulado recebeu o JSON), erro HTTP 500
    de privacidade, e validação jurídica do texto de privacidade.
 6. Cases, depoimentos ou números reais, se houver, para substituir os
    exemplos ilustrativos.
+7. Fotos próprias (equipe, escritório, projetos), se houver, para substituir
+   parte das fotografias de banco de imagens.
 
-## 9. Validação (13/11/2026, ambiente local)
+## 9. Validação da v1 (histórico)
 
 | Verificação                                                                                                | Resultado                                                    |
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
@@ -228,3 +237,31 @@ itens apontados foram corrigidos (menu modal, foco em âncoras, honeypot,
 timeout de envio, movimento reduzido nas linhas de progresso, padronização
 de "etapas" × "momentos", textos alternativos, foto da área Comercial,
 português e alvos de toque de 24 px).
+
+## 10. Validação da v2.1 (13/11/2026, ambiente local)
+
+| Verificação                                                                  | Resultado                                                                                                                                                        |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run lint`, `npm run typecheck`, `npm run build`                         | sem erros nem avisos                                                                                                                                             |
+| axe-core 4.12 (WCAG 2.0 a 2.2 A/AA + boas práticas), 8 rotas, 1440 e 390 px  | 0 violações na varredura padrão. Um alerta de `target-size` só aparece quando o cabeçalho fixo cobre um chip do hero após rolagem programática; o chip tem 44 px |
+| Overflow horizontal: 7 rotas × 360, 390, 768, 1024, 1440, 1920 px            | nenhum (as estrelas das guias vazavam 5 px entre 768 e 1279 px: corrigido)                                                                                       |
+| Texto saindo de cards e nós de diagrama: 6 rotas × 360, 768, 1024, 1440 px   | nenhum (corrigidos: rótulo da base no mapa, regras do tratamento, títulos da automação, setor "Agronegócio" a 360 px)                                            |
+| Movimento reduzido (emulado no Chrome)                                       | pacotes do mapa não renderizados, sem botão de pausa, pipeline conclui na hora                                                                                   |
+| Teclado: abas de competências (setas, Home, End), etapas do método, cenários | ok                                                                                                                                                               |
+| Pausa do fluxo do mapa por clique                                            | ok (estava bloqueada pela camada de nós: corrigido)                                                                                                              |
+| CTA final → /contato com texto e área preenchidos                            | ok                                                                                                                                                               |
+| Formulário sem endpoint: informa que **não** foi enviado e oferece cópia     | ok                                                                                                                                                               |
+| Validação do formulário e foco no primeiro erro                              | ok                                                                                                                                                               |
+| `?area=` em Aplicações e redirecionamento legado (/cases)                    | ok                                                                                                                                                               |
+| Menu mobile: diálogo, conteúdo inerte, Esc fecha                             | ok                                                                                                                                                               |
+| Web Vitals de laboratório (build local, sem limitação)                       | 1440 px: LCP 552 ms · CLS 0,0002 · FCP 552 ms. 390 px: LCP 456 ms · CLS 0 · FCP 372 ms                                                                           |
+| JS inicial                                                                   | ≈ 180 kB gzip (index 123 + compartilhado 43 + motion 14)                                                                                                         |
+
+Não validado: envio com endpoint real (a lógica de envio não mudou desde a
+v1, onde foi testada contra um endpoint simulado), métricas de campo,
+leitores de tela físicos, Safari e Firefox reais (SMIL do mapa tem suporte
+amplo, mas não foi inspecionado nesses motores).
+
+Capturas: `docs/screenshots/v1-antes/` (antes), `docs/screenshots/v2-depois/`
+(home em seis larguras e páginas internas em 1440 e 390 px) e as comparações
+`docs/screenshots/comparacao-home-1440.jpg` e `comparacao-home-390.jpg`.
