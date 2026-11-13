@@ -193,8 +193,38 @@ Testado localmente: sucesso (endpoint simulado recebeu o JSON), erro HTTP 500
 3. Endpoint ou serviço de recebimento do formulário (`VITE_CONTACT_ENDPOINT`)
    e um email de contato para exibir no site.
 4. Domínio público (`VITE_SITE_URL`) para canonical, sitemap e Open Graph,
-   e uma imagem `og-image.png` (1200×630).
+   e uma imagem `og-image.png` (1200×630); a tag `og:image` só deve ser
+   reativada em `Seo.tsx` quando o arquivo existir.
 5. Dados institucionais (razão social, CNPJ, endereço) para rodapé e página
    de privacidade, e validação jurídica do texto de privacidade.
 6. Cases, depoimentos ou números reais, se houver, para substituir os
    exemplos ilustrativos.
+
+## 9. Validação (13/11/2026, ambiente local)
+
+| Verificação                                                                                                | Resultado                                                    |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `npm run lint` (ESLint + jsx-a11y)                                                                         | sem erros nem avisos                                         |
+| `npm run typecheck` (strict)                                                                               | sem erros                                                    |
+| `npm run build`                                                                                            | ok; JS inicial ≈ 168 kB gzip (antes 219 kB), CSS 9,4 kB gzip |
+| axe-core 4.12 (WCAG 2.0 a 2.2 A/AA + boas práticas), 8 rotas, 1440 e 390 px                                | 0 violações                                                  |
+| Overflow horizontal em 360, 390, 768, 1024, 1440 e 1920 px, todas as rotas                                 | nenhum                                                       |
+| Redirecionamentos das 14 rotas antigas                                                                     | todos corretos                                               |
+| Links internos e âncoras (30)                                                                              | todos resolvem                                               |
+| Formulário: validação, foco no 1º erro, envio com sucesso (endpoint simulado), erro HTTP 500, sem endpoint | ok nos três caminhos                                         |
+| Menu mobile: foco, Esc, trava de scroll, `inert`, fecha em link da mesma página                            | ok                                                           |
+| Navegação por âncora move o foco para o destino                                                            | ok                                                           |
+| Web Vitals de laboratório (build de produção, local, sem limitação de rede/CPU)                            | LCP 720 ms · CLS 0,0001 · FCP 604 ms                         |
+
+Não validado nesta etapa: métricas de campo (dependem de usuários reais),
+leitores de tela físicos (NVDA/VoiceOver), zoom de 200% em navegador real
+(o layout é fluido e sem overflow a 360 px, que equivale ao zoom de 400% em
+1440 px), emulação de `prefers-reduced-motion` (comportamento verificado no
+código: CSS sob `no-preference`, `MotionConfig reducedMotion="user"`,
+`useReducedMotion` no avanço automático e nas linhas de progresso).
+
+Auditorias independentes (subagentes): frontend/QA e UX/conteúdo. Todos os
+itens apontados foram corrigidos (menu modal, foco em âncoras, honeypot,
+timeout de envio, movimento reduzido nas linhas de progresso, padronização
+de "etapas" × "momentos", textos alternativos, foto da área Comercial,
+português e alvos de toque de 24 px).
