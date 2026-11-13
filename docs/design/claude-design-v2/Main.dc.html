@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ThEasy, home desktop v2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FAFAFB}
+a{color:#15131B}a:hover{color:#5B3CD6}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.sec{position:relative;border-top:1px solid #E7E5EC;padding:88px 56px}
+.tick{position:absolute;top:-6px;width:11px;height:11px}
+.node{position:absolute;box-sizing:border-box;background:#fff;border:1px solid #D6D2DE;border-radius:12px 4px 12px 4px;transition:opacity .25s,border-color .25s}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px;border-radius:8px;font-weight:560;font-size:15px;text-decoration:none;box-sizing:border-box}
+</style>
+</helmet>
+<div style="font-family: 'Instrument Sans', system-ui, sans-serif; color: #15131B; background: #FAFAFB; min-height: 100px">
+<div style="max-width: 1312px; margin: 0 auto; border-left: 1px solid #E7E5EC; border-right: 1px solid #E7E5EC; background: #FAFAFB">
+
+<!-- HEADER -->
+<header style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 56px; border-bottom: 1px solid #E7E5EC; background: #FFFFFF; flex-wrap: wrap">
+<a href="#" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+<svg width="34" height="34" viewBox="160 160 704 704" aria-hidden="true"><path fill="#8B6CF0" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"/><path fill="#8B6CF0" transform="rotate(180 512 512)" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"/><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<span style="display: flex; flex-direction: column; line-height: 1.05"><span style="font-weight: 600; letter-spacing: .04em; font-size: 18px">THEASY</span><span style="font-size: 11px; color: #6F6A7A">Business Intelligence &amp; Consulting</span></span>
+</a>
+<nav aria-label="Principal" style="display: flex; gap: 6px; font-size: 15px">
+<a href="#solucoes" style="padding: 10px 12px; text-decoration: none">Soluções</a>
+<a href="#aplicacoes" style="padding: 10px 12px; text-decoration: none">Aplicações</a>
+<a href="#abordagem" style="padding: 10px 12px; text-decoration: none">Como trabalhamos</a>
+<a href="#sobre" style="padding: 10px 12px; text-decoration: none">Sobre</a>
+</nav>
+<a href="#contato" class="btn" style="background: #15131B; color: #FFFFFF">Fale com a ThEasy</a>
+</header>
+
+<!-- HERO -->
+<section style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 48px; padding: 72px 56px 80px; align-items: center; background: #FFFFFF">
+<div style="display: flex; flex-direction: column; gap: 24px">
+<p class="mono" style="margin: 0; color: #5B3CD6">Consultoria em dados, tecnologia e gestão</p>
+<h1 style="margin: 0; font-size: 54px; line-height: 1.04; font-weight: 600; letter-spacing: -0.025em">Dados, BI e sistemas para fazer sua empresa funcionar melhor.</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4B4756; max-width: 520px">A ThEasy une consultoria de negócios, engenharia de dados, desenvolvimento de software e automação para transformar desafios operacionais em soluções práticas.</p>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<a href="#solucoes" class="btn" style="background: #5B3CD6; color: #FFFFFF">Conhecer as soluções <span aria-hidden="true">→</span></a>
+<a href="#contato" class="btn" style="border: 1px solid #15131B; color: #15131B">Conversar com a ThEasy</a>
+</div>
+<div style="border-top: 1px solid #E7E5EC; padding-top: 18px; display: flex; flex-direction: column; gap: 10px">
+<p class="mono" style="margin: 0; color: #6F6A7A">O que entregamos · passe o cursor para ver no mapa</p>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{services}}" as="s" hint-placeholder-count="5">
+<li><button type="button" onMouseEnter="{{s.on}}" onFocus="{{s.on}}" onMouseLeave="{{off}}" onBlur="{{off}}" style="{{s.style}}">{{s.label}}</button></li>
+</sc-for>
+</ul>
+</div>
+</div>
+
+<!-- MAPA -->
+<figure aria-label="Mapa ilustrativo: fontes de dados passam por integração, formam uma base estruturada que alimenta painéis, sistemas, automações e análises de preço, apoiando decisões" style="margin: 0; position: relative; width: 640px; height: 560px; justify-self: end; border-radius: 14px; border: 1px solid {{frameBorder}}; background: {{frameBg}}; transition: border-color .25s, background .25s">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px dashed #D6D2DE">
+<span class="mono" style="color: #5B3CD6; font-size: 10.5px">Consultoria · contexto e direção</span>
+<span class="mono" style="color: #6F6A7A; font-size: 10.5px">Arquitetura ilustrativa</span>
+</div>
+<svg width="640" height="560" viewBox="0 0 640 560" aria-hidden="true" style="position: absolute; inset: 0">
+<line x1="90" y1="70" x2="90" y2="500" stroke="#E7E5EC" stroke-width="1"/>
+<sc-for list="{{paths}}" as="p" hint-placeholder-count="14">
+<path d="{{p.d}}" fill="none" stroke="{{p.stroke}}" stroke-width="1.25" stroke-linejoin="round" style="transition: stroke .25s"/>
+</sc-for>
+<sc-for list="{{routes}}" as="r" hint-placeholder-count="4">
+<circle r="3" fill="#5B3CD6"><animateMotion dur="6s" repeatCount="indefinite" begin="{{r.begin}}" path="{{r.d}}"/></circle>
+</sc-for>
+</svg>
+<sc-for list="{{layers}}" as="l" hint-placeholder-count="5">
+<span class="mono" style="position: absolute; left: 18px; top: {{l.top}}; font-size: 10px; color: #6F6A7A">{{l.label}}</span>
+</sc-for>
+<sc-for list="{{sources}}" as="c" hint-placeholder-count="4">
+<div class="node" style="left: {{c.left}}; top: 56px; width: 118px; height: 40px; display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 13.5px; font-weight: 560; opacity: {{o.src}}"><span style="width: 7px; height: 7px; border-radius: 2px; background: #8B6CF0"></span>{{c.label}}</div>
+</sc-for>
+<div class="node" style="left: 220px; top: 140px; width: 280px; height: 64px; padding: 10px 14px; opacity: {{o.int}}">
+<div style="font-size: 13.5px; font-weight: 600">Integração e tratamento</div>
+<div style="display: flex; gap: 6px; margin-top: 8px; align-items: center"><span class="mono" style="font-size: 9.5px; color: #6F6A7A">extrair</span><span style="flex: 1; height: 3px; background: #5B3CD6; border-radius: 2px"></span><span class="mono" style="font-size: 9.5px; color: #6F6A7A">limpar</span><span style="flex: 1; height: 3px; background: #B9A8F8; border-radius: 2px"></span><span class="mono" style="font-size: 9.5px; color: #6F6A7A">modelar</span></div>
+</div>
+<div class="node" style="left: 235px; top: 232px; width: 250px; height: 64px; padding: 10px 14px; border-color: #5B3CD6; opacity: {{o.base}}">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600"><svg width="12" height="12" viewBox="347 347 330 330" aria-hidden="true"><path fill="#5B3CD6" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>Base estruturada</div>
+<div class="mono" style="font-size: 9.5px; color: #6F6A7A; margin-top: 8px; text-transform: none; letter-spacing: 0">fato_vendas · dim_cliente · dim_produto</div>
+</div>
+<div class="node" style="left: 100px; top: 344px; width: 118px; height: 80px; padding: 10px 12px; opacity: {{o.bi}}">
+<div style="font-size: 12.5px; font-weight: 600">Painéis de BI</div>
+<div style="display: flex; align-items: flex-end; gap: 4px; height: 30px; margin-top: 8px"><span style="flex: 1; height: 40%; background: #B9A8F8"></span><span style="flex: 1; height: 65%; background: #B9A8F8"></span><span style="flex: 1; height: 52%; background: #B9A8F8"></span><span style="flex: 1; height: 88%; background: #5B3CD6"></span><span style="flex: 1; height: 72%; background: #B9A8F8"></span></div>
+</div>
+<div class="node" style="left: 234px; top: 344px; width: 118px; height: 80px; padding: 10px 12px; opacity: {{o.sis}}">
+<div style="font-size: 12.5px; font-weight: 600">Sistemas</div>
+<div style="display: flex; flex-direction: column; gap: 5px; margin-top: 9px"><span style="height: 6px; background: #ECE7FE; border-radius: 2px"></span><span style="height: 6px; background: #F4F3F7; border-radius: 2px; width: 80%"></span><span style="height: 6px; background: #F4F3F7; border-radius: 2px; width: 90%"></span></div>
+</div>
+<div class="node" style="left: 368px; top: 344px; width: 118px; height: 80px; padding: 10px 12px; opacity: {{o.aut}}">
+<div style="font-size: 12.5px; font-weight: 600">Automações</div>
+<div style="display: flex; align-items: center; gap: 0; margin-top: 16px"><span style="width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid #5B3CD6"></span><span style="flex: 1; height: 1.5px; background: #5B3CD6"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #5B3CD6"></span><span style="flex: 1; height: 1.5px; background: #5B3CD6"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #5B3CD6"></span></div>
+</div>
+<div class="node" style="left: 502px; top: 344px; width: 118px; height: 80px; padding: 10px 12px; opacity: {{o.pre}}">
+<div style="font-size: 12.5px; font-weight: 600">Preço e margem</div>
+<div style="display: flex; align-items: flex-end; gap: 3px; height: 30px; margin-top: 8px"><span style="flex: 1; height: 90%; background: #D6D2DE"></span><span style="flex: 1; height: 30%; margin-bottom: 60%; background: #B9A8F8"></span><span style="flex: 1; height: 22%; margin-bottom: 38%; background: #B9A8F8"></span><span style="flex: 1; height: 38%; background: #5B3CD6"></span></div>
+</div>
+<div class="node" style="left: 140px; top: 472px; width: 440px; height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-color: #15131B; opacity: {{o.dec}}">
+<svg width="14" height="14" viewBox="347 347 330 330" aria-hidden="true"><path fill="#5B3CD6" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<span style="font-size: 14px; font-weight: 600">Decisão</span><span style="font-size: 13px; color: #4B4756">com informação confiável, no tempo certo</span>
+</div>
+</figure>
+</section>
+
+<!-- 02 COMPETÊNCIAS -->
+<section id="solucoes" class="sec" style="background: #FAFAFB">
+<svg class="tick" style="left: -6px" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<svg class="tick" style="right: -6px" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end">
+<div><p class="mono" style="margin: 0 0 14px; color: #6F6A7A">02 · O que entregamos</p><h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em">Cinco competências, uma mesma arquitetura.</h2></div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4B4756">Cada frente resolve um tipo de problema. <span style="color: #15131B">Juntas, ligam a informação da operação às decisões da gestão.</span> Escolha uma competência para ver uma demonstração.</p>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px; margin-top: 48px">
+<div role="tablist" aria-label="Competências" aria-orientation="vertical" style="display: flex; flex-direction: column; border: 1px solid #E7E5EC; border-radius: 12px; background: #FFFFFF; overflow: hidden">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+<button type="button" role="tab" aria-selected="{{t.sel}}" onClick="{{t.pick}}" style="{{t.style}}">
+<span class="mono" style="font-size: 10.5px; color: {{t.numColor}}">{{t.n}}</span>
+<span style="display: flex; flex-direction: column; gap: 4px; text-align: left"><span style="font-size: 16px; font-weight: 600; color: #15131B">{{t.name}}</span><span style="font-size: 13.5px; line-height: 1.45; color: #4B4756">{{t.line}}</span></span>
+</button>
+</sc-for>
+</div>
+<div role="tabpanel" style="display: flex; flex-direction: column; gap: 16px; min-width: 0">
+<sc-if value="{{is.bi}}" hint-placeholder-val="{{true}}"><dc-import name="DemoBI" hint-size="760px,460px"></dc-import></sc-if>
+<sc-if value="{{is.dados}}" hint-placeholder-val="{{false}}"><dc-import name="DemoDados" hint-size="760px,460px"></dc-import></sc-if>
+<sc-if value="{{is.sistemas}}" hint-placeholder-val="{{false}}"><dc-import name="DemoSistemas" hint-size="760px,460px"></dc-import></sc-if>
+<sc-if value="{{is.automacao}}" hint-placeholder-val="{{false}}"><dc-import name="DemoAutomacao" hint-size="760px,460px"></dc-import></sc-if>
+<sc-if value="{{is.consultoria}}" hint-placeholder-val="{{false}}"><dc-import name="DemoConsultoria" hint-size="760px,460px"></dc-import></sc-if>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #E7E5EC; border: 1px solid #E7E5EC; border-radius: 12px; overflow: hidden">
+<div style="background: #FFFFFF; padding: 18px"><p class="mono" style="margin: 0 0 8px; color: #6F6A7A; font-size: 10.5px">Quando faz sentido</p><p style="margin: 0; font-size: 14px; line-height: 1.5">{{cur.when}}</p></div>
+<div style="background: #FFFFFF; padding: 18px"><p class="mono" style="margin: 0 0 8px; color: #6F6A7A; font-size: 10.5px">O que entregamos</p><p style="margin: 0; font-size: 14px; line-height: 1.5">{{cur.deliver}}</p></div>
+<div style="background: #FFFFFF; padding: 18px"><p class="mono" style="margin: 0 0 8px; color: #6F6A7A; font-size: 10.5px">Ferramentas</p><p style="margin: 0; font-size: 14px; line-height: 1.5">{{cur.tools}}</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 03 APLICAÇÕES -->
+<section id="aplicacoes" class="sec" style="background: #FFFFFF">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end">
+<div><p class="mono" style="margin: 0 0 14px; color: #6F6A7A">03 · Aplicações</p><h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em">Do problema à solução, em situações comuns.</h2></div>
+<div role="group" aria-label="Área" style="display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end">
+<sc-for list="{{areas}}" as="a" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{a.sel}}" onClick="{{a.pick}}" style="{{a.style}}">{{a.name}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr); margin-top: 40px; border: 1px solid #E7E5EC; border-radius: 14px; overflow: hidden">
+<div style="background: #F4F3F7; padding: 28px 28px 32px">
+<p class="mono" style="margin: 0; color: #6F6A7A">Como costuma ser hoje</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px">
+<sc-for list="{{scen.today}}" as="x" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border: 1px dashed #C9C4D3; border-radius: 8px; padding: 14px; font-size: 14px; line-height: 1.45; color: #4B4756; display: flex; gap: 10px"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; margin-top: 6px; border-radius: 50%; border: 1.5px solid #3F27A3"></span>{{x}}</div>
+</sc-for>
+</div>
+</div>
+<div style="position: relative; background: linear-gradient(#E7E5EC, #E7E5EC) center / 1px 100% no-repeat, #FFFFFF; display: flex; align-items: center; justify-content: center">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; border: 1px solid #5B3CD6; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="347 347 330 330" aria-hidden="true"><path fill="#5B3CD6" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg></span>
+</div>
+<div style="background: #FFFFFF; padding: 28px 28px 32px; display: flex; flex-direction: column; gap: 14px">
+<p class="mono" style="margin: 0; color: #5B3CD6">Como a solução se organiza</p>
+<sc-for list="{{scen.solution}}" as="s" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px; align-items: center; border: 1px solid #D6D2DE; border-radius: 12px 4px 12px 4px; padding: 12px 14px">
+<span style="font-size: 13px; font-weight: 600; color: #5B3CD6">{{s.k}}</span><span style="font-size: 14px; line-height: 1.45">{{s.v}}</span>
+</div>
+</sc-for>
+<div style="margin-top: 6px; border-top: 1px solid #E7E5EC; padding-top: 14px; display: flex; gap: 10px; align-items: baseline"><span class="mono" style="color: #6F6A7A; font-size: 10.5px; flex: none">Decisão possível</span><span style="font-size: 16px; font-weight: 600">{{scen.decision}}</span></div>
+</div>
+</div>
+<p style="margin: 12px 0 0; font-size: 13px; color: #6F6A7A">Situações ilustrativas, compostas a partir de problemas frequentes. Não representam clientes específicos.</p>
+</section>
+
+<!-- 04 COMO TRABALHAMOS -->
+<section id="abordagem" class="sec" style="background: #FAFAFB">
+<svg class="tick" style="left: -6px" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<svg class="tick" style="right: -6px" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<p class="mono" style="margin: 0 0 14px; color: #6F6A7A">04 · Como trabalhamos</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; max-width: 720px">Cinco etapas, cada uma com uma entrega concreta.</h2>
+<ol style="list-style: none; margin: 56px 0 0; padding: 0; position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<li aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: #D6D2DE"></li>
+<li aria-hidden="true" style="position: absolute; left: 0; width: 46%; top: 7px; height: 1px; background: #5B3CD6"></li>
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<li style="position: relative; display: flex; flex-direction: column; gap: 12px; padding-top: 32px">
+<svg style="position: absolute; top: 0; left: 0" width="15" height="15" viewBox="347 347 330 330" aria-hidden="true"><path fill="{{s.color}}" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<span class="mono" style="color: #6F6A7A; font-size: 10.5px">{{s.n}}</span>
+<span style="font-size: 18px; font-weight: 600">{{s.name}}</span>
+<span style="font-size: 14px; line-height: 1.5; color: #4B4756">{{s.text}}</span>
+<span style="margin-top: 4px; align-self: flex-start; border: 1px solid #D6D2DE; border-radius: 10px 3px 10px 3px; padding: 8px 10px; font-size: 12.5px; background: #FFFFFF"><span class="mono" style="font-size: 9.5px; color: #5B3CD6; display: block; margin-bottom: 3px">Entrega</span>{{s.out}}</span>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<!-- 05 CONTEXTOS -->
+<section class="sec" style="background: #FFFFFF">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: end">
+<div><p class="mono" style="margin: 0 0 14px; color: #6F6A7A">05 · Onde aplicamos</p><h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em">Áreas da empresa em que esses problemas aparecem.</h2></div>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4B4756">Atuamos em indústria, logística e distribuição, varejo, agronegócio, saúde e serviços. O problema muda de nome entre setores; a lógica de solução se repete.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: #E7E5EC; border: 1px solid #E7E5EC; border-radius: 14px; overflow: hidden; margin-top: 40px">
+<sc-for list="{{contexts}}" as="c" hint-placeholder-count="6">
+<div style="background: #FFFFFF; padding: 22px; display: flex; flex-direction: column; gap: 12px; min-height: 200px">
+<span style="font-size: 17px; font-weight: 600">{{c.name}}</span>
+<span style="font-size: 14px; line-height: 1.5; color: #4B4756; flex: 1">{{c.text}}</span>
+<span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{c.tags}}" as="g" hint-placeholder-count="2"><span class="mono" style="font-size: 9.5px; padding: 4px 7px; border-radius: 6px 2px 6px 2px; background: #F6F3FF; color: #4A2FB8">{{g}}</span></sc-for></span>
+</div>
+</sc-for>
+<div style="grid-column: span 2; background: #15131B; position: relative; min-height: 200px; display: flex; align-items: flex-end">
+<div style="position: absolute; inset: 0; background: #2A2633"></div>
+<p class="mono" style="position: relative; margin: 0; padding: 16px 20px; color: #C9C5D2; font-size: 10.5px">Fotografia ilustrativa · operação industrial</p>
+</div>
+</div>
+</section>
+
+<!-- 06 SOBRE -->
+<section id="sobre" class="sec" style="background: #FAFAFB">
+<svg class="tick" style="left: -6px" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<svg class="tick" style="right: -6px" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<div style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<p class="mono" style="margin: 0; color: #6F6A7A">06 · Sobre a ThEasy</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em">Consultoria que entende o negócio. Engenharia que entrega a solução.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4B4756">A ThEasy reúne visão de gestão, dados e desenvolvimento de software. Partimos da necessidade da empresa, entendemos o contexto e estruturamos a resposta adequada, da análise à solução em uso.</p>
+<a href="#" style="font-weight: 560; min-height: 44px; display: inline-flex; align-items: center">Conhecer a ThEasy →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<sc-for list="{{diffs}}" as="d" hint-placeholder-count="4">
+<div style="border: 1px solid #D6D2DE; border-radius: 14px 4px 14px 4px; background: #FFFFFF; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<svg width="14" height="14" viewBox="347 347 330 330" aria-hidden="true"><path fill="#5B3CD6" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg>
+<span style="font-size: 17px; font-weight: 600">{{d.t}}</span><span style="font-size: 14px; line-height: 1.5; color: #4B4756">{{d.d}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- 07 CONTATO -->
+<section id="contato" style="background: #15131B; color: #F4F2F7; padding: 88px 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<p class="mono" style="margin: 0; color: #B9A8F8">07 · Primeira conversa</p>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em">Conte qual desafio sua empresa quer resolver.</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #C9C5D2">A primeira conversa serve para entender o contexto. Se fizer sentido seguir, propomos um diagnóstico com escopo claro.</p>
+<ol style="list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0; border-left: 1px solid #3A3545">
+<li style="padding: 8px 0 8px 18px; font-size: 15px"><span class="mono" style="color: #B9A8F8; margin-right: 10px">1</span>Você descreve a situação</li>
+<li style="padding: 8px 0 8px 18px; font-size: 15px"><span class="mono" style="color: #B9A8F8; margin-right: 10px">2</span>Conversamos sobre o contexto</li>
+<li style="padding: 8px 0 8px 18px; font-size: 15px"><span class="mono" style="color: #B9A8F8; margin-right: 10px">3</span>Propomos o próximo passo</li>
+</ol>
+</div>
+<form style="display: flex; flex-direction: column; gap: 12px; background: #1E1B26; border: 1px solid #3A3545; border-radius: 14px; padding: 24px">
+<label for="desafio" style="font-size: 14px; font-weight: 560">Qual é a situação hoje?</label>
+<textarea id="desafio" rows="6" placeholder="Ex.: o fechamento mensal leva duas semanas e ninguém confia no número de margem." style="font: inherit; font-size: 15px; padding: 14px; border-radius: 8px; border: 1px solid #4A4555; background: #15131B; color: #F4F2F7; resize: vertical"></textarea>
+<button type="button" class="btn" style="background: #B9A8F8; color: #15131B; border: 0; align-self: flex-start">Continuar para o contato →</button>
+</form>
+</section>
+
+<footer style="padding: 40px 56px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 14px; color: #4B4756; background: #FFFFFF">
+<span>© 2026 ThEasy · Consultoria em dados, tecnologia e gestão</span>
+<span style="display: flex; gap: 20px"><a href="#solucoes">Soluções</a><a href="#aplicacoes">Aplicações</a><a href="#abordagem">Como trabalhamos</a><a href="#sobre">Sobre</a><a href="#">Privacidade</a></span>
+</footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":6200}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { hot: null, tab: 'bi', area: 'fin' }; }
+  renderVals() {
+    const hot = this.state.hot;
+    const LIT = {
+      bi: ['base', 'bi', 'dec', 'p_bi', 'd_bi'],
+      dados: ['src', 'int', 'base', 'p_src', 'p_int'],
+      sistemas: ['base', 'sis', 'dec', 'p_sis', 'd_sis'],
+      automacao: ['src', 'base', 'aut', 'p_aut', 'd_aut'],
+      consultoria: ['frame', 'pre', 'dec', 'p_pre', 'd_pre'],
+    };
+    const lit = (k) => !hot || LIT[hot].includes(k);
+    const o = {};
+    ['src', 'int', 'base', 'bi', 'sis', 'aut', 'pre', 'dec'].forEach((k) => { o[k] = lit(k) ? 1 : 0.35; });
+    const on = (k) => hot && LIT[hot].includes(k);
+    const cx = [159, 293, 427, 561];
+    const down = (x, y1, yb, y2) => x < 360
+      ? `M${x} ${y1}V${yb - 6}Q${x} ${yb} ${x + 6} ${yb}H354Q360 ${yb} 360 ${yb + 6}V${y2}`
+      : `M${x} ${y1}V${yb - 6}Q${x} ${yb} ${x - 6} ${yb}H366Q360 ${yb} 360 ${yb + 6}V${y2}`;
+    const fan = (x, y1, yb, y2) => x < 360
+      ? `M360 ${y1}V${yb - 6}Q360 ${yb} 354 ${yb}H${x + 6}Q${x} ${yb} ${x} ${yb + 6}V${y2}`
+      : `M360 ${y1}V${yb - 6}Q360 ${yb} 366 ${yb}H${x - 6}Q${x} ${yb} ${x} ${yb + 6}V${y2}`;
+    const apps = ['bi', 'sis', 'aut', 'pre'];
+    const paths = [];
+    cx.forEach((x) => paths.push({ d: down(x, 96, 120, 140), stroke: on('p_src') ? '#5B3CD6' : '#CFCAD9' }));
+    paths.push({ d: 'M360 204V232', stroke: on('p_int') ? '#5B3CD6' : '#CFCAD9' });
+    cx.forEach((x, i) => paths.push({ d: fan(x, 296, 320, 344), stroke: on('p_' + apps[i]) ? '#5B3CD6' : '#CFCAD9' }));
+    cx.forEach((x, i) => paths.push({ d: down(x, 424, 448, 472), stroke: on('d_' + apps[i]) ? '#5B3CD6' : '#CFCAD9' }));
+    const route = (s, a) => down(cx[s], 96, 120, 296) + fan(cx[a], 296, 320, 344).replace('M360 296', '') + 'V424' + down(cx[a], 424, 448, 496).replace(/^M\d+ 424/, '');
+    const routes = [[0, 0, '0s'], [1, 1, '1.5s'], [3, 2, '3s'], [2, 3, '4.5s']].map(([s, a, b]) => ({ d: route(s, a), begin: b }));
+    const SERV = [['bi', 'BI e Analytics'], ['dados', 'Engenharia de dados'], ['sistemas', 'Sistemas sob medida'], ['automacao', 'Automação de processos'], ['consultoria', 'Consultoria financeira e de gestão']];
+    const services = SERV.map(([id, label]) => ({
+      label, on: () => this.setState({ hot: id }),
+      style: `min-height: 36px; padding: 0 12px; border-radius: 10px 3px 10px 3px; font: inherit; font-size: 13.5px; font-weight: 560; cursor: pointer; border: 1px solid ${hot === id ? '#5B3CD6' : '#D6D2DE'}; background: ${hot === id ? '#F6F3FF' : '#FFFFFF'}; color: ${hot === id ? '#4A2FB8' : '#15131B'}`,
+    }));
+    const TABS = [
+      { id: 'bi', name: 'BI e Analytics', line: 'Indicadores confiáveis e painéis que respondem perguntas de gestão.', when: 'Cada área apresenta um número diferente para o mesmo indicador, ou o relatório chega tarde demais.', deliver: 'Definição de indicadores, modelo semântico, painéis gerenciais e rotina de atualização.', tools: 'Power BI, SQL, modelagem dimensional.' },
+      { id: 'dados', name: 'Engenharia de dados', line: 'Fontes integradas, tratadas e modeladas em uma base única.', when: 'As informações estão em vários sistemas e planilhas, e alguém consolida tudo à mão.', deliver: 'Integrações, pipelines de tratamento, base modelada e documentação.', tools: 'SQL, bancos relacionais, pipelines e APIs.' },
+      { id: 'sistemas', name: 'Sistemas sob medida', line: 'Aplicações web e integrações do tamanho da operação.', when: 'O processo cresceu e o sistema atual, ou a planilha, não acompanha.', deliver: 'Aplicação web, APIs, integrações e telas desenhadas para quem usa.', tools: 'Aplicações web, APIs e bancos de dados.' },
+      { id: 'automacao', name: 'Automação de processos', line: 'Tarefas repetitivas substituídas por fluxos confiáveis.', when: 'A equipe passa horas copiando informação de um sistema para outro.', deliver: 'Fluxos automatizados com registro, alertas e tratamento de exceções.', tools: 'Integrações, rotinas agendadas e APIs.' },
+      { id: 'consultoria', name: 'Consultoria financeira e de gestão', line: 'Custos, preço, margem e processos com critério.', when: 'O faturamento cresce, mas a margem não acompanha, e ninguém sabe exatamente onde ela se perde.', deliver: 'Mapa de custos, formação de preço, análise de rentabilidade e indicadores de gestão.', tools: 'Modelos financeiros, análise de processos e BI.' },
+    ];
+    const tabs = TABS.map((t, i) => {
+      const sel = this.state.tab === t.id;
+      return { ...t, n: '0' + (i + 1), sel: sel ? 'true' : 'false', numColor: sel ? '#5B3CD6' : '#6F6A7A', pick: () => this.setState({ tab: t.id }),
+        style: `display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 18px 20px; border: 0; border-bottom: 1px solid #E7E5EC; font: inherit; cursor: pointer; text-align: left; background: ${sel ? '#F6F3FF' : '#FFFFFF'}; box-shadow: ${sel ? 'inset 3px 0 0 #5B3CD6' : 'none'}` };
+    });
+    const cur = TABS.find((t) => t.id === this.state.tab);
+    const is = {}; TABS.forEach((t) => { is[t.id] = this.state.tab === t.id; });
+    const SC = {
+      fin: { name: 'Financeiro', today: ['Custos espalhados em três planilhas diferentes', 'Fechamento depende de uma única pessoa', 'Preço definido sem conhecer a margem real', 'Relatório chega depois da decisão'], solution: [{ k: 'Engenharia de dados', v: 'Integra ERP e planilhas de custo em uma base única.' }, { k: 'BI e Analytics', v: 'Painel de margem por produto, cliente e canal.' }, { k: 'Consultoria', v: 'Revisão da formação de preço e das regras de rateio.' }], decision: 'Quais produtos e clientes realmente dão margem.' },
+      ops: { name: 'Operações', today: ['Apontamentos em papel e planilha', 'Retrabalho sem causa registrada', 'Indicadores calculados à mão', 'Cada turno com um controle próprio'], solution: [{ k: 'Sistemas sob medida', v: 'Aplicação de apontamento usada no chão de fábrica.' }, { k: 'Automação', v: 'Consolida os turnos e dispara alertas de desvio.' }, { k: 'BI e Analytics', v: 'Painel de produtividade, perdas e retrabalho.' }], decision: 'Onde a operação perde tempo, e por quê.' },
+      com: { name: 'Comercial', today: ['Funil vive em planilhas individuais', 'Desconto concedido sem regra', 'Meta acompanhada só no fim do mês', 'CRM e ERP não conversam'], solution: [{ k: 'Engenharia de dados', v: 'Integra CRM e ERP: pedido, faturamento e carteira.' }, { k: 'BI e Analytics', v: 'Funil, carteira e desempenho por vendedor.' }, { k: 'Consultoria', v: 'Política comercial e regras de desconto.' }], decision: 'Onde concentrar o esforço de vendas.' },
+      log: { name: 'Logística', today: ['Pedidos digitados duas vezes', 'Estoque diferente em cada sistema', 'Frete calculado manualmente', 'Atraso descoberto pelo cliente'], solution: [{ k: 'Automação', v: 'O pedido entra uma vez e segue para os demais sistemas.' }, { k: 'Sistemas sob medida', v: 'Painel de expedição com status de cada pedido.' }, { k: 'BI e Analytics', v: 'Nível de serviço por rota, cliente e item.' }], decision: 'Quais rotas, clientes e itens geram atraso e custo.' },
+      ges: { name: 'Gestão', today: ['Reunião discute qual número está certo', 'Indicadores sem responsável', 'Projetos sem acompanhamento', 'Informação espalhada entre áreas'], solution: [{ k: 'Engenharia de dados', v: 'Base única com as informações de todas as áreas.' }, { k: 'BI e Analytics', v: 'Painel executivo com metas e responsáveis.' }, { k: 'Consultoria', v: 'Indicadores e rituais de gestão.' }], decision: 'O que priorizar no próximo ciclo.' },
+    };
+    const areas = Object.entries(SC).map(([id, s]) => {
+      const sel = this.state.area === id;
+      return { name: s.name, sel: sel ? 'true' : 'false', pick: () => this.setState({ area: id }),
+        style: `min-height: 40px; padding: 0 14px; border-radius: 8px; font: inherit; font-size: 14px; font-weight: 560; cursor: pointer; border: 1px solid ${sel ? '#15131B' : '#D6D2DE'}; background: ${sel ? '#15131B' : '#FFFFFF'}; color: ${sel ? '#FFFFFF' : '#15131B'}` };
+    });
+    const steps = [
+      ['Diagnóstico', 'Entendemos o negócio, os processos e os dados disponíveis.', 'Mapa do problema e prioridades'],
+      ['Desenho da solução', 'Definimos arquitetura, escopo e indicadores de sucesso.', 'Proposta e arquitetura'],
+      ['Desenvolvimento', 'Construímos em ciclos curtos, validando cada entrega.', 'Versões funcionando'],
+      ['Implantação', 'Colocamos em uso, com treinamento e documentação.', 'Solução em uso'],
+      ['Evolução', 'Acompanhamos o uso e ajustamos conforme o negócio muda.', 'Melhorias contínuas'],
+    ].map(([name, text, out], i) => ({ n: '0' + (i + 1), name, text, out, color: i < 3 ? '#5B3CD6' : '#C9C4D3' }));
+    const contexts = [
+      { name: 'Financeiro e controladoria', text: 'Custos, margem, fechamento e formação de preço.', tags: ['BI', 'Consultoria'] },
+      { name: 'Operações e produção', text: 'Apontamentos, produtividade, perdas e retrabalho.', tags: ['Sistemas', 'Automação'] },
+      { name: 'Comercial e vendas', text: 'Funil, carteira, política de desconto e metas.', tags: ['BI', 'Dados'] },
+      { name: 'Logística e suprimentos', text: 'Pedidos, estoque, frete e nível de serviço.', tags: ['Automação', 'Sistemas'] },
+      { name: 'Gestão e diretoria', text: 'Indicadores, metas e acompanhamento de projetos.', tags: ['BI', 'Consultoria'] },
+      { name: 'Tecnologia e TI', text: 'Integrações, legado, bases e sistemas internos.', tags: ['Dados', 'Sistemas'] },
+    ];
+    const diffs = [
+      { t: 'Consultoria e execução juntas', d: 'Quem entende o problema acompanha a construção da solução.' },
+      { t: 'Soluções personalizadas', d: 'Cada entrega é desenhada para o contexto da empresa, não adaptada de um pacote.' },
+      { t: 'A necessidade vem primeiro', d: 'A tecnologia é escolhida depois de entender o que precisa mudar.' },
+      { t: 'Cinco competências integradas', d: 'Dados, BI, sistemas, automação e gestão na mesma arquitetura.' },
+    ];
+    const layers = [['Fontes', '71px'], ['Integração', '166px'], ['Base', '258px'], ['Aplicações', '378px'], ['Decisão', '490px']].map(([label, top]) => ({ label, top }));
+    const sources = ['ERP', 'CRM', 'Planilhas', 'Banco SQL'].map((label, i) => ({ label, left: [100, 234, 368, 502][i] + 'px' }));
+    return {
+      services, off: () => this.setState({ hot: null }), o, paths, routes, layers, sources,
+      frameBorder: hot === 'consultoria' ? '#5B3CD6' : '#E7E5EC', frameBg: hot === 'consultoria' ? '#FBFAFF' : '#FFFFFF',
+      tabs, cur, is, areas, scen: SC[this.state.area], steps, contexts, diffs,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Demonstração, pipeline de dados</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}.mono{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}</style>
+</helmet>
+<div style="width: 760px; height: 460px; box-sizing: border-box; font-family: 'Instrument Sans', system-ui, sans-serif; color: #15131B; background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; height: 48px; border-bottom: 1px solid #E7E5EC; flex: none">
+<div style="display: flex; align-items: center; gap: 10px"><span style="font-size: 14px; font-weight: 600">Carga diária · base comercial</span><span class="mono" style="font-size: 9.5px; padding: 3px 7px; border-radius: 6px; background: #EFEAFD; color: #3F27A3">Exemplo demonstrativo</span></div>
+<button type="button" onClick="{{run}}" style="min-height: 32px; padding: 0 12px; border-radius: 7px; border: 0; background: #5B3CD6; color: #FFFFFF; font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer">{{runLabel}}</button>
+</div>
+<div style="flex: 1; display: grid; grid-template-columns: 170px minmax(0, 1fr) 200px; min-height: 0">
+<div style="padding: 16px; border-right: 1px solid #E7E5EC; display: flex; flex-direction: column; gap: 8px">
+<span class="mono" style="color: #6F6A7A; font-size: 9.5px">Fontes</span>
+<sc-for list="{{sources}}" as="s" hint-placeholder-count="4">
+<div style="border: 1px solid #D6D2DE; border-radius: 10px 3px 10px 3px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 600">{{s.n}}</span><span style="font-size: 11.5px; color: #6F6A7A">{{s.d}}</span></div>
+</sc-for>
+</div>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid #E7E5EC">
+<span class="mono" style="color: #6F6A7A; font-size: 9.5px">Etapas do pipeline</span>
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 8px; background: {{s.bg}}; border: 1px solid {{s.border}}; transition: background .3s, border-color .3s">
+<span style="width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: {{s.dotBg}}; color: #FFFFFF; border: 1.5px solid {{s.dotBorder}}">{{s.mark}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 13px; font-weight: 600">{{s.name}}</span><span style="font-size: 11.5px; color: #4B4756">{{s.text}}</span></span>
+<span class="mono" style="font-size: 9.5px; color: {{s.stColor}}">{{s.status}}</span>
+</div>
+</sc-for>
+<div class="mono" style="margin-top: auto; text-transform: none; letter-spacing: 0; font-size: 11px; line-height: 1.6; color: #4B4756; background: #F4F3F7; border-radius: 8px; padding: 10px 12px">{{log}}</div>
+</div>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 8px; background: #FAFAFB">
+<span class="mono" style="color: #6F6A7A; font-size: 9.5px">Modelo resultante</span>
+<div style="border: 1px solid #5B3CD6; border-radius: 10px 3px 10px 3px; background: #FFFFFF; padding: 10px"><span class="mono" style="text-transform: none; letter-spacing: 0; font-size: 12px; font-weight: 500; color: #4A2FB8">fato_vendas</span><div class="mono" style="text-transform: none; letter-spacing: 0; font-size: 10.5px; color: #6F6A7A; margin-top: 4px; line-height: 1.6">data_id · cliente_id<br/>produto_id · valor · custo</div></div>
+<sc-for list="{{dims}}" as="d" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 8px"><span style="width: 14px; height: 1px; background: #8B6CF0"></span><span style="flex: 1; border: 1px solid #D6D2DE; border-radius: 8px 2px 8px 2px; background: #FFFFFF; padding: 7px 9px" class="mono"><span style="text-transform: none; letter-spacing: 0; font-size: 11.5px; color: #15131B">{{d}}</span></span></div>
+</sc-for>
+<p style="margin: auto 0 0; font-size: 11.5px; line-height: 1.45; color: #6F6A7A">Uma base, regras documentadas e o mesmo número para todas as áreas.</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":760,"height":460}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { done: 4 }; }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const done = this.state.done;
+    const S = [
+      ['Extração', 'Lê pedidos, clientes, metas e frete', '18.420 linhas'],
+      ['Limpeza', 'Remove duplicidades e corrige formatos', '312 ajustes'],
+      ['Padronização', 'Unifica códigos de cliente e produto', '4 regras'],
+      ['Modelagem', 'Carrega o modelo dimensional', '6 tabelas'],
+    ];
+    const steps = S.map(([name, text, res], i) => {
+      const ok = i < done, now = i === done;
+      return { name, text, mark: ok ? '✓' : '', status: ok ? res : now ? 'executando' : 'aguardando',
+        stColor: ok ? '#0E7A5F' : now ? '#5B3CD6' : '#6F6A7A', bg: now ? '#F6F3FF' : '#FFFFFF', border: now ? '#5B3CD6' : '#E7E5EC',
+        dotBg: ok ? '#5B3CD6' : '#FFFFFF', dotBorder: ok || now ? '#5B3CD6' : '#D6D2DE' };
+    });
+    const run = () => {
+      clearInterval(this.t); this.setState({ done: 0 });
+      this.t = setInterval(() => this.setState((s) => { if (s.done >= 4) { clearInterval(this.t); return s; } return { done: s.done + 1 }; }), 900);
+    };
+    return {
+      steps, run, runLabel: done >= 4 ? 'Executar carga' : 'Executando…',
+      log: done >= 4 ? '07:00 carga concluída · 0 erros · próxima execução amanhã às 07:00' : '07:00 carga iniciada · etapa ' + (done + 1) + ' de 4',
+      sources: [{ n: 'ERP', d: 'pedidos e faturamento' }, { n: 'CRM', d: 'clientes e oportunidades' }, { n: 'Planilha', d: 'metas por vendedor' }, { n: 'API', d: 'tabela de frete' }],
+      dims: ['dim_cliente', 'dim_produto', 'dim_tempo'],
+    };
+  }
+}
+</script>
+</body>
+</html>
