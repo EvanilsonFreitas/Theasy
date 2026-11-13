@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { m, useScroll, useSpring } from 'framer-motion'
+import { m, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { Seo } from '@/components/seo/Seo'
 import { PageIntro } from '@/components/ui/PageIntro'
 import { ButtonLink } from '@/components/ui/Button'
@@ -21,6 +21,8 @@ export function Approach() {
     offset: ['start 60%', 'end 60%'],
   })
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30 })
+  const reduceMotion = useReducedMotion()
+  const line = reduceMotion ? 1 : progress
 
   useEffect(() => {
     const items = listRef.current?.querySelectorAll<HTMLElement>('[data-step]')
@@ -66,7 +68,7 @@ export function Approach() {
               <m.span
                 aria-hidden="true"
                 className="absolute top-0 left-[-1px] h-full w-0.5 origin-top bg-purple-600"
-                style={{ scaleY: progress }}
+                style={{ scaleY: line }}
               />
               <ol>
                 {approach.map((s, i) => (

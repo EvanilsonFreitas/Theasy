@@ -60,7 +60,7 @@ export function Contact() {
               as="h1"
               size="display"
               label="Contato"
-              title={'Conte qual\né o desafio.'}
+              title={'Vamos entender\na situação.'}
               layout="stack"
               intro={
                 <p>

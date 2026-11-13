@@ -20,9 +20,9 @@ export function Solutions() {
         title={'Cinco frentes,\ncombinadas conforme\no problema.'}
         intro={
           <p>
-            Cada frente existe por conta própria, mas os melhores resultados
-            costumam vir da combinação: um modelo de preço precisa de dados
-            confiáveis; um painel só é útil se o processo por trás funciona.
+            Cada frente existe por conta própria, mas muitos problemas pedem a
+            combinação: um modelo de preço precisa de dados confiáveis; um
+            painel só é útil se o processo por trás funciona.
           </p>
         }
       >
@@ -178,7 +178,7 @@ export function Solutions() {
             </ButtonLink>
             <Link
               to="/aplicacoes"
-              className="text-sm underline underline-offset-4 hover:text-purple-600"
+              className="inline-flex min-h-11 items-center text-sm underline underline-offset-4 hover:text-purple-600"
             >
               Ou veja aplicações por área de negócio
             </Link>

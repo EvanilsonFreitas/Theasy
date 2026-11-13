@@ -52,7 +52,7 @@ export function SectionHeader({
         </p>
         <Heading
           id={id}
-          data-reveal=""
+          data-reveal={Heading === 'h1' ? undefined : ''}
           className={size === 'display' ? 'type-display' : 'type-h2'}
         >
           {lines.map((line, i) => (

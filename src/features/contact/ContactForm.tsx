@@ -32,7 +32,7 @@ const schema = z.object({
     .min(20, 'Conte um pouco mais sobre a situação (mínimo de 20 caracteres).')
     .max(4000, 'Mensagem muito longa. Resuma em até 4.000 caracteres.'),
   /** Campo-isca contra spam: deve permanecer vazio. */
-  website: z.string().max(0).optional(),
+  website: z.string().optional(),
 })
 
 type FormValues = z.infer<typeof schema>
@@ -48,7 +48,12 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ defaults }: ContactFormProps) {
-  const [status, setStatus] = useState<Status>({ kind: 'idle' })
+  const [status, setStatusRaw] = useState<Status>({ kind: 'idle' })
+  const [statusNonce, setStatusNonce] = useState(0)
+  const setStatus = (s: Status) => {
+    setStatusRaw(s)
+    setStatusNonce((n) => n + 1)
+  }
   const [copied, setCopied] = useState(false)
   const resultRef = useRef<HTMLDivElement>(null)
 
@@ -76,7 +81,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
 
   useEffect(() => {
     if (status.kind !== 'idle') resultRef.current?.focus()
-  }, [status.kind])
+  }, [status.kind, statusNonce])
 
   const onSubmit = async (values: FormValues) => {
     if (values.website) return // bot
@@ -250,7 +255,7 @@ export function ContactForm({ defaults }: ContactFormProps) {
           </p>
           <p className="text-ink-2 text-sm leading-relaxed">
             Sua mensagem <strong>não foi enviada</strong>. Copie o texto abaixo
-            para guardar a mensagem; o canal de envio será habilitado em breve.
+            e guarde a mensagem até o canal de envio estar disponível.
           </p>
           <pre className="border-rule bg-paper max-h-48 overflow-auto border p-3 font-mono text-xs whitespace-pre-wrap">
             {status.text}

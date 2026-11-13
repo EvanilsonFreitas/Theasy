@@ -26,7 +26,7 @@ export function ClosingCta() {
           <Symbol animated className="size-20 text-purple-500 sm:size-24" />
           <SectionHeader
             id="cta-title"
-            label="§ 05 · Primeira conversa"
+            label="§ 06 · Primeira conversa"
             title={'Conte qual\né o desafio.'}
             size="display"
             layout="stack"

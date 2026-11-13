@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Seo } from '@/components/seo/Seo'
 import { PageIntro } from '@/components/ui/PageIntro'
@@ -11,6 +10,14 @@ import { areaIcons } from '@/content/icons'
 import { areaImages } from '@/content/sectors'
 import { Photo } from '@/components/ui/Photo'
 
+const areaPhrase: Record<string, string> = {
+  Financeiro: 'da área financeira',
+  Operações: 'de operações',
+  Comercial: 'da área comercial',
+  Tecnologia: 'de tecnologia',
+  Gestão: 'de gestão',
+}
+
 const slugOf = (area: string) =>
   area.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
@@ -21,15 +28,13 @@ const slugOf = (area: string) =>
  */
 export function Applications() {
   const [params, setParams] = useSearchParams()
-  const initial = Math.max(
+  const active = Math.max(
     0,
     cases.findIndex((c) => slugOf(c.area) === params.get('area')),
   )
-  const [active, setActive] = useState(initial)
   const current = cases[active]
 
   const choose = (i: number) => {
-    setActive(i)
     setParams(
       { area: slugOf(cases[i].area) },
       { replace: true, preventScrollReset: true },
@@ -40,7 +45,7 @@ export function Applications() {
     <>
       <Seo
         title="Aplicações"
-        description="Como dados, sistemas e consultoria se aplicam a finanças, operações, área comercial, tecnologia e gestão, com casos ilustrativos de cada área."
+        description="Como dados, sistemas e consultoria se aplicam às áreas financeira, de operações, comercial, de tecnologia e de gestão, com casos ilustrativos de cada uma."
       />
       <PageIntro
         label="Aplicações"
@@ -48,8 +53,8 @@ export function Applications() {
         intro={
           <>
             <p>
-              Escolha uma área para ver como uma situação típica atravessa as
-              quatro etapas do nosso trabalho.
+              Escolha uma área para ver como uma situação típica atravessa
+              quatro momentos: desafio, estrutura, solução e decisão.
             </p>
             <p className="text-ink-3 mt-4 text-[15px]">
               Os casos são ilustrativos: representam problemas recorrentes, sem
@@ -159,7 +164,7 @@ export function Applications() {
                 arrow
                 className="self-start"
               >
-                Conversar sobre um desafio de {current.area.toLowerCase()}
+                Conversar sobre um desafio {areaPhrase[current.area]}
               </ButtonLink>
             </div>
           </div>

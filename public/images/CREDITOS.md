@@ -15,7 +15,7 @@ nenhuma imagem é carregada de servidores de terceiros.
 | setor-saude                     | Saúde                    | https://unsplash.com/photos/ZCO_5Y29s8k | Hush Naidoo Jade Photography |
 | setor-servicos                  | Serviços                 | https://unsplash.com/photos/Kz8nHVg_tGI | Arlington Research           |
 | area-financeiro                 | Financeiro               | https://unsplash.com/photos/QV5VoI18Ld8 | Berke Citak                  |
-| area-comercial                  | Comercial                | https://unsplash.com/photos/rWMIbqmOxrY | Nathália Rosa                |
+| area-comercial                  | Comercial                | https://unsplash.com/photos/_4tpElFQemQ | Vitaly Gariev                |
 | area-tecnologia                 | Tecnologia               | https://unsplash.com/photos/M5tzZtFCOfs | Taylor Vick                  |
 | area-gestao                     | Gestão                   | https://unsplash.com/photos/uOhBxB23Wao | ThisisEngineering            |
 | sobre-diagnostico               | Sobre                    | https://unsplash.com/photos/26MJGnCM0Wc | Kaleidico                    |

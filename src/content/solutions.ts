@@ -26,7 +26,7 @@ export const solutions: Solution[] = [
   {
     slug: 'bi-analytics',
     num: '01',
-    name: 'BI e Analytics',
+    name: 'BI e analytics',
     short: 'Indicadores confiáveis e painéis para decidir.',
     lead: 'Indicadores que todas as áreas aceitam e painéis que respondem às perguntas da gestão, em vez de apenas exibir números.',
     when: [
@@ -48,7 +48,7 @@ export const solutions: Solution[] = [
   {
     slug: 'dados-engenharia',
     num: '02',
-    name: 'Dados e Engenharia',
+    name: 'Dados e engenharia',
     short: 'Dados tratados, integrados e confiáveis.',
     lead: 'A base que sustenta qualquer análise: dados de várias origens tratados, integrados e organizados para serem confiáveis.',
     when: [

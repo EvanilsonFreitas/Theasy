@@ -37,9 +37,6 @@ export function Seo({ title, description, noindex }: SeoProps) {
       <meta property="og:site_name" content={site.name} />
       {canonical && <link rel="canonical" href={canonical} />}
       {canonical && <meta property="og:url" content={canonical} />}
-      {site.url && (
-        <meta property="og:image" content={`${site.url}/og-image.png`} />
-      )}
     </>
   )
 }

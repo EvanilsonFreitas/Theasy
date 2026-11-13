@@ -20,7 +20,7 @@ export function SiteFooter() {
           <p className="text-ink-2 max-w-[24em]">{site.tagline}</p>
           <ol
             className="mt-2 flex flex-wrap gap-x-3 gap-y-1"
-            aria-label="Como trabalhamos"
+            aria-label="Do desafio à decisão"
           >
             {STAGES.map((s, i) => (
               <li

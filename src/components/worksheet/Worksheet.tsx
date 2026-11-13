@@ -120,7 +120,7 @@ export function Worksheet({
 
       <div
         role="tablist"
-        aria-label={`Etapas do caso ilustrativo: ${data.area}`}
+        aria-label={`Momentos do caso ilustrativo: ${data.area}`}
         className="border-rule grid grid-cols-4 border-b"
       >
         {STAGES.map((label, i) => {
@@ -175,6 +175,7 @@ export function Worksheet({
       <div
         id={panelId}
         role="tabpanel"
+        tabIndex={0}
         aria-labelledby={tabId(stage)}
         aria-live={playing ? 'off' : 'polite'}
         className="min-h-[23rem] p-5 sm:min-h-[22rem] sm:p-6"
@@ -211,7 +212,7 @@ export function Worksheet({
             onClick={() => select((stage + 1) % STAGES.length)}
             className="group/btn min-h-11 px-3 text-sm font-semibold text-purple-600 hover:text-purple-800"
           >
-            {stage === STAGES.length - 1 ? 'Recomeçar' : 'Próxima etapa'}{' '}
+            {stage === STAGES.length - 1 ? 'Recomeçar' : 'Avançar'}{' '}
             <span
               aria-hidden="true"
               className="inline-block transition-transform duration-150 group-hover/btn:translate-x-1"

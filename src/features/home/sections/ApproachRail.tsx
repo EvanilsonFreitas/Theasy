@@ -1,5 +1,5 @@
 import { useRef, type CSSProperties } from 'react'
-import { m, useScroll, useSpring } from 'framer-motion'
+import { m, useReducedMotion, useScroll, useSpring } from 'framer-motion'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { ButtonLink } from '@/components/ui/Button'
 import { approach } from '@/content/approach'
@@ -18,6 +18,8 @@ export function ApproachRail() {
     offset: ['start 85%', 'end 55%'],
   })
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
+  const reduceMotion = useReducedMotion()
+  const line = reduceMotion ? 1 : progress
 
   return (
     <section
@@ -29,7 +31,7 @@ export function ApproachRail() {
         <SectionHeader
           id="abordagem-title"
           tone="on-ink"
-          label="§ 03 · Abordagem"
+          label="§ 04 · Abordagem"
           title={'Entender antes\nde recomendar.'}
           intro={
             <p>
@@ -46,12 +48,12 @@ export function ApproachRail() {
           <m.span
             aria-hidden="true"
             className="absolute top-[-1px] left-0 hidden h-0.5 w-full origin-left bg-purple-300 md:block"
-            style={{ scaleX: progress }}
+            style={{ scaleX: line }}
           />
           <m.span
             aria-hidden="true"
             className="absolute top-0 left-[-1px] h-full w-0.5 origin-top bg-purple-300 md:hidden"
-            style={{ scaleY: progress }}
+            style={{ scaleY: line }}
           />
           {approach.map((step, i) => (
             <li

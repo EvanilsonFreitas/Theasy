@@ -45,7 +45,7 @@ export function SolutionExplorer() {
       <div className="container-page">
         <SectionHeader
           id="solucoes-title"
-          label="§ 02 · Soluções"
+          label="§ 03 · Soluções"
           title={'Cinco frentes.\nUma pergunta: o que\nprecisa mudar?'}
           intro={
             <p>

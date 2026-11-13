@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useRef } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import { LazyMotion, MotionConfig, domMax } from 'framer-motion'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
@@ -12,26 +12,33 @@ export function PublicLayout() {
 
   useScrollReveal(mainRef)
 
-  // Troca de rota: topo da página (ou âncora) e foco no conteúdo principal,
-  // para que leitores de tela anunciem a nova página.
+  // Troca de rota: a posição de scroll fica com <ScrollRestoration /> (topo
+  // em navegações novas, posição anterior no Voltar/Avançar). Aqui movemos o
+  // foco: para a âncora, quando houver, ou para o conteúdo principal, para
+  // que leitores de tela anunciem a nova página.
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false
       if (!hash) return
     }
     if (hash) {
-      // aguarda a rota (possivelmente lazy) renderizar
+      // Aguarda a rota (possivelmente lazy) renderizar, por até ~5 s.
       const id = decodeURIComponent(hash.slice(1))
       let tries = 0
+      let timer = 0
       const tryScroll = () => {
         const el = document.getElementById(id)
-        if (el) el.scrollIntoView()
-        else if (tries++ < 20) window.setTimeout(tryScroll, 50)
+        if (el) {
+          el.scrollIntoView()
+          if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1')
+          el.focus({ preventScroll: true })
+        } else if (tries++ < 100) {
+          timer = window.setTimeout(tryScroll, 50)
+        }
       }
       tryScroll()
-      return
+      return () => window.clearTimeout(timer)
     }
-    window.scrollTo({ top: 0, behavior: 'instant' })
     mainRef.current?.focus({ preventScroll: true })
   }, [pathname, hash])
 
@@ -44,6 +51,7 @@ export function PublicLayout() {
         >
           Pular para o conteúdo
         </a>
+        <ScrollRestoration />
         <SiteHeader />
         <main
           id="conteudo"

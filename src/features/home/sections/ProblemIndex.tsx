@@ -34,7 +34,7 @@ export function ProblemIndex() {
       <div className="container-page">
         <SectionHeader
           id="problemas-title"
-          label="§ 01 · Problemas reais"
+          label="§ 02 · Problemas reais"
           title={'Algum destes\nsoa familiar?'}
           intro={
             <p>
@@ -87,7 +87,7 @@ export function ProblemIndex() {
           {filter === 'Todas' ? 'no total' : `em ${filter}`}
         </p>
 
-        <ul id="lista-problemas" className="border-ink mt-4 border-t">
+        <ul id="lista-problemas" className="border-ink relative mt-4 border-t">
           <AnimatePresence initial={false} mode="popLayout">
             {list.map((p) => {
               const sol = solutionBySlug(p.solution)!

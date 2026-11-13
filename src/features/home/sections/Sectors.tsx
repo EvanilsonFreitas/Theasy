@@ -18,7 +18,7 @@ export function Sectors() {
       <div className="container-page">
         <SectionHeader
           id="setores-title"
-          label="Onde os problemas aparecem"
+          label="§ 01 · Onde os problemas aparecem"
           title={'Os desafios mudam\nde nome. A lógica\nse repete.'}
           intro={
             <p>
@@ -29,13 +29,13 @@ export function Sectors() {
           }
         />
 
-        <ul className="no-scrollbar -mx-4 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:mt-16 lg:grid-cols-3">
+        <ul className="mt-12 grid grid-cols-2 gap-x-3 gap-y-2 sm:gap-6 lg:mt-16 lg:grid-cols-3">
           {sectors.map((s, i) => (
             <li
               key={s.slug}
               data-rise=""
               style={{ '--i': i % 3 } as CSSProperties}
-              className="group w-[78%] shrink-0 snap-start sm:w-auto"
+              className="group min-w-0"
             >
               <figure className="m-0 flex h-full flex-col">
                 <div className="bg-paper-2 relative overflow-hidden">
@@ -43,20 +43,24 @@ export function Sectors() {
                     name={s.image}
                     alt={s.alt}
                     ratio="3/2"
-                    sizes="(min-width: 1024px) 400px, (min-width: 640px) 45vw, 78vw"
+                    sizes="(min-width: 1024px) 400px, 50vw"
                     className="ease-out-quart aspect-[3/2] transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                   <span className="type-mono bg-paper text-ink absolute top-0 left-0 px-2.5 py-1.5">
                     0{i + 1}
                   </span>
                 </div>
-                <figcaption className="border-rule flex items-start gap-3 border-b pt-4 pb-5">
-                  <IconMark icon={sectorIcons[s.slug]} size="sm" />
+                <figcaption className="border-rule flex items-start gap-3 border-b pt-3 pb-4 sm:pt-4 sm:pb-5">
+                  <IconMark
+                    icon={sectorIcons[s.slug]}
+                    size="sm"
+                    className="hidden sm:inline-flex"
+                  />
                   <span className="flex flex-col gap-1">
-                    <span className="text-xl font-[620] tracking-[-0.015em] [font-stretch:88%]">
+                    <span className="text-[1.0625rem] leading-tight font-[620] tracking-[-0.015em] [font-stretch:88%] sm:text-xl">
                       {s.name}
                     </span>
-                    <span className="text-ink-2 text-[15px] leading-snug">
+                    <span className="text-ink-2 text-[13px] leading-snug sm:text-[15px]">
                       {s.challenges}
                     </span>
                   </span>

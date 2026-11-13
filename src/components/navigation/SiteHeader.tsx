@@ -37,6 +37,21 @@ export function SiteHeader() {
     const first = panel.current?.querySelector<HTMLElement>('a, button')
     first?.focus()
 
+    // Conteúdo atrás do menu fica inerte (leitores de tela e teclado).
+    const behind = [
+      document.getElementById('conteudo'),
+      document.querySelector('body footer'),
+      document.querySelector<HTMLElement>('a[href="#conteudo"]'),
+    ].filter((el): el is HTMLElement => !!el)
+    behind.forEach((el) => (el.inert = true))
+
+    // Ao passar para a largura desktop, o painel some: fecha o menu.
+    const desktop = window.matchMedia('(min-width: 64rem)')
+    const onDesktop = (e: MediaQueryListEvent) => {
+      if (e.matches) setOpen(false)
+    }
+    desktop.addEventListener('change', onDesktop)
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setOpen(false)
@@ -64,6 +79,8 @@ export function SiteHeader() {
     return () => {
       root.style.overflow = prev
       document.removeEventListener('keydown', onKey)
+      desktop.removeEventListener('change', onDesktop)
+      behind.forEach((el) => (el.inert = false))
     }
   }, [open])
 
@@ -145,6 +162,9 @@ export function SiteHeader() {
             ref={panel}
             id="menu-mobile"
             key="menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -171,6 +191,7 @@ export function SiteHeader() {
                     >
                       <NavLink
                         to={item.to}
+                        onClick={() => setOpen(false)}
                         className={({ isActive }) =>
                           cn(
                             'flex min-h-16 items-baseline justify-between gap-4 py-3.5 text-[2.5rem] leading-none font-[620] tracking-[-0.02em] [font-stretch:80%]',
@@ -190,6 +211,7 @@ export function SiteHeader() {
               <div className="mt-auto pt-10">
                 <ButtonLink
                   to={contactCta.to}
+                  onClick={() => setOpen(false)}
                   variant="on-ink"
                   arrow
                   className="w-full"

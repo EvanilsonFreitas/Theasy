@@ -14,7 +14,7 @@ const variants: Record<Variant, string> = {
     'border border-ink text-ink hover:bg-ink hover:text-white active:bg-ink',
   ink: 'bg-ink text-white hover:bg-purple-800',
   'on-ink': 'bg-purple-300 text-ink hover:bg-white',
-  text: 'text-ink underline decoration-1 underline-offset-[6px] hover:text-purple-600',
+  text: 'min-h-11 text-ink underline decoration-1 underline-offset-[6px] hover:text-purple-600',
 }
 
 const sizes: Record<Size, string> = {

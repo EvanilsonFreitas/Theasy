@@ -8,9 +8,9 @@ import { Symbol } from '@/components/brand/Logo'
 
 const principle = [
   { stage: STAGES[0], line: 'O problema de negócio vem primeiro.' },
-  { stage: STAGES[1], line: 'A solução vem depois.' },
+  { stage: STAGES[1], line: 'Dados e processos ganham estrutura.' },
   { stage: STAGES[2], line: 'A tecnologia é o meio.' },
-  { stage: STAGES[3], line: 'Os resultados são a consequência.' },
+  { stage: STAGES[3], line: 'A decisão é o resultado.' },
 ]
 
 const competences = [
@@ -34,14 +34,14 @@ const audience = [
   'Líderes de tecnologia e operações',
   'Gestores de BI e dados',
   'Responsáveis por finanças, controladoria e precificação',
-  'Empresas que precisam de soluções sob medida',
+  'Quem precisa de soluções sob medida',
 ]
 
 export function About() {
   return (
     <>
       <Seo
-        title="Sobre a ThEasy"
+        title="Sobre"
         description="A ThEasy reúne consultoria de negócios, inteligência analítica e engenharia de software para resolver problemas reais de empresas, começando pelo problema."
       />
 
@@ -86,11 +86,10 @@ export function About() {
           <div className="mt-10 grid gap-6 lg:grid-cols-[9rem_minmax(0,1fr)] lg:gap-6">
             <span />
             <p className="type-lead text-ink-2 max-w-[38em]">
-              A ThEasy é uma empresa de soluções empresariais orientadas a
-              dados, tecnologia, inteligência de negócios e consultoria
-              especializada. Não vendemos tecnologia isolada: entendemos o
-              desafio, identificamos onde está a oportunidade de melhoria e
-              construímos a solução adequada ao contexto de cada operação.
+              A ThEasy é uma consultoria que reúne negócio, dados e software.
+              Não vendemos tecnologia isolada: entendemos o desafio,
+              identificamos onde está a oportunidade de melhoria e construímos a
+              solução adequada ao contexto de cada operação.
             </p>
           </div>
         </div>
@@ -148,13 +147,18 @@ export function About() {
             }
           />
           <div className="grid gap-8">
-            <Photo
-              name="sobre-diagnostico"
-              alt="Mãos desenhando um fluxo de processo em um quadro branco"
-              ratio="4/5"
-              sizes="(min-width: 1024px) 560px, 100vw"
-              className="aspect-[4/3] lg:aspect-[16/10]"
-            />
+            <figure className="m-0">
+              <Photo
+                name="sobre-diagnostico"
+                alt="Mão com caneta diante de um quadro branco com esboços de telas"
+                ratio="4/5"
+                sizes="(min-width: 1024px) 560px, 100vw"
+                className="aspect-[4/3] lg:aspect-[16/10]"
+              />
+              <figcaption className="type-mono text-ink-3 mt-2 tracking-normal normal-case">
+                Fotografia ilustrativa
+              </figcaption>
+            </figure>
             <ul className="border-ink border-t">
               {audience.map((a) => (
                 <li key={a} className="border-rule border-b py-3.5 text-lg">

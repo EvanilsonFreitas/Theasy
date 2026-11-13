@@ -5,7 +5,7 @@ const items = [
   {
     quote: 'Vocês precisam de um dashboard.',
     answer: 'Não antes de entender a pergunta.',
-    body: 'Às vezes a resposta é um painel. Às vezes é rever o processo, automatizar uma rotina, estruturar os dados ou rever a formação de preço. O diagnóstico decide, não a ferramenta que vendemos.',
+    body: 'Às vezes a resposta é um painel. Às vezes é rever o processo, automatizar uma rotina, estruturar os dados ou revisar a formação de preço. O diagnóstico decide, não uma ferramenta escolhida de antemão.',
   },
   {
     quote: 'Isso é com o pessoal de TI.',
@@ -30,7 +30,7 @@ export function NotSection() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeader
             id="nao-title"
-            label="§ 04 · O que não fazemos"
+            label="§ 05 · O que não fazemos"
             title={'Três frases que\nvocê não vai ouvir\nda ThEasy.'}
             layout="stack"
           />

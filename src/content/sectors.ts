@@ -43,14 +43,14 @@ export const sectors: Sector[] = [
     name: 'Agronegócio',
     challenges: 'Custo por safra, insumos, produtividade e comercialização.',
     image: 'setor-agronegocio',
-    alt: 'Trator trabalhando em um campo de feno durante a colheita',
+    alt: 'Trator enfardando feno em um campo',
   },
   {
     slug: 'saude',
     name: 'Saúde',
     challenges: 'Ocupação, custos assistenciais e indicadores de atendimento.',
     image: 'setor-saude',
-    alt: 'Profissional de saúde conduzindo um equipamento por um corredor de hospital',
+    alt: 'Profissional de saúde empurrando uma incubadora por um corredor de hospital',
   },
   {
     slug: 'servicos',
@@ -74,7 +74,7 @@ export const areaImages: Record<string, { image: string; alt: string }> = {
   },
   Comercial: {
     image: 'area-comercial',
-    alt: 'Corredor de supermercado com produtos expostos nas gôndolas',
+    alt: 'Equipe reunida em torno de uma mesa analisando informações em um tablet',
   },
   Tecnologia: {
     image: 'area-tecnologia',

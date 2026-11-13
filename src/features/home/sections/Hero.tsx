@@ -10,9 +10,9 @@ export function Hero() {
       <div className="container-page grid gap-12 pt-10 pb-14 sm:pt-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:pt-14 lg:pb-24 xl:pt-16">
         <div className="flex flex-col gap-6 xl:gap-7">
           <p className="type-mono text-ink-3">
-            Consultoria e engenharia · dados, sistemas e gestão
+            Consultoria em dados, sistemas e gestão
           </p>
-          <h1 id="hero-title" className="type-display" data-reveal="">
+          <h1 id="hero-title" className="type-display">
             <span className="reveal-line">
               <span>Começamos pelo</span>
             </span>

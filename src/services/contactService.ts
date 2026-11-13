@@ -43,12 +43,13 @@ export async function sendContact(
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    redirect: 'error',
     body: JSON.stringify({
       ...payload,
       origem: 'site',
       enviadoEm: new Date().toISOString(),
     }),
-    signal,
+    signal: signal ?? AbortSignal.timeout(15000),
   })
 
   if (!res.ok) {
