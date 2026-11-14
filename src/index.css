@@ -298,6 +298,31 @@
   }
 }
 
+/* Brilho curto da estrela na troca de estado do header (uma vez, sem loop).
+   Com movimento reduzido a regra global zera a duração e nada aparece. */
+.symbol-glint {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  pointer-events: none;
+  animation: symbol-glint 620ms var(--ease-snap) both;
+}
+
+@keyframes symbol-glint {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  35% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
 @keyframes symbol-in-a {
   from {
     transform: translate(-90px, -90px);

@@ -6,12 +6,20 @@ import { ButtonLink } from '@/components/ui/Button'
 import { contactCta, primaryNav } from '@/content/site'
 import { cn } from '@/lib/utils'
 
+/** Limiares do header compacto (px de scroll), com histerese. */
+const COMPACT_AT = 48
+const EXPAND_AT = 16
+
 export function SiteHeader() {
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [compact, setCompact] = useState(false)
+  const [glint, setGlint] = useState(0)
+  const [panelTop, setPanelTop] = useState<number | null>(null)
+  const header = useRef<HTMLElement>(null)
   const menuButton = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
+  const openRef = useRef(open)
 
   // Fecha o menu ao navegar.
   const [lastPath, setLastPath] = useState(pathname)
@@ -21,11 +29,39 @@ export function SiteHeader() {
   }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
+    openRef.current = open
+  }, [open])
+
+  // Header compacto no scroll, com histerese: compacta acima de COMPACT_AT e
+  // só volta ao tamanho completo abaixo de EXPAND_AT. A leitura é limitada a
+  // um quadro por vez (rAF) e o estado só muda ao cruzar um limiar, então
+  // não há renderização por pixel nem oscilação perto do limite. Com o menu
+  // aberto o estado fica congelado.
+  useEffect(() => {
+    let raf = 0
+    const update = () => {
+      raf = 0
+      if (openRef.current) return
+      const y = window.scrollY
+      setCompact((c) => (c ? y > EXPAND_AT : y > COMPACT_AT))
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(raf)
+    }
   }, [])
+
+  // Brilho curto da estrela a cada troca de estado (não toca na montagem).
+  const [lastCompact, setLastCompact] = useState(compact)
+  if (lastCompact !== compact) {
+    setLastCompact(compact)
+    setGlint((g) => g + 1)
+  }
 
   // Menu aberto: trava o scroll do documento, Esc fecha, foco preso no painel.
   useEffect(() => {
@@ -86,16 +122,27 @@ export function SiteHeader() {
 
   return (
     <header
+      ref={header}
+      data-compact={compact || undefined}
       className={cn(
-        'sticky top-0 z-40 border-b transition-[background-color,border-color,box-shadow] duration-200',
-        scrolled || open
-          ? 'border-rule bg-paper shadow-[0_8px_24px_-16px_rgb(21_19_27/0.25)]'
-          : 'border-rule bg-paper',
+        // A altura no fluxo nunca muda (sem deslocar o conteúdo). O header
+        // fica preso alguns pixels acima da viewport, então a faixa visível
+        // passa de 64/72 para 56/60 px; a linha interna se recentra com
+        // transform.
+        'bg-paper border-rule sticky -top-2 z-40 border-b transition-[box-shadow] duration-300 md:-top-3',
+        compact || open
+          ? 'shadow-[0_10px_28px_-18px_rgb(21_19_27/0.28)]'
+          : 'shadow-[0_10px_28px_-18px_rgb(21_19_27/0)]',
       )}
     >
-      <div className="frame flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
+      <div
+        className={cn(
+          'frame ease-snap flex h-16 items-center justify-between gap-6 transition-transform duration-[360ms] md:h-[4.5rem]',
+          compact ? 'translate-y-1 md:translate-y-1.5' : 'translate-y-0',
+        )}
+      >
         <Link to="/" className="-m-2 p-2" aria-label="ThEasy, página inicial">
-          <Logo tagline />
+          <Logo tagline compact={compact} glint={glint} />
         </Link>
 
         <nav aria-label="Principal" className="hidden lg:block">
@@ -137,7 +184,14 @@ export function SiteHeader() {
             className="border-line bg-paper inline-flex min-h-11 items-center gap-2.5 rounded-lg border px-3.5 text-[15px] font-medium lg:hidden"
             aria-expanded={open}
             aria-controls="menu-mobile"
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => {
+              // O painel começa exatamente na borda inferior visível do
+              // header, qualquer que seja o estado (completo ou compacto).
+              setPanelTop(
+                header.current?.getBoundingClientRect().bottom ?? null,
+              )
+              setOpen((o) => !o)
+            }}
           >
             <span>{open ? 'Fechar' : 'Menu'}</span>
             <span aria-hidden="true" className="relative block h-2.5 w-4">
@@ -171,6 +225,7 @@ export function SiteHeader() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.24, ease: [0.2, 0.8, 0.2, 1] }}
+            style={panelTop != null ? { top: panelTop } : undefined}
             className="on-ink bg-ink text-on-ink fixed inset-x-0 top-16 bottom-0 overflow-y-auto md:top-[4.5rem] lg:hidden"
           >
             <nav
