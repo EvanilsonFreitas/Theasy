@@ -672,3 +672,74 @@ test.describe('V2.2 · WhatsApp comercial', () => {
     await ctx.close()
   })
 })
+
+test.describe('V2.2 · revisão de QA', () => {
+  test('select dentro de moldura com overflow: todas as opções clicáveis', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 768, height: 900 })
+    await page.goto('/solucoes#sistemas')
+    const combo = page.getByRole('combobox', { name: 'Etapa' })
+    await combo.scrollIntoViewIfNeeded()
+    await settle(page)
+    await combo.click()
+    const last = page.getByRole('option', { name: 'Expedição' })
+    await expect(last).toBeVisible()
+    await settle(page)
+    const box = (await last.boundingBox())!
+    const hit = await page.evaluate(
+      ([x, y]) =>
+        document.elementFromPoint(x, y)?.closest('[role="option"]')
+          ?.textContent,
+      [box.x + box.width / 2, box.y + box.height / 2],
+    )
+    expect(hit).toBe('Expedição')
+    await last.click()
+    await expect(combo).toHaveText('Expedição')
+  })
+
+  test('linha do header centrada na faixa visível em qualquer posição', async ({
+    page,
+  }) => {
+    for (const width of [1280, 390]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto('/')
+      for (const y of [0, 6, 20, 40, 60, 400]) {
+        await page.evaluate(
+          (top) => window.scrollTo({ top, behavior: 'instant' }),
+          y,
+        )
+        await page.waitForTimeout(450)
+        const off = await page.evaluate(() => {
+          const h = document.querySelector('header')!.getBoundingClientRect()
+          const sym = document
+            .querySelector('header svg[viewBox="160 160 704 704"]')!
+            .getBoundingClientRect()
+          const top = Math.max(0, h.top)
+          return sym.top + sym.height / 2 - (top + h.bottom) / 2
+        })
+        expect(Math.abs(off)).toBeLessThanOrEqual(1.5)
+      }
+    }
+  })
+
+  test('rodapé não fica sob o botão do WhatsApp em telas largas', async ({
+    page,
+  }) => {
+    for (const width of [768, 1024, 1280]) {
+      await page.setViewportSize({ width, height: 800 })
+      await page.goto('/')
+      await page.evaluate(() =>
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'instant',
+        }),
+      )
+      await page.waitForTimeout(300)
+      const float = (await page.locator('[data-whatsapp-float]').boundingBox())!
+      const rows = page.locator('footer > div:last-child > p')
+      for (let i = 0; i < (await rows.count()); i++)
+        expect(overlaps(float, (await rows.nth(i).boundingBox())!)).toBe(false)
+    }
+  })
+})
