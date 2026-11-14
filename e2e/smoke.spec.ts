@@ -103,11 +103,11 @@ test.describe('identidade', () => {
     await expect(
       page.getByText('Business Intelligence & Consulting'),
     ).toHaveCount(0)
-    // Símbolo na cor institucional #8B6CF0
+    // Símbolo na cor institucional oficial #5D3BDA
     const color = await header
       .locator('svg[viewBox="160 160 704 704"]')
       .evaluate((el) => getComputedStyle(el).color)
-    expect(color).toBe('rgb(139, 108, 240)')
+    expect(color).toBe('rgb(93, 59, 218)')
     await expect(page).toHaveTitle('ThEasy | Your data analytics')
   })
 

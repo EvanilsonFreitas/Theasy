@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
 # Publicação somente manual: o deploy automático a cada push na main foi
-# desativado até a definição da estratégia de publicação (GitHub Pages está
-# inativo no repositório). Para publicar, execute este workflow pela aba
-# Actions depois de ativar o Pages.
+# desativado. Execute este workflow pela aba Actions (ou
+# `gh workflow run deploy.yml --ref main`) depois do merge na main.
+# Procedimento completo em docs/deployment/GITHUB_PAGES.md.
 on:
   workflow_dispatch:
 
@@ -43,6 +43,9 @@ jobs:
       - name: Build
         env:
           GITHUB_PAGES: true
+          # URL pública confirmada pelo GitHub Pages (não é segredo):
+          # ativa canonical, og:url e sitemap.xml.
+          VITE_SITE_URL: https://evanilsonfreitas.github.io/Theasy
         run: npm run build
 
       - name: Upload Pages artifact

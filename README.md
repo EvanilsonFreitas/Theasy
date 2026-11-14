@@ -7,8 +7,15 @@ Analytics (Power BI), engenharia de dados, sistemas sob medida, automação de
 processos e consultoria financeira e de gestão (controladoria, custos, preço
 e rentabilidade).
 
+Produção: **https://evanilsonfreitas.github.io/Theasy/** (GitHub Pages).
+
 ## Documentação
 
+- [CLAUDE.md](./CLAUDE.md): instruções do projeto para sessões do Claude Code.
+- [docs/handoff/PROJECT_HANDOFF.md](./docs/handoff/PROJECT_HANDOFF.md): estado,
+  decisões, pendências e recuperação do projeto.
+- [docs/deployment/GITHUB_PAGES.md](./docs/deployment/GITHUB_PAGES.md):
+  publicação, validação e rollback.
 - [DESIGN.md](./DESIGN.md): visão geral, pendências e validação.
 - [docs/design/benchmark-v2.md](./docs/design/benchmark-v2.md): benchmark visual.
 - [docs/design/refinamento-v2.1.md](./docs/design/refinamento-v2.1.md): sistema
@@ -27,21 +34,23 @@ React Hook Form + Zod · Framer Motion · Instrument Sans e IBM Plex Mono
 
 ## Começando
 
-Node.js 20 ou superior.
+Node.js 22 (o CI usa 22; o Vite 8 exige 20.19 ou mais recente).
 
 ```bash
-npm install
+npm ci
+npx playwright install chromium
 npm run dev
 ```
 
-| Comando             | Descrição                                |
-| ------------------- | ---------------------------------------- |
-| `npm run dev`       | Servidor de desenvolvimento              |
-| `npm run build`     | Typecheck e build de produção em `dist/` |
-| `npm run typecheck` | Verificação de tipos                     |
-| `npm run lint`      | ESLint (inclui jsx-a11y)                 |
-| `npm run format`    | Prettier                                 |
-| `npm run preview`   | Pré-visualização do build                |
+| Comando              | Descrição                                    |
+| -------------------- | -------------------------------------------- |
+| `npm run dev`        | Servidor de desenvolvimento                  |
+| `npm run build`      | Typecheck e build de produção em `dist/`     |
+| `npm run typecheck`  | Verificação de tipos                         |
+| `npm run lint`       | ESLint (inclui jsx-a11y); `lint:fix` corrige |
+| `npm run test:smoke` | Testes de fumaça Playwright contra o build   |
+| `npm run format`     | Prettier; `format:check` apenas verifica     |
+| `npm run preview`    | Pré-visualização do build                    |
 
 ## Configuração
 
@@ -54,10 +63,11 @@ Copie `.env.example` para `.env.local`:
 
 ## Deploy
 
-GitHub Pages via GitHub Actions a cada push em `main`
-([workflow](./.github/workflows/deploy.yml)): lint, typecheck, build e
-publicação, com `base` `/Theasy/`. O `public/404.html` mantém o roteamento
-client side em links diretos.
+- **CI** ([ci.yml](./.github/workflows/ci.yml)): em PRs e pushes na `main`,
+  roda lint, typecheck, build e os testes de fumaça (`npm run test:smoke`).
+- **Publicação** ([deploy.yml](./.github/workflows/deploy.yml)): GitHub Pages,
+  disparo **manual** depois do merge, com `base` `/Theasy/`. Procedimento em
+  [docs/deployment/GITHUB_PAGES.md](./docs/deployment/GITHUB_PAGES.md).
 
 ## Conteúdo
 
