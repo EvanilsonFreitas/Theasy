@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ThEasy, Design system</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#16131D}a:hover{color:#5B3CD6}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+</style>
+</helmet>
+<div style="width: 1440px; height: 2300px; box-sizing: border-box; background: #FFFFFF; color: #16131D; font-family: 'Archivo', sans-serif; padding: 64px; display: flex; flex-direction: column; gap: 64px">
+
+<div style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid #16131D; padding-bottom: 16px">
+<h1 style="margin: 0; font-size: 72px; font-weight: 640; font-stretch: 78%; letter-spacing: -0.035em; line-height: .9">Sistema ThEasy</h1>
+<span class="mono" style="color: #6E6A78">v1 · paleta derivada do símbolo oficial, validação institucional pendente</span>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px">
+<p class="mono" style="margin: 0; grid-column: span 4">Cor, o roxo marca o ponto de resolução: ação principal, estado ativo, a decisão</p>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 120px; background: #5B3CD6"></div><strong>Roxo 600 · #5B3CD6</strong><span style="font-size: 14px; color: #4A4654">Ação primária, estado selecionado. 6,9:1 sobre branco.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 120px; background: #3F27A3"></div><strong>Roxo 800 · #3F27A3</strong><span style="font-size: 14px; color: #4A4654">Hover / pressionado; texto sobre tinta roxa.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 120px; background: #B9A8F8"></div><strong>Roxo 300 · #B9A8F8</strong><span style="font-size: 14px; color: #4A4654">Acento sobre fundo tinta. Cor do símbolo: #8B6CF0.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 120px; background: #F3F0FE; border: 1px solid #E4E1EA"></div><strong>Roxo 50 · #F3F0FE</strong><span style="font-size: 14px; color: #4A4654">Realce de linha, destaque de fato no modelo.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 72px; background: #16131D"></div><strong>Tinta · #16131D</strong><span style="font-size: 14px; color: #4A4654">Texto, regras fortes, seção Abordagem.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 72px; background: #4A4654"></div><strong>Tinta 2 · #4A4654</strong><span style="font-size: 14px; color: #4A4654">Texto corrido secundário. 9,0:1.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 72px; background: #6E6A78"></div><strong>Tinta 3 · #6E6A78</strong><span style="font-size: 14px; color: #4A4654">Rótulos mono e metadados. 5,3:1.</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 72px; background: #F6F5F8; border: 1px solid #E4E1EA"></div><strong>Papel 2 · #F6F5F8 / Regra #E4E1EA</strong><span style="font-size: 14px; color: #4A4654">Superfície alternada e linhas de pauta.</span></div>
+</div>
+
+<div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; border-top: 1px solid #16131D; padding-top: 24px">
+<div><p class="mono" style="margin: 0 0 8px">Tipografia</p><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4654">Archivo variável (largura de 62 a 125) para display e texto; IBM Plex Mono para rótulos, numeração e anotações. A largura comprimida nos títulos dá o ritmo de relatório; o texto corre em largura normal.</p></div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: baseline; gap: 24px"><span class="mono" style="width: 120px; color: #6E6A78">Display 104</span><span style="font-size: 104px; font-weight: 620; font-stretch: 78%; letter-spacing: -0.035em; line-height: .94">O problema vem</span></div>
+<div style="display: flex; align-items: baseline; gap: 24px"><span class="mono" style="width: 120px; color: #6E6A78">H2 64</span><span style="font-size: 64px; font-weight: 620; font-stretch: 78%; letter-spacing: -0.035em; line-height: .96">Entender antes de recomendar</span></div>
+<div style="display: flex; align-items: baseline; gap: 24px"><span class="mono" style="width: 120px; color: #6E6A78">H3 26</span><span style="font-size: 26px; font-weight: 560; font-stretch: 88%; letter-spacing: -0.015em">Onde estamos perdendo dinheiro?</span></div>
+<div style="display: flex; align-items: baseline; gap: 24px"><span class="mono" style="width: 120px; color: #6E6A78">Corpo 18/1.55</span><span style="font-size: 18px; line-height: 1.55; color: #4A4654; max-width: 36em">A ThEasy entende o desafio da sua operação antes de recomendar qualquer ferramenta.</span></div>
+<div style="display: flex; align-items: baseline; gap: 24px"><span class="mono" style="width: 120px; color: #6E6A78">Mono 12</span><span class="mono">§ 02 · Soluções · Caso ilustrativo</span></div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; border-top: 1px solid #16131D; padding-top: 24px">
+<div><p class="mono" style="margin: 0 0 8px">Assinatura, o trilho</p><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4654">Quatro estações fixas que organizam a narrativa do site inteiro. Aparece no hero, nas páginas de solução, na abordagem e no contato. Etapas futuras em pontilhado; a decisão, em roxo.</p></div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid #16131D">
+<div style="padding: 16px 16px 0 0; border-right: 1px solid #E4E1EA"><span class="mono" style="color: #6E6A78">01</span><p style="margin: 6px 0 0; font-size: 22px; font-weight: 620; font-stretch: 85%">Desafio</p><p style="margin: 6px 0 0; font-size: 14px; color: #4A4654">Fontes dispersas, rótulos tortos</p></div>
+<div style="padding: 16px; border-right: 1px solid #E4E1EA"><span class="mono" style="color: #6E6A78">02</span><p style="margin: 6px 0 0; font-size: 22px; font-weight: 620; font-stretch: 85%">Estrutura</p><p style="margin: 6px 0 0; font-size: 14px; color: #4A4654">Encaixe em grade</p></div>
+<div style="padding: 16px; border-right: 1px solid #E4E1EA"><span class="mono" style="color: #6E6A78">03</span><p style="margin: 6px 0 0; font-size: 22px; font-weight: 620; font-stretch: 85%">Solução</p><p style="margin: 6px 0 0; font-size: 14px; color: #4A4654">Interface concreta</p></div>
+<div style="padding: 16px; box-shadow: inset 0 2px 0 #5B3CD6"><span class="mono" style="color: #5B3CD6">04</span><p style="margin: 6px 0 0; font-size: 22px; font-weight: 620; font-stretch: 85%; color: #5B3CD6">Decisão</p><p style="margin: 6px 0 0; font-size: 14px; color: #4A4654">Uma frase, em roxo</p></div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; border-top: 1px solid #16131D; padding-top: 24px">
+<div><p class="mono" style="margin: 0 0 8px">Botões e links</p><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4654">Cantos retos, sem sombra. Foco: contorno roxo 2px com afastamento 3px. Alvo mínimo 44px.</p></div>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+<span class="mono" style="width: 100px; color: #6E6A78">Padrão</span>
+<a href="#" style="text-decoration: none; background: #5B3CD6; color: #FFFFFF; padding: 16px 22px; font-weight: 580">Conversar sobre seu desafio →</a>
+<a href="#" style="text-decoration: none; border: 1px solid #16131D; padding: 15px 21px; font-weight: 560">Conhecer as soluções</a>
+<a href="#" style="font-weight: 560; text-underline-offset: 4px">Link de texto →</a>
+</div>
+<div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+<span class="mono" style="width: 100px; color: #6E6A78">Hover</span>
+<a href="#" style="text-decoration: none; background: #3F27A3; color: #FFFFFF; padding: 16px 22px; font-weight: 580">Conversar sobre seu desafio  →</a>
+<a href="#" style="text-decoration: none; background: #16131D; color: #FFFFFF; padding: 16px 22px; font-weight: 560">Conhecer as soluções</a>
+<a href="#" style="font-weight: 560; color: #5B3CD6; text-underline-offset: 4px">Link de texto →</a>
+</div>
+<div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+<span class="mono" style="width: 100px; color: #6E6A78">Foco</span>
+<a href="#" style="text-decoration: none; background: #5B3CD6; color: #FFFFFF; padding: 16px 22px; font-weight: 580; outline: 2px solid #5B3CD6; outline-offset: 3px">Conversar sobre seu desafio →</a>
+<a href="#" style="text-decoration: none; border: 1px solid #16131D; padding: 15px 21px; font-weight: 560; outline: 2px solid #5B3CD6; outline-offset: 3px">Conhecer as soluções</a>
+</div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; border-top: 1px solid #16131D; padding-top: 24px">
+<div><p class="mono" style="margin: 0 0 8px">Campos</p><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4654">Rótulo mono acima, sempre visível. Erro com texto e ícone, nunca só cor.</p></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="f1" class="mono">Nome</label><input id="f1" value="" placeholder="Seu nome" style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #A9A4B5"><span style="font-size: 13px; color: #6E6A78">Padrão</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="f2" class="mono">E-mail corporativo</label><input id="f2" value="ana@empresa.com.br" style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #5B3CD6; outline: 2px solid #5B3CD6; outline-offset: 1px"><span style="font-size: 13px; color: #6E6A78">Foco</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><label for="f3" class="mono">Empresa</label><input id="f3" value="" aria-invalid="true" style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #B42318"><span style="font-size: 13px; color: #B42318">✕ Informe o nome da empresa.</span></div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; border-top: 1px solid #16131D; padding-top: 24px">
+<div><p class="mono" style="margin: 0 0 8px">Movimento</p><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4A4654">Um só gesto: desordem que se encaixa na grade. Só transform e opacity. Com movimento reduzido, tudo aparece no estado final.</p></div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; font-size: 14px; line-height: 1.5">
+<div style="border-top: 1px solid #E4E1EA; padding-top: 12px"><strong>Micro · 140ms</strong><br><span style="color: #4A4654">Hover, foco, seta que avança 4px.</span></div>
+<div style="border-top: 1px solid #E4E1EA; padding-top: 12px"><strong>Interface · 280ms</strong><br><span style="color: #4A4654">Troca de aba, painel de solução, menu.</span></div>
+<div style="border-top: 1px solid #E4E1EA; padding-top: 12px"><strong>Encaixe · 520ms</strong><br><span style="color: #4A4654">Rótulos tortos → grade (folha de trabalho).</span></div>
+<div style="border-top: 1px solid #E4E1EA; padding-top: 12px"><strong>Curva</strong><br><span style="color: #4A4654">cubic-bezier(.2,.8,.2,1), rápido no início, assenta sem quicar.</span></div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

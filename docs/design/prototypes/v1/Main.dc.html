@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ThEasy, Home desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF;color:#16131D;font-family:'Archivo',system-ui,sans-serif}
+a{color:#16131D}a:hover{color:#5B3CD6}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.h-display{font-stretch:78%;font-weight:620;letter-spacing:-0.035em;line-height:.94}
+.rowhover:hover{background:#F6F5F8}
+.rowhover:hover .arrow{color:#5B3CD6;transform:translateX(4px)}
+.btn:focus-visible,.tab:focus-visible,a:focus-visible{outline:2px solid #5B3CD6;outline-offset:3px}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #FFFFFF">
+
+<header style="border-bottom: 1px solid #E4E1EA; background: #FFFFFF">
+<div class="wrap" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; flex-wrap: wrap">
+<a href="#" aria-label="ThEasy, página inicial" style="text-decoration: none"><span style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><svg viewBox="160 160 704 704" width="36" height="36" aria-hidden="true" fill="#8B6CF0"><path d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"></path><path transform="rotate(180 512 512)" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"></path><path d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"></path></svg><span style="display: block; line-height: 1"><span style="display: block; font-size: 22px; font-weight: 560; letter-spacing: 0.02em; color: #16131D">THEASY</span><span style="display: block; font-size: 10px; color: #6E6A78; margin-top: 4px; font-weight: 400; letter-spacing: 0">Business Intelligence &amp; Consulting</span></span></span></a>
+<nav aria-label="Principal" style="display: flex; gap: 32px; font-size: 15px; flex-wrap: wrap">
+<a href="#solucoes" style="text-decoration: none">Soluções</a>
+<a href="#abordagem" style="text-decoration: none">Abordagem</a>
+<a href="#aplicacoes" style="text-decoration: none">Aplicações</a>
+<a href="#sobre" style="text-decoration: none">Sobre</a>
+</nav>
+<a href="#contato" class="btn" style="text-decoration: none; background: #16131D; color: #FFFFFF; padding: 12px 18px; font-size: 15px; font-weight: 560; display: inline-flex; gap: 10px; align-items: center">Conversar sobre seu desafio <span aria-hidden="true">→</span></a>
+</div>
+</header>
+
+<section aria-labelledby="hero-title" style="border-bottom: 1px solid #E4E1EA">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr)); gap: clamp(32px, 5vw, 72px); padding-top: clamp(48px, 7vw, 96px); padding-bottom: clamp(48px, 6vw, 88px); align-items: start">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<p class="mono" style="margin: 0; color: #6E6A78">Dados · Sistemas · Gestão, consultoria e engenharia</p>
+<h1 id="hero-title" class="h-display" style="margin: 0; font-size: clamp(48px, 7vw, 104px)">Começamos pelo problema. <span style="color: #6E6A78">A tecnologia vem depois.</span></h1>
+<p style="margin: 0; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: #4A4654; max-width: 34em">A ThEasy entende o desafio da sua operação antes de recomendar qualquer ferramenta. Depois, constrói o que for preciso: indicadores confiáveis, dados organizados, sistemas sob medida e análises de custo e preço que sustentam decisões.</p>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<a href="#contato" class="btn" style="text-decoration: none; background: #5B3CD6; color: #FFFFFF; padding: 16px 22px; font-weight: 580; font-size: 16px">Conversar sobre seu desafio →</a>
+<a href="#problemas" class="btn" style="text-decoration: none; color: #16131D; padding: 16px 22px; font-weight: 560; font-size: 16px; border: 1px solid #16131D">Ver problemas que resolvemos</a>
+</div>
+</div>
+
+<div style="border: 1px solid #16131D; background: #FFFFFF">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #16131D; gap: 12px; flex-wrap: wrap">
+<span class="mono" style="color: #16131D">Folha de trabalho</span>
+<span class="mono" style="color: #6E6A78">Caso ilustrativo · Financeiro</span>
+</div>
+<div role="tablist" aria-label="Etapas do caso" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid #E4E1EA">
+<sc-for list="{{stages}}" as="s" hint-placeholder-count="4">
+<button role="tab" class="tab" aria-selected="{{s.selected}}" onClick="{{s.pick}}" style="{{s.style}}"><span class="mono" style="display: block; font-size: 11px">{{s.num}}</span><span style="display: block; font-size: 15px; font-weight: 600; margin-top: 4px">{{s.label}}</span></button>
+</sc-for>
+</div>
+<div style="padding: 24px; min-height: 340px; box-sizing: border-box">
+<sc-if value="{{is1}}" hint-placeholder-val="{{true}}">
+<p class="mono" style="margin: 0 0 12px; color: #6E6A78">A pergunta do diretor financeiro</p>
+<p style="margin: 0 0 28px; font-size: 26px; line-height: 1.2; font-weight: 560; font-stretch: 88%; letter-spacing: -0.015em">“O faturamento cresce, mas a margem não acompanha. Onde estamos perdendo dinheiro?”</p>
+<p class="mono" style="margin: 0 0 12px; color: #6E6A78">O que existe hoje</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<span style="border: 1px dashed #A9A4B5; padding: 8px 12px; font-size: 14px; transform: rotate(-2deg)">Vendas no ERP</span>
+<span style="border: 1px dashed #A9A4B5; padding: 8px 12px; font-size: 14px; transform: rotate(1.5deg) translateY(6px)">custos_v7_FINAL.xlsx</span>
+<span style="border: 1px dashed #A9A4B5; padding: 8px 12px; font-size: 14px; transform: rotate(-1deg)">Tabela de preços</span>
+<span style="border: 1px dashed #A9A4B5; padding: 8px 12px; font-size: 14px; transform: rotate(2.5deg) translateY(-4px)">Comissões</span>
+<span style="border: 1px dashed #A9A4B5; padding: 8px 12px; font-size: 14px; transform: rotate(-1.5deg) translateY(4px)">Fretes e descontos</span>
+</div>
+</sc-if>
+<sc-if value="{{is2}}" hint-placeholder-val="{{false}}">
+<p class="mono" style="margin: 0 0 16px; color: #6E6A78">As mesmas fontes, organizadas em um modelo</p>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-size: 14px">
+<div style="border: 1px solid #16131D; padding: 10px">Produto</div>
+<div style="border: 1px solid #16131D; padding: 10px">Cliente</div>
+<div style="border: 1px solid #16131D; padding: 10px">Canal</div>
+<div style="grid-column: span 3; border: 1px solid #5B3CD6; background: #F3F0FE; padding: 14px"><span class="mono" style="color: #3F27A3">Fato</span><br><strong style="font-weight: 620">Venda líquida</strong> = preço menos descontos, frete, comissão e custo</div>
+<div style="border: 1px solid #16131D; padding: 10px">Custo padrão</div>
+<div style="border: 1px solid #16131D; padding: 10px">Calendário</div>
+<div style="border: 1px solid #16131D; padding: 10px">Meta de margem</div>
+</div>
+<p style="margin: 20px 0 0; font-size: 15px; color: #4A4654; line-height: 1.5">Uma única definição de margem, aceita pelo comercial e pelo financeiro.</p>
+</sc-if>
+<sc-if value="{{is3}}" hint-placeholder-val="{{false}}">
+<p class="mono" style="margin: 0 0 16px; color: #6E6A78">Painel de margem por linha de produto</p>
+<div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px">
+<div style="display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center"><span>Linha A</span><span style="height: 14px; background: #16131D; width: 82%"></span></div>
+<div style="display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center"><span>Linha B</span><span style="height: 14px; background: #16131D; width: 64%"></span></div>
+<div style="display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center"><span>Linha C</span><span style="height: 14px; background: #5B3CD6; width: 21%"></span></div>
+<div style="display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center"><span>Linha D</span><span style="height: 14px; background: #16131D; width: 55%"></span></div>
+<div style="display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center"><span>Linha E</span><span style="height: 14px; background: #5B3CD6; width: 14%"></span></div>
+</div>
+<p style="margin: 20px 0 0; font-size: 15px; color: #4A4654; line-height: 1.5">Duas linhas abaixo da meta, visíveis por canal, cliente e período.</p>
+</sc-if>
+<sc-if value="{{is4}}" hint-placeholder-val="{{false}}">
+<p class="mono" style="margin: 0 0 16px; color: #5B3CD6">Decisão</p>
+<p style="margin: 0; font-size: 26px; line-height: 1.2; font-weight: 560; font-stretch: 88%; letter-spacing: -0.015em; border-left: 3px solid #5B3CD6; padding-left: 16px">Revisar a política de preço das linhas C e E e renegociar descontos no canal distribuidor.</p>
+<p style="margin: 24px 0 0; font-size: 15px; color: #4A4654; line-height: 1.5">A conversa deixa de ser “qual número está certo” e passa a ser “o que fazer com ele”.</p>
+</sc-if>
+</div>
+<div style="padding: 12px 16px; border-top: 1px solid #E4E1EA; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+<span class="mono" style="color: #6E6A78">Exemplo ilustrativo, sem dados de clientes</span>
+<button onClick="{{next}}" class="btn" style="font: inherit; font-size: 14px; background: none; border: 0; padding: 0; cursor: pointer; color: #5B3CD6; font-weight: 600">Próxima etapa →</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="problemas" aria-labelledby="prob-title" style="padding: clamp(64px, 8vw, 120px) 0; border-bottom: 1px solid #E4E1EA">
+<div class="wrap">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 32px; align-items: end; margin-bottom: 40px">
+<div>
+<p class="mono" style="margin: 0 0 16px; color: #6E6A78">§ 01 · Problemas reais</p>
+<h2 id="prob-title" class="h-display" style="margin: 0; font-size: clamp(36px, 4.6vw, 64px)">Algum destes soa familiar?</h2>
+</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A4654; max-width: 32em">Os projetos raramente começam com “precisamos de um dashboard”. Começam com uma situação que custa tempo, dinheiro ou confiança.</p>
+</div>
+<div role="tablist" aria-label="Filtrar por área" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px">
+<sc-for list="{{areas}}" as="a" hint-placeholder-count="6">
+<button role="tab" class="tab" aria-selected="{{a.selected}}" onClick="{{a.pick}}" style="{{a.style}}">{{a.label}}</button>
+</sc-for>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; border-top: 1px solid #16131D">
+<sc-for list="{{problems}}" as="p" hint-placeholder-count="6">
+<li class="rowhover" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px 32px; padding: 24px 8px; border-bottom: 1px solid #E4E1EA; align-items: baseline">
+<span style="font-size: clamp(20px, 2vw, 26px); font-weight: 520; font-stretch: 90%; letter-spacing: -0.01em; line-height: 1.25; grid-column: span 2">{{p.text}}</span>
+<span class="mono" style="color: #6E6A78">{{p.area}}</span>
+<a href="#solucoes" style="text-decoration: none; font-size: 15px; font-weight: 560; display: flex; gap: 8px"><span>{{p.solution}}</span><span class="arrow" aria-hidden="true" style="transition: transform .2s">→</span></a>
+</li>
+</sc-for>
+</ul>
+</div>
+</section>
+
+<section id="solucoes" aria-labelledby="sol-title" style="padding: clamp(64px, 8vw, 120px) 0; background: #F6F5F8; border-bottom: 1px solid #E4E1EA">
+<div class="wrap">
+<p class="mono" style="margin: 0 0 16px; color: #6E6A78">§ 02 · Soluções</p>
+<h2 id="sol-title" class="h-display" style="margin: 0 0 48px; font-size: clamp(36px, 4.6vw, 64px); max-width: 14em">Cinco frentes. Uma mesma pergunta: o que precisa mudar na operação?</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 32px">
+<div role="tablist" aria-orientation="vertical" aria-label="Frentes de solução" style="flex: 1 1 300px; display: flex; flex-direction: column; border-top: 1px solid #16131D">
+<sc-for list="{{sols}}" as="s" hint-placeholder-count="5">
+<button role="tab" class="tab" aria-selected="{{s.selected}}" onClick="{{s.pick}}" style="{{s.style}}"><span class="mono" style="font-size: 11px; width: 28px">{{s.num}}</span><span>{{s.name}}</span></button>
+</sc-for>
+</div>
+<div role="tabpanel" style="flex: 999 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #16131D; padding: clamp(24px, 3vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<p class="mono" style="margin: 0; color: #5B3CD6">{{sol.num}}, {{sol.name}}</p>
+<p style="margin: 0; font-size: 22px; line-height: 1.3; font-weight: 520; font-stretch: 92%">{{sol.lead}}</p>
+<div>
+<p class="mono" style="margin: 0 0 10px; color: #6E6A78">Faz sentido quando</p>
+<ul style="margin: 0; padding-left: 18px; line-height: 1.6; color: #4A4654; font-size: 15px">
+<sc-for list="{{sol.when}}" as="w" hint-placeholder-count="3"><li>{{w}}</li></sc-for>
+</ul>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div>
+<p class="mono" style="margin: 0 0 10px; color: #6E6A78">O que entregamos</p>
+<ul style="margin: 0; padding: 0; list-style: none; font-size: 15px">
+<sc-for list="{{sol.deliver}}" as="d" hint-placeholder-count="4"><li style="padding: 10px 0; border-bottom: 1px solid #E4E1EA">{{d}}</li></sc-for>
+</ul>
+</div>
+<p class="mono" style="margin: 0; color: #6E6A78; text-transform: none; letter-spacing: 0">Ferramentas, conforme o projeto: {{sol.tools}}</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="abordagem" aria-labelledby="ab-title" style="padding: clamp(64px, 8vw, 120px) 0; background: #16131D; color: #F4F2F7">
+<div class="wrap">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 32px; margin-bottom: 56px; align-items: end">
+<div>
+<p class="mono" style="margin: 0 0 16px; color: #A9A4B5">§ 03 · Abordagem</p>
+<h2 id="ab-title" class="h-display" style="margin: 0; font-size: clamp(36px, 4.6vw, 64px)">Entender antes de recomendar.</h2>
+</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #C9C5D2; max-width: 32em">Cada etapa termina com algo concreto nas suas mãos, e com a decisão sobre seguir, ajustar ou parar.</p>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); border-top: 1px solid #4A4654">
+<sc-for list="{{steps}}" as="st" hint-placeholder-count="5">
+<li style="padding: 24px 20px 24px 0; border-right: 1px solid #2E2A36; display: flex; flex-direction: column; gap: 12px">
+<span class="mono" style="color: #B9A8F8">{{st.num}}</span>
+<span style="font-size: 24px; font-weight: 620; font-stretch: 85%; letter-spacing: -0.02em">{{st.name}}</span>
+<span style="font-size: 15px; line-height: 1.5; color: #C9C5D2">{{st.desc}}</span>
+<span class="mono" style="color: #A9A4B5; text-transform: none; letter-spacing: 0; font-size: 12px; margin-top: auto">Você recebe: {{st.out}}</span>
+</li>
+</sc-for>
+</ol>
+</div>
+</section>
+
+<section id="aplicacoes" aria-labelledby="ap-title" style="padding: clamp(64px, 8vw, 120px) 0; border-bottom: 1px solid #E4E1EA">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 48px; align-items: start">
+<div>
+<p class="mono" style="margin: 0 0 16px; color: #6E6A78">§ 04 · O que não fazemos</p>
+<h2 id="ap-title" class="h-display" style="margin: 0; font-size: clamp(36px, 4.6vw, 64px)">Três frases que você não vai ouvir da ThEasy.</h2>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="padding: 24px 0; border-top: 1px solid #16131D"><p style="margin: 0 0 8px; font-size: 20px; font-weight: 600"><s style="color: #6E6A78">“Vocês precisam de um dashboard.”</s> Antes de entender a pergunta, não.</p><p style="margin: 0; color: #4A4654; line-height: 1.55">Às vezes a resposta é um painel no Power BI. Às vezes é ajustar o processo, automatizar uma rotina ou construir um sistema. O diagnóstico decide.</p></div>
+<div style="padding: 24px 0; border-top: 1px solid #E4E1EA"><p style="margin: 0 0 8px; font-size: 20px; font-weight: 600"><s style="color: #6E6A78">“Isso é com o pessoal de TI.”</s> Negócio e tecnologia ficam na mesma mesa.</p><p style="margin: 0; color: #4A4654; line-height: 1.55">Quem modela os dados entende de margem, custo e processo. Quem discute preço entende de dados.</p></div>
+<div style="padding: 24px 0; border-top: 1px solid #E4E1EA; border-bottom: 1px solid #E4E1EA"><p style="margin: 0 0 8px; font-size: 20px; font-weight: 600"><s style="color: #6E6A78">“Só a gente sabe mexer nisso.”</s> A entrega é da sua empresa.</p><p style="margin: 0; color: #4A4654; line-height: 1.55">Documentação, definições claras e transferência de conhecimento fazem parte do escopo.</p></div>
+</div>
+</div>
+</section>
+
+<section id="contato" aria-labelledby="ct-title" style="padding: clamp(64px, 8vw, 120px) 0">
+<div class="wrap" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 48px; align-items: start">
+<div>
+<p class="mono" style="margin: 0 0 16px; color: #6E6A78">§ 05 · Primeira conversa</p>
+<h2 id="ct-title" class="h-display" style="margin: 0 0 24px; font-size: clamp(40px, 5.4vw, 80px)">Conte qual é o desafio.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.55; color: #4A4654; max-width: 28em">A primeira conversa serve para entender a situação. Se fizer sentido seguir, propomos um diagnóstico com escopo claro.</p>
+</div>
+<form style="border: 1px solid #16131D; padding: clamp(20px, 3vw, 32px); display: flex; flex-direction: column; gap: 16px">
+<label for="desafio" class="mono" style="color: #16131D">O que está acontecendo na sua empresa?</label>
+<textarea id="desafio" rows="5" placeholder="Ex.: fechamos o mês em planilhas e os números do comercial não batem com os do financeiro." style="font: inherit; font-size: 16px; padding: 14px; border: 1px solid #A9A4B5; resize: vertical"></textarea>
+<button type="button" class="btn" style="font: inherit; align-self: flex-start; background: #5B3CD6; color: #FFFFFF; border: 0; padding: 16px 22px; font-weight: 580; font-size: 16px; cursor: pointer">Continuar para o contato →</button>
+</form>
+</div>
+</section>
+
+<footer style="border-top: 1px solid #16131D; padding: 48px 0 32px">
+<div class="wrap" style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; align-items: flex-end">
+<div><span style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none"><svg viewBox="160 160 704 704" width="64" height="64" aria-hidden="true" fill="#8B6CF0"><path d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"></path><path transform="rotate(180 512 512)" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"></path><path d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"></path></svg><span style="display: block; line-height: 1"><span style="display: block; font-size: 40px; font-weight: 560; letter-spacing: 0.02em; color: #16131D">THEASY</span><span style="display: block; font-size: 18px; color: #6E6A78; margin-top: 4px; font-weight: 400; letter-spacing: 0">Business Intelligence &amp; Consulting</span></span></span><p style="margin: 8px 0 0; color: #4A4654">Dados, sistemas e gestão, a partir do problema.</p></div>
+<nav aria-label="Rodapé" style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 15px"><a href="#solucoes">Soluções</a><a href="#abordagem">Abordagem</a><a href="#aplicacoes">Aplicações</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { stage: 0, area: 'Todas', sol: 0 }; }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var stageLabels = ['Desafio','Estrutura','Solução','Decisão'];
+    var stages = stageLabels.map(function(l, i){
+      var sel = st.stage === i;
+      return { num: '0' + (i+1), label: l, selected: sel ? 'true' : 'false', pick: function(){ self.setState({ stage: i }); },
+        style: 'font: inherit; text-align: left; padding: 12px 14px; border: 0; border-right: 1px solid #E4E1EA; cursor: pointer; background: ' + (sel ? '#16131D' : '#FFFFFF') + '; color: ' + (sel ? '#FFFFFF' : '#16131D') + '; box-shadow: inset 0 -3px 0 ' + (sel ? '#5B3CD6' : 'transparent') };
+    });
+    var all = [
+      { text: 'Cada área apresenta um número diferente para o mesmo indicador.', area: 'Gestão', solution: 'BI e indicadores' },
+      { text: 'Fechar o mês ainda depende de planilhas que só uma pessoa entende.', area: 'Financeiro', solution: 'Dados e automação' },
+      { text: 'Não sabemos com segurança quais produtos e clientes dão lucro.', area: 'Financeiro', solution: 'Rentabilidade e preço' },
+      { text: 'A equipe passa horas copiando informação de um sistema para outro.', area: 'Operações', solution: 'Automação e integração' },
+      { text: 'O processo cresceu e o sistema atual não acompanha.', area: 'Tecnologia', solution: 'Sistemas sob medida' },
+      { text: 'O relatório de vendas chega tarde demais para mudar o mês.', area: 'Comercial', solution: 'BI e indicadores' }
+    ];
+    var areaNames = ['Todas','Financeiro','Operações','Comercial','Tecnologia','Gestão'];
+    var areas = areaNames.map(function(a){
+      var sel = st.area === a;
+      return { label: a, selected: sel ? 'true' : 'false', pick: function(){ self.setState({ area: a }); },
+        style: 'font: inherit; font-size: 14px; padding: 10px 16px; min-height: 44px; cursor: pointer; border: 1px solid ' + (sel ? '#16131D' : '#E4E1EA') + '; background: ' + (sel ? '#16131D' : '#FFFFFF') + '; color: ' + (sel ? '#FFFFFF' : '#16131D') };
+    });
+    var problems = all.filter(function(p){ return st.area === 'Todas' || p.area === st.area; });
+    var solData = [
+      { name: 'BI e Analytics', lead: 'Indicadores que todos aceitam e painéis que respondem às perguntas da gestão, não apenas exibem números.', when: ['Áreas discordam sobre o mesmo número','Relatórios montados à mão toda semana','A diretoria decide com informação atrasada'], deliver: ['Definição de KPIs e metas','Modelo analítico (semântico)','Painéis gerenciais e executivos no Power BI','Rotina de atualização e governança'], tools: 'Power BI, SQL, DAX' },
+      { name: 'Dados e Engenharia', lead: 'A base que sustenta tudo: dados de várias origens tratados, integrados e confiáveis.', when: ['Informação espalhada em ERP, CRM e planilhas','Cargas manuais e frágeis','Ninguém sabe qual é a versão correta'], deliver: ['Integração das fontes','Pipelines de carga e tratamento','Base analítica estruturada','Regras de qualidade de dados'], tools: 'SQL, Python, Azure' },
+      { name: 'Sistemas sob medida', lead: 'Aplicações web e sistemas de gestão para processos que nenhum software pronto atende bem.', when: ['O processo é específico do seu negócio','Planilhas viraram um “sistema” informal','É preciso integrar plataformas existentes'], deliver: ['Aplicações web e SaaS','Sistemas de gestão e operação','APIs e integrações','Evolução e suporte'], tools: 'Python, Azure, APIs' },
+      { name: 'Automação de processos', lead: 'Menos retrabalho: tarefas manuais e repetitivas passam a rodar sozinhas, com rastreabilidade.', when: ['Copia-e-cola entre sistemas','Rotinas que dependem de uma pessoa','Erros recorrentes de digitação'], deliver: ['Mapeamento do fluxo atual','Automação das etapas repetitivas','Integração entre plataformas','Monitoramento das rotinas'], tools: 'Python, Power Automate, APIs' },
+      { name: 'Consultoria de negócios', lead: 'Controladoria, custos, preço e rentabilidade, a análise de negócio que orienta o que medir e o que mudar.', when: ['Preço definido sem clareza de custo','Margem caindo sem explicação','Decisões sem diagnóstico de desempenho'], deliver: ['Formação de preço e precificação','Análise de rentabilidade e margens','Estrutura de custos','Diagnóstico de processos, pessoas e projetos'], tools: 'Excel, Power BI, SQL' }
+    ];
+    var sols = solData.map(function(s, i){
+      var sel = st.sol === i;
+      return { num: '0' + (i+1), name: s.name, selected: sel ? 'true' : 'false', pick: function(){ self.setState({ sol: i }); },
+        style: 'font: inherit; display: flex; gap: 12px; align-items: baseline; text-align: left; padding: 18px 8px; min-height: 44px; cursor: pointer; border: 0; border-bottom: 1px solid #D9D5E0; background: transparent; font-size: ' + (sel ? '26px' : '20px') + '; font-weight: ' + (sel ? '640' : '480') + '; font-stretch: 85%; letter-spacing: -0.015em; color: ' + (sel ? '#5B3CD6' : '#16131D') };
+    });
+    var cur = solData[st.sol];
+    var steps = [
+      { num: '01', name: 'Entender', desc: 'Conversas com quem vive o problema: rotina, números, sistemas e restrições.', out: 'resumo da situação' },
+      { num: '02', name: 'Diagnosticar', desc: 'Levantamento de dados e processos para separar causa de sintoma.', out: 'diagnóstico e prioridades' },
+      { num: '03', name: 'Desenhar e construir', desc: 'Solução do tamanho do problema, em ciclos curtos e validados.', out: 'entregas incrementais' },
+      { num: '04', name: 'Implantar', desc: 'Colocar em uso: dados em produção, pessoas treinadas, rotina definida.', out: 'solução em operação' },
+      { num: '05', name: 'Evoluir', desc: 'Acompanhar o uso, medir e ajustar conforme o negócio muda.', out: 'plano de evolução' }
+    ];
+    return {
+      stages: stages, is1: st.stage === 0, is2: st.stage === 1, is3: st.stage === 2, is4: st.stage === 3,
+      next: function(){ self.setState({ stage: (st.stage + 1) % 4 }); },
+      areas: areas, problems: problems, sols: sols,
+      sol: { num: '0' + (st.sol + 1), name: cur.name, lead: cur.lead, when: cur.when, deliver: cur.deliver, tools: cur.tools },
+      steps: steps
+    };
+  }
+}
+</script>
+</body>
+</html>

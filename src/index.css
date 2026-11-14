@@ -1,230 +1,316 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
+/*
+ * ThEasy · design tokens v2 ("Arquitetura conectada")
+ * ---------------------------------------------------------------------------
+ * Superfícies claras e neutras; roxo como assinatura e sinal (ação, conexão
+ * ativa, informação relevante). Gramática gráfica derivada do símbolo:
+ * nós em colchete (raios opostos 12/4), estrela de junção e conectores
+ * ortogonais de traço uniforme. Racional completo em DESIGN.md.
+ * A paleta roxa segue PROVISÓRIA: não há HEX institucional validado.
+ */
 
 @theme {
-  /* ---------------------------------- */
-  /* Typography                         */
-  /* ---------------------------------- */
+  /* Tipografia */
   --font-sans:
-    'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, sans-serif;
+    'Instrument Sans Variable', 'Instrument Fallback', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
 
-  /* ---------------------------------- */
-  /* Primary — #3EF0AA (tecnologia, inovação, energia, inteligência) */
-  /* ---------------------------------- */
-  --color-primary-50: hsl(156 85% 97%);
-  --color-primary-100: hsl(156 85% 93%);
-  --color-primary-200: hsl(156 80% 86%);
-  --color-primary-300: hsl(156 80% 76%);
-  --color-primary-400: hsl(156 82% 66%);
-  --color-primary-500: hsl(156 85% 59%); /* #3EF0AA */
-  --color-primary-600: hsl(156 80% 48%);
-  --color-primary-700: hsl(156 80% 40%);
-  --color-primary-800: hsl(156 75% 32%);
-  --color-primary-900: hsl(156 70% 26%);
-  --color-primary-950: hsl(156 65% 15%);
+  /* Neutros */
+  --color-page: #fafafb; /* fundo da página */
+  --color-paper: #ffffff; /* superfícies */
+  --color-paper-2: #f4f3f7; /* áreas rebaixadas */
+  --color-paper-3: #ecebf0;
+  --color-ink: #15131b;
+  --color-ink-2: #4b4756; /* texto de apoio, 8,9:1 sobre branco */
+  --color-ink-3: #6f6a7a; /* rótulos, 5,3:1 sobre branco */
+  --color-rule: #e7e5ec; /* bordas e guias (decorativas) */
+  --color-line: #d6d2de; /* nós, cards técnicos */
+  --color-wire: #cfcad9; /* conectores em repouso */
+  --color-rule-strong: #8e8999; /* bordas de campos, 3,4:1 (WCAG 1.4.11) */
+  --color-ink-line: #34303d; /* linhas sobre fundo escuro */
+  --color-ink-soft: #1e1b26; /* superfície sobre fundo escuro */
+  --color-on-ink: #f4f2f7;
+  --color-on-ink-2: #c9c5d2;
+  --color-on-ink-3: #a9a4b5;
 
-  /* ---------------------------------- */
-  /* Secondary — Mapped to Primary #3EF0AA (No purple) */
-  /* ---------------------------------- */
-  --color-secondary-50: hsl(156 85% 97%);
-  --color-secondary-100: hsl(156 85% 93%);
-  --color-secondary-200: hsl(156 80% 86%);
-  --color-secondary-300: hsl(156 80% 76%);
-  --color-secondary-400: hsl(156 82% 66%);
-  --color-secondary-500: hsl(156 85% 59%); /* #3EF0AA */
-  --color-secondary-600: hsl(156 80% 48%);
-  --color-secondary-700: hsl(156 80% 40%);
-  --color-secondary-800: hsl(156 75% 32%);
-  --color-secondary-900: hsl(156 70% 26%);
-  --color-secondary-950: hsl(156 65% 15%);
+  /* Roxo ThEasy (símbolo #8B6CF0, aproximado da arte institucional) */
+  --color-purple-50: #f6f3ff;
+  --color-purple-100: #ece7fe;
+  --color-purple-300: #b9a8f8; /* dados secundários; texto sobre tinta 8,7:1 */
+  --color-purple-500: #8b6cf0; /* símbolo e elementos gráficos */
+  --color-purple-600: #5b3cd6; /* ação, conexão ativa, texto: 6,9:1 */
+  --color-purple-700: #4a2fb8; /* texto sobre roxo 50 */
+  --color-purple-800: #3f27a3; /* hover / pressionado */
 
-  /* ---------------------------------- */
-  /* Surfaces — Dark Theme only         */
-  /* ---------------------------------- */
-  --color-surface: hsl(0 0% 4%);
-  --color-elevated: hsl(0 0% 7%);
-  --color-overlay: hsl(0 0% 0% / 0.72);
-  --color-divider: hsl(0 0% 100% / 0.06);
+  /* Semânticas (usadas em interfaces demonstrativas e formulários) */
+  --color-ok: #0e6b53;
+  --color-ok-bg: #e6f4ef;
+  /* Atenção: no roxo oficial (sem amarelo), mais escuro que o roxo de ação */
+  --color-warn: #3f27a3;
+  --color-warn-bg: #efeafd;
+  --color-danger: #a11f14;
+  --color-danger-bg: #fdecea;
+  --color-success: #0e6b53;
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Movimento */
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  /* Layout */
+  --container-page: 82rem;
+  --breakpoint-xs: 26rem;
+
+  --animate-fade-in: fade-in 360ms var(--ease-snap) both;
 }
 
-/* ---------------------------------- */
-/* OneB é Dark Theme obrigatório — não existe versão Light. */
-/* ---------------------------------- */
-:root {
-  --radius: 0.625rem;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
-  --background: hsl(0 0% 0%);
-  --foreground: hsl(0 0% 98%);
-  --card: hsl(0 0% 6%);
-  --card-foreground: hsl(0 0% 98%);
-  --popover: var(--color-elevated);
-  --popover-foreground: hsl(0 0% 98%);
-  --primary: var(--color-primary-500);
-  --primary-foreground: hsl(0 0% 4%);
-  --secondary: var(--color-secondary-500);
-  --secondary-foreground: hsl(0 0% 98%);
-  --muted: var(--color-surface);
-  --muted-foreground: hsl(0 0% 63%);
-  --accent: var(--color-elevated);
-  --accent-foreground: hsl(0 0% 98%);
-  --destructive: hsl(6 78% 58%);
-  --border: hsl(0 0% 100% / 0.08);
-  --input: hsl(0 0% 100% / 0.12);
-  --ring: var(--color-primary-500);
-  --chart-1: var(--color-primary-400);
-  --chart-2: var(--color-secondary-400);
-  --chart-3: var(--color-primary-600);
-  --chart-4: var(--color-secondary-600);
-  --chart-5: hsl(0 0% 63%);
-  --sidebar: var(--color-surface);
-  --sidebar-foreground: hsl(0 0% 98%);
-  --sidebar-primary: var(--color-primary-500);
-  --sidebar-primary-foreground: hsl(0 0% 4%);
-  --sidebar-accent: var(--color-elevated);
-  --sidebar-accent-foreground: hsl(0 0% 98%);
-  --sidebar-border: hsl(0 0% 100% / 0.08);
-  --sidebar-ring: var(--color-primary-500);
+/* Métrica de fallback para reduzir layout shift enquanto a fonte carrega */
+@font-face {
+  font-family: 'Instrument Fallback';
+  src: local('Arial');
+  size-adjust: 97%;
+  ascent-override: 98%;
+  descent-override: 25%;
+  line-gap-override: 0%;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5.5rem;
   }
 
-  html {
-    @apply font-sans;
-    color-scheme: dark;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-page text-ink font-sans antialiased;
+  }
+
+  ::selection {
+    background: var(--color-purple-100);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-purple-600);
+    outline-offset: 3px;
+  }
+
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  .on-ink :focus-visible {
+    outline-color: var(--color-purple-300);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
-/* ---------------------------------- */
-/* Infinite marquee (tech strip, logos) */
-/* ---------------------------------- */
-@keyframes onebi-marquee-x {
-  from {
-    transform: translateX(0);
+/* --------------------------------------------------------------------------
+ * Escala tipográfica v2: hierarquia por precisão, não por tamanho.
+ * Display até 56px; títulos de seção até 40px.
+ * ------------------------------------------------------------------------ */
+@utility type-display {
+  font-size: clamp(2.125rem, 1.55rem + 2.4vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.026em;
+  line-height: 1.05;
+}
+
+@utility type-h2 {
+  font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+@utility type-h3 {
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+@utility type-lead {
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.6;
+}
+
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.71875rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* Rótulo mono sem caixa alta: nomes de tabela, registros, código. */
+@utility type-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+/*
+ * Moldura contínua: as bordas laterais do container atravessam todas as
+ * seções (guias estruturais). Some no mobile, onde encostaria na tela.
+ */
+@utility frame {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+  @media (width >= 48rem) {
+    border-inline: 1px solid var(--color-rule);
   }
-  to {
-    transform: translateX(-50%);
-  }
 }
 
-.onebi-marquee-track {
-  display: flex;
-  width: max-content;
-  flex-wrap: nowrap;
-  animation: onebi-marquee-x linear infinite;
-  animation-duration: var(--marquee-duration, 40s);
+/* Nó em colchete: cantos opostos arredondados, como o símbolo. */
+@utility bracket {
+  border-radius: 12px 4px 12px 4px;
 }
 
-.onebi-marquee-reverse {
-  animation-direction: reverse;
+@utility bracket-sm {
+  border-radius: 9px 3px 9px 3px;
 }
 
-.onebi-marquee:hover .onebi-marquee-track[data-pause='true'] {
-  animation-play-state: paused;
+/* --------------------------------------------------------------------------
+ * Profundidade (Soft Technical Depth): cinco níveis de elevação.
+ * E0 integrado · E1 card · E2 interface · E3 ativo · E4 flutuante.
+ * ------------------------------------------------------------------------ */
+@utility e1 {
+  box-shadow: 0 1px 2px rgb(21 19 27 / 0.05);
+}
+
+@utility e2 {
+  box-shadow:
+    0 1px 2px rgb(21 19 27 / 0.05),
+    0 12px 32px -12px rgb(21 19 27 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.9);
+}
+
+@utility e3 {
+  box-shadow:
+    0 2px 6px rgb(21 19 27 / 0.06),
+    0 24px 48px -16px rgb(63 39 163 / 0.28);
+}
+
+@utility e4 {
+  box-shadow: 0 16px 40px -10px rgb(21 19 27 / 0.3);
+}
+
+/* Palco técnico: superfície rebaixada com malha de pontos e luz difusa. */
+@utility stage {
+  background:
+    radial-gradient(
+      70% 60% at 75% 12%,
+      rgb(139 108 240 / 0.12),
+      transparent 70%
+    ),
+    radial-gradient(#dad6e3 1px, transparent 1.2px) 0 0 / 18px 18px,
+    var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+}
+
+/* Material das janelas demonstrativas: branco com leve gradiente. */
+@utility win {
+  background: linear-gradient(180deg, #ffffff, #fcfbfe);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .onebi-marquee-track {
-    animation: none;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
-/* Utility: hide scrollbar for horizontal scroll containers */
+/* Símbolo animado: os colchetes se encaixam e a estrela acende */
+@media (prefers-reduced-motion: no-preference) {
+  .symbol-animated .symbol-a {
+    animation: symbol-in-a 900ms var(--ease-snap) both;
+  }
+  .symbol-animated .symbol-b {
+    animation: symbol-in-b 900ms var(--ease-snap) both;
+  }
+  .symbol-animated .symbol-star {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: symbol-star 700ms 450ms var(--ease-snap) both;
+  }
+}
+
+@keyframes symbol-in-a {
+  from {
+    transform: translate(-90px, -90px);
+    opacity: 0;
+  }
+}
+
+@keyframes symbol-in-b {
+  from {
+    transform: translate(90px, 90px);
+    opacity: 0;
+  }
+}
+
+@keyframes symbol-star {
+  from {
+    transform: scale(0.2) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+/* Utilitário: listas roláveis horizontalmente sem barra visível */
+.no-scrollbar {
+  scrollbar-width: none;
+}
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
 
-/* ---------------------------------- */
-/* Scroll indicator (hero "scroll mouse" affordance) */
-/* ---------------------------------- */
-@keyframes onebi-float-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(8px);
+/* Conector com fluxo ativo (tracejado em movimento). */
+@keyframes wire-flow {
+  to {
+    stroke-dashoffset: -20;
   }
 }
-
-@keyframes onebi-scroll-dot {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(14px);
-    opacity: 0;
-  }
-}
-
-.onebi-float-bob {
-  animation: onebi-float-bob 2s ease-in-out infinite;
-}
-
-.onebi-scroll-dot {
-  animation: onebi-scroll-dot 2s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .onebi-float-bob,
-  .onebi-scroll-dot {
-    animation: none;
-  }
+.wire-flow {
+  stroke-dasharray: 4 6;
+  animation: wire-flow 0.9s linear infinite;
 }

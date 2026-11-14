@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Demonstração, sistema sob medida</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}.mono{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}</style>
+</helmet>
+<div style="width: 760px; height: 460px; box-sizing: border-box; font-family: 'Instrument Sans', system-ui, sans-serif; color: #15131B; background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 150px minmax(0, 1fr) 210px">
+<nav aria-label="Módulos" style="background: #15131B; color: #C9C5D2; padding: 14px 10px; display: flex; flex-direction: column; gap: 2px">
+<span class="mono" style="font-size: 9.5px; color: #8E8999; padding: 4px 8px 10px">Gestão de pedidos</span>
+<sc-for list="{{mods}}" as="m" hint-placeholder-count="5"><span style="{{m.style}}">{{m.n}}</span></sc-for>
+<span class="mono" style="margin-top: auto; font-size: 9px; color: #8E8999; padding: 8px; line-height: 1.5">Interface demonstrativa</span>
+</nav>
+<div style="display: flex; flex-direction: column; min-width: 0; border-right: 1px solid #E7E5EC">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 0 14px; height: 48px; border-bottom: 1px solid #E7E5EC"><span style="font-size: 14px; font-weight: 600">Pedidos em produção</span><span style="display: flex; gap: 6px"><span style="font-size: 12px; padding: 5px 9px; border: 1px solid #D6D2DE; border-radius: 6px">Esta semana</span><span style="font-size: 12px; padding: 5px 9px; border-radius: 6px; background: #5B3CD6; color: #FFFFFF; font-weight: 600">Novo pedido</span></span></div>
+<div role="table" aria-label="Pedidos" style="display: flex; flex-direction: column; font-size: 12.5px">
+<div role="row" style="display: grid; grid-template-columns: 64px minmax(0, 1fr) 96px 92px; gap: 8px; padding: 9px 14px; border-bottom: 1px solid #E7E5EC; background: #FAFAFB"><span role="columnheader" class="mono" style="font-size: 9.5px; color: #6F6A7A">Nº</span><span role="columnheader" class="mono" style="font-size: 9.5px; color: #6F6A7A">Cliente</span><span role="columnheader" class="mono" style="font-size: 9.5px; color: #6F6A7A">Etapa</span><span role="columnheader" class="mono" style="font-size: 9.5px; color: #6F6A7A">Status</span></div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="7">
+<button type="button" role="row" onClick="{{r.pick}}" style="{{r.style}}"><span role="cell" style="font-variant-numeric: tabular-nums">{{r.id}}</span><span role="cell" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.c}}</span><span role="cell" style="color: #4B4756">{{r.e}}</span><span role="cell"><span style="{{r.chip}}">{{r.s}}</span></span></button>
+</sc-for>
+</div>
+</div>
+<div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #FAFAFB">
+<span class="mono" style="font-size: 9.5px; color: #6F6A7A">Pedido {{sel.id}}</span>
+<span style="font-size: 15px; font-weight: 600">{{sel.c}}</span>
+<label style="display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: #4B4756">Responsável<span style="font-size: 13px; color: #15131B; background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 6px; padding: 7px 9px">{{sel.r}}</span></label>
+<label style="display: flex; flex-direction: column; gap: 4px; font-size: 11.5px; color: #4B4756">Prazo<span style="font-size: 13px; color: #15131B; background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 6px; padding: 7px 9px">{{sel.p}}</span></label>
+<span class="mono" style="font-size: 9.5px; color: #6F6A7A; margin-top: 4px">Histórico</span>
+<sc-for list="{{sel.h}}" as="h" hint-placeholder-count="3"><span style="display: flex; gap: 8px; font-size: 12px; color: #4B4756"><span style="width: 7px; height: 7px; margin-top: 4px; border-radius: 50%; background: #8B6CF0; flex: none"></span>{{h}}</span></sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":760,"height":460}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sel: 1 }; }
+  renderVals() {
+    const ST = { ok: ['No prazo', '#E6F4EF', '#0E6B53'], risk: ['Em risco', '#EFEAFD', '#3F27A3'], late: ['Atrasado', '#FDECEA', '#A11F14'], done: ['Concluído', '#F4F3F7', '#4B4756'] };
+    const R = [
+      ['4821', 'Cliente 014 · Indústria', 'Corte', 'ok', 'Ana', '18/11'],
+      ['4822', 'Cliente 027 · Distribuição', 'Montagem', 'risk', 'Bruno', '15/11'],
+      ['4823', 'Cliente 003 · Varejo', 'Pintura', 'ok', 'Carla', '21/11'],
+      ['4824', 'Cliente 041 · Serviços', 'Expedição', 'late', 'Diego', '12/11'],
+      ['4825', 'Cliente 014 · Indústria', 'Corte', 'ok', 'Ana', '25/11'],
+      ['4826', 'Cliente 009 · Agro', 'Qualidade', 'done', 'Elisa', '13/11'],
+      ['4827', 'Cliente 033 · Saúde', 'Montagem', 'ok', 'Bruno', '27/11'],
+    ];
+    const rows = R.map(([id, c, e, s], i) => {
+      const on = this.state.sel === i;
+      return { id, c, e, s: ST[s][0], pick: () => this.setState({ sel: i }),
+        chip: `font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 5px; background: ${ST[s][1]}; color: ${ST[s][2]}`,
+        style: `display: grid; grid-template-columns: 64px minmax(0, 1fr) 96px 92px; gap: 8px; padding: 9px 14px; border: 0; border-bottom: 1px solid #F0EEF3; font: inherit; font-size: 12.5px; text-align: left; cursor: pointer; align-items: center; background: ${on ? '#F6F3FF' : '#FFFFFF'}; box-shadow: ${on ? 'inset 3px 0 0 #5B3CD6' : 'none'}` };
+    });
+    const r = R[this.state.sel];
+    const sel = { id: r[0], c: r[1], r: r[4], p: r[5], h: ['Pedido criado pelo comercial', 'Liberado para produção', 'Etapa atual: ' + r[2]] };
+    const mods = ['Pedidos', 'Produção', 'Estoque', 'Clientes', 'Relatórios'].map((n, i) => ({ n,
+      style: `font-size: 13px; padding: 8px; border-radius: 6px; ${i === 0 ? 'background: #2A2633; color: #FFFFFF; font-weight: 600' : ''}` }));
+    return { rows, sel, mods };
+  }
+}
+</script>
+</body>
+</html>

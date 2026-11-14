@@ -1,0 +1,79 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-11-13T19:50:00Z" },
+  "title": "ThEasy — Redesign do site",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "DirA.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "title": "Direção A — Relatório editorial"
+    },
+    "DirB.dc.html": {
+      "x": 1360,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "title": "Direção B — Estúdio de produto"
+    },
+    "DirC.dc.html": {
+      "x": 2720,
+      "y": 0,
+      "w": 1280,
+      "h": 800,
+      "title": "Direção C — Mapa de decisão"
+    },
+    "Main.dc.html": {
+      "x": 0,
+      "y": 1220,
+      "w": 1440,
+      "h": 5600,
+      "title": "Síntese — Home desktop (Caderno de decisão)",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "HomeMobile.dc.html": {
+      "x": 1560,
+      "y": 1220,
+      "w": 390,
+      "h": 3900,
+      "title": "Home — mobile 390",
+      "is_interactive": true
+    },
+    "System.dc.html": {
+      "x": 2070,
+      "y": 1220,
+      "w": 1440,
+      "h": 2300,
+      "title": "Design system — tokens, tipografia, componentes, motion"
+    }
+  },
+  "order": [
+    "DirA.dc.html",
+    "DirB.dc.html",
+    "DirC.dc.html",
+    "Main.dc.html",
+    "HomeMobile.dc.html",
+    "System.dc.html"
+  ],
+  "notes": {
+    "t1": {
+      "x": 0,
+      "y": -300,
+      "text": "Exploração — três direções conceituais",
+      "kind": "title1",
+      "maxW": 4000
+    },
+    "t2": {
+      "x": 0,
+      "y": 960,
+      "text": "Direção escolhida — Caderno de decisão",
+      "kind": "title1",
+      "maxW": 3510
+    }
+  },
+  "designSystems": []
+}

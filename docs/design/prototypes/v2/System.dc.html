@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ThEasy, design system v2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.h{margin:0 0 20px;font-size:22px;font-weight:600}
+.box{border:1px solid #E7E5EC;border-radius:12px;background:#fff;padding:24px}
+</style>
+</helmet>
+<div style="width: 1440px; height: 2400px; box-sizing: border-box; padding: 64px; background: #FAFAFB; color: #15131B; font-family: 'Instrument Sans', system-ui, sans-serif; display: flex; flex-direction: column; gap: 40px">
+<div><p class="mono" style="margin: 0 0 10px; color: #5B3CD6">Design system v2</p><h1 style="margin: 0; font-size: 44px; font-weight: 600; letter-spacing: -0.02em">Arquitetura conectada</h1><p style="margin: 10px 0 0; font-size: 17px; color: #4B4756; max-width: 760px">Superfícies claras e neutras. Roxo como assinatura e sinal: ação, conexão ativa e informação relevante. Gramática gráfica derivada do símbolo ThEasy.</p></div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<div class="box"><p class="h">Cor · neutros</p>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{neutrals}}" as="c" hint-placeholder-count="8"><div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 56px; border-radius: 8px; border: 1px solid #E7E5EC; background: {{c.hex}}"></span><span style="font-size: 13px; font-weight: 600">{{c.name}}</span><span class="mono" style="font-size: 10px; color: #6F6A7A; text-transform: none; letter-spacing: 0">{{c.hex}} · {{c.use}}</span></div></sc-for>
+</div></div>
+<div class="box"><p class="h">Cor · roxo e semânticas</p>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{accents}}" as="c" hint-placeholder-count="8"><div style="display: flex; flex-direction: column; gap: 6px"><span style="height: 56px; border-radius: 8px; border: 1px solid #E7E5EC; background: {{c.hex}}"></span><span style="font-size: 13px; font-weight: 600">{{c.name}}</span><span class="mono" style="font-size: 10px; color: #6F6A7A; text-transform: none; letter-spacing: 0">{{c.hex}} · {{c.use}}</span></div></sc-for>
+</div></div>
+</div>
+
+<div class="box"><p class="h">Tipografia · Instrument Sans + IBM Plex Mono</p>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">Display 54/56 · 600</span><span style="font-size: 54px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.04">Dados, BI e sistemas</span></div>
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">H2 40/44 · 600</span><span style="font-size: 40px; font-weight: 600; letter-spacing: -0.02em">Cinco competências, uma arquitetura</span></div>
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">H3 20/26 · 600</span><span style="font-size: 20px; font-weight: 600">Integração e tratamento</span></div>
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">Lead 18/28 · 400</span><span style="font-size: 18px; line-height: 1.55; color: #4B4756">A ThEasy une consultoria de negócios, engenharia de dados e desenvolvimento.</span></div>
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">Corpo 16/25 · 400</span><span style="font-size: 16px; line-height: 1.55">Cada frente resolve um tipo de problema.</span></div>
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">UI 13.5 · 560</span><span style="font-size: 13.5px; font-weight: 560">Painéis de BI · Sistemas · Automações</span></div>
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: baseline"><span class="mono" style="color: #6F6A7A">Rótulo mono 11.5</span><span class="mono" style="color: #5B3CD6">02 · O que entregamos</span></div>
+</div></div>
+
+<div class="box"><p class="h">Gramática gráfica</p>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="height: 120px; border: 1px dashed #E7E5EC; border-radius: 8px; display: flex; align-items: center; justify-content: center"><span style="border: 1px solid #D6D2DE; border-radius: 12px 4px 12px 4px; padding: 10px 14px; font-size: 13px; font-weight: 600; background: #FFFFFF">Nó em colchete</span></div><span style="font-size: 13px; line-height: 1.45; color: #4B4756">Raio 12 e 4 em cantos opostos, como os colchetes do símbolo. Todo nó, chip e card técnico.</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="height: 120px; border: 1px dashed #E7E5EC; border-radius: 8px; display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="347 347 330 330" aria-hidden="true"><path fill="#5B3CD6" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg></div><span style="font-size: 13px; line-height: 1.45; color: #4B4756">Estrela de junção: ponto de decisão, conexão ativa e marcador de seção.</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="height: 120px; border: 1px dashed #E7E5EC; border-radius: 8px; display: flex; align-items: center; justify-content: center"><svg width="140" height="80" viewBox="0 0 140 80" aria-hidden="true"><path d="M10 10V34Q10 40 16 40H124Q130 40 130 46V70" fill="none" stroke="#CFCAD9" stroke-width="1.25"/><path d="M10 10V34Q10 40 16 40H70" fill="none" stroke="#5B3CD6" stroke-width="1.25"/></svg></div><span style="font-size: 13px; line-height: 1.45; color: #4B4756">Conector ortogonal com cotovelo de raio 6. Traço 1.25. Cinza em repouso, roxo quando ativo.</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="height: 120px; border: 1px dashed #E7E5EC; border-radius: 8px; display: flex; align-items: center; justify-content: center"><svg width="140" height="20" viewBox="0 0 140 20" aria-hidden="true"><line x1="0" y1="10" x2="140" y2="10" stroke="#CFCAD9" stroke-width="1.25"/><circle cx="84" cy="10" r="3" fill="#5B3CD6"/><circle cx="64" cy="10" r="2" fill="#5B3CD6" opacity=".35"/></svg></div><span style="font-size: 13px; line-height: 1.45; color: #4B4756">Pacote: informação em trânsito. Só em conectores reais; pausa fora da tela e com movimento reduzido.</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="height: 120px; border: 1px dashed #E7E5EC; border-radius: 8px; position: relative; overflow: hidden"><span style="position: absolute; left: 30px; top: 0; bottom: 0; width: 1px; background: #E7E5EC"></span><span style="position: absolute; left: 30px; right: 0; top: 60px; height: 1px; background: #E7E5EC"></span><svg style="position: absolute; left: 25px; top: 55px" width="11" height="11" viewBox="347 347 330 330" aria-hidden="true"><path fill="#8B6CF0" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg></div><span style="font-size: 13px; line-height: 1.45; color: #4B4756">Guias contínuas: bordas do container visíveis do topo ao rodapé, estrela nos cruzamentos de seção.</span></div>
+<div style="display: flex; flex-direction: column; gap: 12px"><div style="height: 120px; border: 1px dashed #E7E5EC; border-radius: 8px; display: flex; align-items: center; justify-content: center"><span class="mono" style="font-size: 9.5px; padding: 4px 8px; border-radius: 6px; background: #EFEAFD; color: #3F27A3">Dados demonstrativos</span></div><span style="font-size: 13px; line-height: 1.45; color: #4B4756">Selo obrigatório em toda interface com números. Nada é apresentado como resultado real.</span></div>
+</div></div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+<div class="box"><p class="h">Componentes</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<span style="min-height: 44px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 8px; background: #5B3CD6; color: #FFFFFF; font-weight: 560">Primário →</span>
+<span style="min-height: 44px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 8px; border: 1px solid #15131B; font-weight: 560">Secundário</span>
+<span style="min-height: 44px; display: inline-flex; align-items: center; padding: 0 18px; border-radius: 8px; background: #15131B; color: #FFFFFF; font-weight: 560">Escuro</span>
+<span style="min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 10px 3px 10px 3px; border: 1px solid #5B3CD6; background: #F6F3FF; color: #4A2FB8; font-size: 13.5px; font-weight: 560">Chave ativa</span>
+<span style="min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 10px 3px 10px 3px; border: 1px solid #D6D2DE; font-size: 13.5px; font-weight: 560">Chave</span>
+<span style="font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 5px; background: #E6F4EF; color: #0E6B53">No prazo</span>
+<span style="font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 5px; background: #EFEAFD; color: #3F27A3">Em risco</span>
+<span style="font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 5px; background: #FDECEA; color: #A11F14">Atrasado</span>
+</div>
+<div style="margin-top: 20px; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 16px 18px; border: 1px solid #E7E5EC; border-radius: 10px; background: #F6F3FF; box-shadow: inset 3px 0 0 #5B3CD6"><span class="mono" style="color: #5B3CD6; font-size: 10.5px">01</span><span><strong style="display: block; font-size: 16px">Aba de competência</strong><span style="font-size: 13.5px; color: #4B4756">Estado selecionado: fundo roxo 50 e filete interno.</span></span></div>
+</div>
+<div class="box"><p class="h">Movimento</p>
+<div style="display: flex; flex-direction: column; font-size: 13.5px">
+<sc-for list="{{motion}}" as="m" hint-placeholder-count="6"><div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 150px; gap: 12px; padding: 10px 0; border-bottom: 1px solid #F0EEF3"><strong>{{m.n}}</strong><span style="color: #4B4756">{{m.d}}</span><span class="mono" style="font-size: 10px; color: #6F6A7A; text-transform: none; letter-spacing: 0">{{m.t}}</span></div></sc-for>
+</div>
+<p style="margin: 14px 0 0; font-size: 13px; color: #4B4756">Com movimento reduzido: pacotes não são renderizados, estados mudam sem transição, linhas de progresso aparecem completas.</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const c = (name, hex, use) => ({ name, hex, use });
+    return {
+      neutrals: [c('Página', '#FAFAFB', 'fundo'), c('Superfície', '#FFFFFF', 'cards e painéis'), c('Rebaixado', '#F4F3F7', 'áreas de apoio'), c('Linha', '#E7E5EC', 'bordas e guias'), c('Linha forte', '#D6D2DE', 'nós e campos'), c('Tinta 3', '#6F6A7A', 'rótulos 5,3:1'), c('Tinta 2', '#4B4756', 'texto de apoio'), c('Tinta', '#15131B', 'texto e fundo escuro')],
+      accents: [c('Roxo 50', '#F6F3FF', 'seleção'), c('Roxo 300', '#B9A8F8', 'dados secundários'), c('Roxo 500', '#8B6CF0', 'símbolo, decorativo'), c('Roxo 600', '#5B3CD6', 'ação e conexão 6,4:1'), c('Roxo 700', '#4A2FB8', 'texto sobre roxo 50'), c('Sucesso', '#0E6B53', 'estado positivo'), c('Atenção', '#3F27A3', 'risco e demo'), c('Erro', '#A11F14', 'atraso e erro')],
+      motion: [
+        { n: 'Pacote', d: 'Informação percorre o conector real', t: '6 s linear, contínuo' },
+        { n: 'Destaque do mapa', d: 'Chave de competência acende nós e caminhos', t: '250 ms, opacidade e cor' },
+        { n: 'Troca de aba', d: 'Demonstração entra no lugar da anterior', t: '220 ms ease snap, y 8 px' },
+        { n: 'Execução de demo', d: 'Etapas do pipeline e da automação avançam', t: '700 a 900 ms por etapa' },
+        { n: 'Progresso de etapas', d: 'Linha preenche conforme a leitura', t: 'scroll linked, scaleX' },
+        { n: 'Hover de botão', d: 'Seta avança 4 px', t: '150 ms' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

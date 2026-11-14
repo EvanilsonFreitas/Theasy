@@ -1,11 +1,20 @@
 <!doctype html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OneB</title>
+    <title data-static-meta>ThEasy | Your data analytics</title>
+    <meta
+      data-static-meta
+      name="description"
+      content="Consultoria em dados, tecnologia e gestão: BI e Analytics, engenharia de dados, sistemas sob medida, automação de processos e consultoria financeira para transformar desafios operacionais em soluções práticas."
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script type="text/javascript">
+      // Marca que o JS está ativo: os estados iniciais das revelações de
+      // conteúdo (index.css) só existem sob .js — sem JS tudo fica visível.
+      document.documentElement.classList.add('js')
       // GitHub Pages SPA fallback (decoder half — see public/404.html for the encoder).
       // Restores the real path before React Router mounts, so deep links survive a
       // GitHub Pages 404 redirect. See https://github.com/rafgraph/spa-github-pages.
@@ -28,6 +37,12 @@
     </script>
   </head>
   <body>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 24px">
+        ThEasy · consultoria em dados, tecnologia e gestão. Ative o JavaScript
+        para navegar pelo site.
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

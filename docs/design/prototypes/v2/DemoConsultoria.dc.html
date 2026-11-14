@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Demonstração, simulação de preço e margem</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}.mono{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}</style>
+</helmet>
+<div style="width: 760px; height: 460px; box-sizing: border-box; font-family: 'Instrument Sans', system-ui, sans-serif; color: #15131B; background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; height: 48px; border-bottom: 1px solid #E7E5EC; flex: none">
+<div style="display: flex; align-items: center; gap: 10px"><span style="font-size: 14px; font-weight: 600">Formação de preço · produto exemplo</span><span class="mono" style="font-size: 9.5px; padding: 3px 7px; border-radius: 6px; background: #EFEAFD; color: #3F27A3">Simulação demonstrativa</span></div>
+<span class="mono" style="font-size: 9.5px; color: #6F6A7A">Preço = custo ÷ (1 − despesas − margem)</span>
+</div>
+<div style="flex: 1; display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 0">
+<div style="padding: 16px; border-right: 1px solid #E7E5EC; display: flex; flex-direction: column; gap: 10px; background: #FAFAFB">
+<sc-for list="{{inputs}}" as="i" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; background: #FFFFFF; border: 1px solid #E7E5EC; border-radius: 10px; padding: 10px 12px">
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; color: #4B4756">{{i.label}}</span><span style="font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums">{{i.value}}</span></span>
+<span style="display: flex; gap: 4px"><button type="button" aria-label="Diminuir {{i.label}}" onClick="{{i.dec}}" style="width: 32px; height: 32px; border-radius: 7px; border: 1px solid #D6D2DE; background: #FFFFFF; font: inherit; font-size: 16px; cursor: pointer">−</button><button type="button" aria-label="Aumentar {{i.label}}" onClick="{{i.inc}}" style="width: 32px; height: 32px; border-radius: 7px; border: 1px solid #D6D2DE; background: #FFFFFF; font: inherit; font-size: 16px; cursor: pointer">+</button></span>
+</div>
+</sc-for>
+</div>
+<div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="border: 1px solid #5B3CD6; border-radius: 12px 4px 12px 4px; padding: 12px 14px"><span class="mono" style="font-size: 9.5px; color: #5B3CD6">Preço sugerido</span><div style="font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 4px">{{price}}</div></div>
+<div style="border: 1px solid #E7E5EC; border-radius: 12px 4px 12px 4px; padding: 12px 14px"><span class="mono" style="font-size: 9.5px; color: #6F6A7A">Margem com o preço atual de R$ 199</span><div style="font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 4px; color: {{curColor}}">{{curMargin}}</div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; font-weight: 600">Composição do preço sugerido</span>
+<div style="display: flex; height: 34px; border-radius: 6px; overflow: hidden">
+<sc-for list="{{parts}}" as="p" hint-placeholder-count="4"><span style="width: {{p.w}}; background: {{p.c}}; transition: width .35s"></span></sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<sc-for list="{{parts}}" as="p" hint-placeholder-count="4"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4B4756"><span style="width: 9px; height: 9px; border-radius: 2px; background: {{p.c}}"></span>{{p.label}} <strong style="color: #15131B; font-variant-numeric: tabular-nums">{{p.v}}</strong></span></sc-for>
+</div>
+</div>
+<p style="margin: auto 0 0; font-size: 12.5px; line-height: 1.5; color: #4B4756; border-top: 1px dashed #D6D2DE; padding-top: 12px">{{reading}}</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":760,"height":460}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { custo: 120, dv: 18, df: 12, m: 15 }; }
+  renderVals() {
+    const s = this.state;
+    const brl = (v) => 'R$ ' + v.toFixed(2).replace('.', ',');
+    const pct = (v) => v.toFixed(1).replace('.', ',') + '%';
+    const total = (s.dv + s.df + s.m) / 100;
+    const price = total < 0.95 ? s.custo / (1 - total) : NaN;
+    const cur = 199;
+    const curM = ((cur - s.custo - cur * (s.dv + s.df) / 100) / cur) * 100;
+    const mk = (key, label, step, fmt, min, max) => ({
+      label, value: fmt(s[key]),
+      dec: () => this.setState({ [key]: Math.max(min, s[key] - step) }),
+      inc: () => this.setState({ [key]: Math.min(max, s[key] + step) }),
+    });
+    const inputs = [
+      mk('custo', 'Custo unitário', 5, brl, 40, 190),
+      mk('dv', 'Despesas variáveis (impostos, comissão)', 1, (v) => v + '%', 0, 40),
+      mk('df', 'Despesas fixas rateadas', 1, (v) => v + '%', 0, 30),
+      mk('m', 'Margem desejada', 1, (v) => v + '%', 0, 40),
+    ];
+    const share = (v) => (v * 100).toFixed(1) + '%';
+    const parts = isNaN(price) ? [] : [
+      { label: 'Custo', v: brl(s.custo), w: share(s.custo / price), c: '#D6D2DE' },
+      { label: 'Desp. variáveis', v: brl(price * s.dv / 100), w: share(s.dv / 100), c: '#B9A8F8' },
+      { label: 'Desp. fixas', v: brl(price * s.df / 100), w: share(s.df / 100), c: '#8B6CF0' },
+      { label: 'Margem', v: brl(price * s.m / 100), w: share(s.m / 100), c: '#5B3CD6' },
+    ];
+    const gap = isNaN(price) ? 0 : price - cur;
+    return {
+      inputs, parts, price: isNaN(price) ? 'inviável' : brl(price), curMargin: pct(curM), curColor: curM < s.m ? '#A11F14' : '#0E6B53',
+      reading: curM < s.m
+        ? `Com o preço atual, a margem fica abaixo da meta. Para atingir ${s.m}%, o preço precisaria subir ${brl(gap)}, ou o custo e as despesas precisariam cair.`
+        : `O preço atual já cobre custos, despesas e a margem desejada de ${s.m}%.`,
+    };
+  }
+}
+</script>
+</body>
+</html>

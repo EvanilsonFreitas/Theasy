@@ -1,74 +1,74 @@
 import { Suspense, useEffect, useRef } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import Lenis from 'lenis'
-import { Navbar } from '@/components/navigation/Navbar'
-import { Footer } from '@/components/navigation/Footer'
-import { CanvasBackground } from '@/components/common/CanvasBackground'
-import { PageTransition } from '@/components/common/PageTransition'
-import { DetailSkeleton } from '@/components/feedback/Skeleton'
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
+import { LazyMotion, MotionConfig, domMax } from 'framer-motion'
+import { SiteHeader } from '@/components/navigation/SiteHeader'
+import { SiteFooter } from '@/components/navigation/SiteFooter'
+import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 export function PublicLayout() {
-  const { pathname } = useLocation()
-  const lenisRef = useRef<Lenis | null>(null)
+  const { pathname, hash } = useLocation()
+  const mainRef = useRef<HTMLElement>(null)
+  const firstRender = useRef(true)
 
-  // Initialize Lenis smooth scroll once
+  useScrollReveal(mainRef)
+
+  // Troca de rota: a posição de scroll fica com <ScrollRestoration /> (topo
+  // em navegações novas, posição anterior no Voltar/Avançar). Aqui movemos o
+  // foco: para a âncora, quando houver, ou para o conteúdo principal, para
+  // que leitores de tela anunciem a nova página.
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
-    })
-    lenisRef.current = lenis
-
-    let frameId = requestAnimationFrame(function raf(time: number) {
-      lenis.raf(time)
-      frameId = requestAnimationFrame(raf)
-    })
-
-    return () => {
-      cancelAnimationFrame(frameId)
-      lenis.destroy()
-      lenisRef.current = null
+    if (firstRender.current) {
+      firstRender.current = false
+      if (!hash) return
     }
-  }, [])
-
-  // Reset scroll to top on every route change — through Lenis so its internal
-  // scroll target stays in sync (a raw window.scrollTo desyncs Lenis and leaves
-  // the viewport stranded in the empty space below a shorter page = black screen).
-  useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true, force: true })
-    } else {
-      window.scrollTo(0, 0)
+    if (hash) {
+      // Aguarda a rota (possivelmente lazy) renderizar, por até ~5 s.
+      const id = decodeURIComponent(hash.slice(1))
+      let tries = 0
+      let timer = 0
+      const tryScroll = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView()
+          if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1')
+          el.focus({ preventScroll: true })
+        } else if (tries++ < 100) {
+          timer = window.setTimeout(tryScroll, 50)
+        }
+      }
+      tryScroll()
+      return () => window.clearTimeout(timer)
     }
-  }, [pathname])
+    mainRef.current?.focus({ preventScroll: true })
+  }, [pathname, hash])
 
   return (
-    <div className="text-foreground selection:bg-primary-500/30 relative min-h-screen bg-black antialiased selection:text-white">
-      {/* Dynamic Starfield Neural Canvas (Home page only) */}
-      {pathname === '/' && <CanvasBackground />}
-
-      {/* Global Header */}
-      <Navbar />
-
-      {/* Main Content Space with transition animation.
-          Suspense sits ABOVE the animated layer so a lazy route suspending
-          never interrupts the presence transition (which could blank the view). */}
-      <main className="relative z-10 min-h-[calc(100vh-320px)] pt-24">
-        <Suspense fallback={<DetailSkeleton />}>
-          <PageTransition pathname={pathname}>
-            <Outlet />
-          </PageTransition>
-        </Suspense>
-      </main>
-
-      {/* Global Footer */}
-      <Footer />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <LazyMotion features={domMax} strict>
+        <a
+          href="#conteudo"
+          className="bg-ink sr-only z-50 px-4 py-3 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        >
+          Pular para o conteúdo
+        </a>
+        <ScrollRestoration />
+        <SiteHeader />
+        <main
+          id="conteudo"
+          ref={mainRef}
+          tabIndex={-1}
+          className="min-h-[60vh] outline-none"
+        >
+          <Suspense
+            fallback={<div className="min-h-[70vh]" aria-busy="true" />}
+          >
+            <div key={pathname} className="animate-fade-in">
+              <Outlet />
+            </div>
+          </Suspense>
+        </main>
+        <SiteFooter />
+      </LazyMotion>
+    </MotionConfig>
   )
 }
-export default PublicLayout

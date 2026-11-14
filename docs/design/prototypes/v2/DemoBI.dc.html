@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Demonstração, painel de BI</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}.mono{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}</style>
+</helmet>
+<div style="width: 760px; height: 460px; box-sizing: border-box; font-family: 'Instrument Sans', system-ui, sans-serif; color: #15131B; background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; height: 48px; border-bottom: 1px solid #E7E5EC; flex: none">
+<div style="display: flex; align-items: center; gap: 10px; width: 262px"><span style="font-size: 14px; font-weight: 600">Painel executivo</span><span class="mono" style="font-size: 9.5px; padding: 3px 7px; border-radius: 6px; background: #EFEAFD; color: #3F27A3">Dados demonstrativos</span></div>
+<div role="group" aria-label="Período" style="display: flex; padding: 3px; gap: 2px; background: #F4F3F7; border-radius: 8px">
+<sc-for list="{{periods}}" as="p" hint-placeholder-count="3"><button type="button" aria-pressed="{{p.sel}}" onClick="{{p.pick}}" style="{{p.style}}">{{p.label}}</button></sc-for>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid #E7E5EC; flex: none">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="4">
+<div style="padding: 14px 16px; border-right: 1px solid #E7E5EC; display: flex; flex-direction: column; gap: 4px">
+<span class="mono" style="color: #6F6A7A; font-size: 9.5px">{{k.label}}</span>
+<span style="font-size: 22px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums">{{k.value}}</span>
+<span style="font-size: 12px; color: {{k.color}}">{{k.delta}}</span>
+</div>
+</sc-for>
+</div>
+<div style="flex: 1; display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); min-height: 0">
+<div style="padding: 16px; border-right: 1px solid #E7E5EC; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between"><span style="font-size: 13px; font-weight: 600">Receita e margem</span><span style="display: flex; gap: 12px; font-size: 11.5px; color: #4B4756"><span><span style="display: inline-block; width: 8px; height: 8px; background: #B9A8F8; margin-right: 5px"></span>Receita</span><span><span style="display: inline-block; width: 8px; height: 2px; background: #15131B; margin-right: 5px; vertical-align: middle"></span>Margem %</span></span></div>
+<div style="flex: 1; position: relative; display: flex; align-items: flex-end; gap: 8px; border-bottom: 1px solid #D6D2DE; padding: 0 4px">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="6">
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end">
+<div style="width: 100%; height: {{b.h}}; background: {{b.c}}; border-radius: 3px 3px 0 0; transition: height .4s"></div>
+</div>
+</sc-for>
+<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%"><polyline points="{{line}}" fill="none" stroke="#15131B" stroke-width="1.5" vector-effect="non-scaling-stroke"></polyline></svg>
+</div>
+<div style="display: flex; gap: 8px; padding: 0 4px"><sc-for list="{{bars}}" as="b" hint-placeholder-count="6"><span class="mono" style="flex: 1; text-align: center; font-size: 9.5px; color: #6F6A7A">{{b.label}}</span></sc-for></div>
+</div>
+<div style="padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600">Margem por categoria</span>
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 40px; gap: 8px; align-items: center; font-size: 12.5px">
+<span style="color: #4B4756">{{c.name}}</span>
+<span style="height: 8px; background: #F4F3F7; border-radius: 2px; overflow: hidden"><span style="display: block; height: 100%; width: {{c.w}}; background: {{c.color}}; transition: width .4s"></span></span>
+<span style="text-align: right; font-variant-numeric: tabular-nums">{{c.v}}</span>
+</div>
+</sc-for>
+<p style="margin: auto 0 0; font-size: 11.5px; line-height: 1.45; color: #6F6A7A; border-top: 1px dashed #D6D2DE; padding-top: 10px">Abaixo da meta: <strong style="color: #15131B">Acessórios</strong>. Clique em uma categoria para abrir o detalhe por cliente.</p>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":760,"height":460}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { per: 'tri' }; }
+  renderVals() {
+    const per = this.state.per;
+    const D = {
+      mes: { kpi: ['R$ 412 mil', '31,8%', 'R$ 1.240', '332'], d: ['+4,1% vs mês anterior', '+0,6 p.p.', '+2,3%', '+1,8%'], bars: [52, 61, 58, 66, 71, 74], m: [30, 31, 29, 32, 31, 32], lab: ['jun', 'jul', 'ago', 'set', 'out', 'nov'] },
+      tri: { kpi: ['R$ 1,21 mi', '30,9%', 'R$ 1.205', '1.004'], d: ['+7,8% vs trimestre anterior', '+1,1 p.p.', '+0,9%', '+6,2%'], bars: [48, 55, 63, 70], m: [28, 29, 30, 31], lab: ['T4', 'T1', 'T2', 'T3'] },
+      ano: { kpi: ['R$ 4,62 mi', '29,7%', 'R$ 1.180', '3.915'], d: ['+12,4% vs ano anterior', '+2,0 p.p.', '+3,5%', '+8,6%'], bars: [58, 67, 76], m: [26, 28, 30], lab: ['2024', '2025', '2026'] },
+    }[per];
+    const L = ['Receita líquida', 'Margem de contribuição', 'Ticket médio', 'Pedidos'];
+    const kpis = L.map((label, i) => ({ label, value: D.kpi[i], delta: D.d[i], color: '#0E7A5F' }));
+    const n = D.bars.length;
+    const bars = D.bars.map((v, i) => ({ h: v + '%', c: i === n - 1 ? '#5B3CD6' : '#B9A8F8', label: D.lab[i] }));
+    const line = D.m.map((m, i) => `${((i + 0.5) / n) * 100},${100 - (m - 20) * 4}`).join(' ');
+    const C = { mes: [38, 33, 29, 24, 17], tri: [37, 32, 30, 23, 18], ano: [36, 31, 29, 24, 19] }[per];
+    const cats = ['Linha premium', 'Linha padrão', 'Serviços', 'Reposição', 'Acessórios'].map((name, i) => ({ name, v: C[i] + '%', w: (C[i] / 40) * 100 + '%', color: i === 4 ? '#3F27A3' : '#5B3CD6' }));
+    const periods = [['mes', 'Mês'], ['tri', 'Trimestre'], ['ano', 'Ano']].map(([id, label]) => ({
+      label, sel: per === id ? 'true' : 'false', pick: () => this.setState({ per: id }),
+      style: `min-height: 30px; padding: 0 10px; border: 0; border-radius: 6px; font: inherit; font-size: 12.5px; font-weight: 560; cursor: pointer; background: ${per === id ? '#FFFFFF' : 'transparent'}; color: ${per === id ? '#15131B' : '#4B4756'}; box-shadow: ${per === id ? '0 1px 2px rgba(21,19,27,.12)' : 'none'}`,
+    }));
+    return { periods, kpis, bars, line, cats };
+  }
+}
+</script>
+</body>
+</html>
