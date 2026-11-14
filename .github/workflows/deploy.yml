@@ -1,8 +1,10 @@
 name: Deploy to GitHub Pages
 
+# Publicação somente manual: o deploy automático a cada push na main foi
+# desativado até a definição da estratégia de publicação (GitHub Pages está
+# inativo no repositório). Para publicar, execute este workflow pela aba
+# Actions depois de ativar o Pages.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
