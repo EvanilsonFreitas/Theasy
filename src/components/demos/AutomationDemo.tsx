@@ -364,7 +364,7 @@ export function AutomationDemo() {
                   data-switch-track
                   className={cn(
                     'inline-flex h-5 w-9 shrink-0 items-center rounded-full p-[3px] transition-colors duration-200',
-                    diverge ? 'bg-purple-600' : 'bg-line',
+                    diverge ? 'bg-purple-600' : 'bg-rule-strong',
                   )}
                 >
                   <span

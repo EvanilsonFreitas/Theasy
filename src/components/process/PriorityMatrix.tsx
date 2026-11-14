@@ -168,48 +168,50 @@ export function PriorityMatrix() {
               </li>
             ))}
           </ol>
-          <AnimatePresence mode="wait" initial={false}>
-            <m.div
-              key={current.id}
-              data-testid="matrix-detail"
-              aria-live="polite"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -4 }}
-              transition={{ duration: 0.18 }}
-              className="flex flex-col gap-2.5"
-            >
-              <span className="type-mono text-[9px] text-purple-700">
-                {quadrantOf(current)}
-              </span>
-              <strong className="text-[15px] leading-snug">
-                {current.name}
-              </strong>
-              <p className="text-ink-2 text-[12.5px] leading-relaxed">
-                {current.description}
-              </p>
-              <dl className="grid grid-cols-2 gap-2">
-                {[
-                  ['Impacto', level(current.impact)],
-                  ['Esforço', level(current.effort)],
-                ].map(([k, v]) => (
-                  <div
-                    key={k}
-                    className="bg-paper border-rule rounded-md border px-2 py-1.5"
-                  >
-                    <dt className="type-mono text-ink-3 text-[8.5px]">{k}</dt>
-                    <dd className="text-[13px] font-semibold capitalize">
-                      {v}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="border-line text-ink-2 border-t border-dashed pt-2 text-[12px] leading-relaxed">
-                <strong className="text-ink">Por que nessa ordem:</strong>{' '}
-                {current.rationale}
-              </p>
-            </m.div>
-          </AnimatePresence>
+          {/* Região viva estável: o conteúdo troca dentro dela. */}
+          <div aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <m.div
+                key={current.id}
+                data-testid="matrix-detail"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.18 }}
+                className="flex flex-col gap-2.5"
+              >
+                <span className="type-mono text-[9px] text-purple-700">
+                  {quadrantOf(current)}
+                </span>
+                <strong className="text-[15px] leading-snug">
+                  {current.name}
+                </strong>
+                <p className="text-ink-2 text-[12.5px] leading-relaxed">
+                  {current.description}
+                </p>
+                <dl className="grid grid-cols-2 gap-2">
+                  {[
+                    ['Impacto', level(current.impact)],
+                    ['Esforço', level(current.effort)],
+                  ].map(([k, v]) => (
+                    <div
+                      key={k}
+                      className="bg-paper border-rule rounded-md border px-2 py-1.5"
+                    >
+                      <dt className="type-mono text-ink-3 text-[8.5px]">{k}</dt>
+                      <dd className="text-[13px] font-semibold capitalize">
+                        {v}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="border-line text-ink-2 border-t border-dashed pt-2 text-[12px] leading-relaxed">
+                  <strong className="text-ink">Por que nessa ordem:</strong>{' '}
+                  {current.rationale}
+                </p>
+              </m.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>
