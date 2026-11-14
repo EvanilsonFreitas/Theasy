@@ -95,7 +95,7 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="frame border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t py-6 text-sm">
-        <p>© {year} ThEasy</p>
+        <p>© {year} ThEasy. Todos os direitos reservados.</p>
         <p>Consultoria em dados, tecnologia e gestão</p>
       </div>
     </footer>
