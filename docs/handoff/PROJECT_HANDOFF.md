@@ -99,9 +99,9 @@ priorização, header compacto no scroll e WhatsApp comercial. Registro em
 | `npm run lint`       | ESLint, inclusive acessibilidade estática              |
 | `npm run typecheck`  | TypeScript em app, config e testes                     |
 | `npm run build`      | build de produção                                      |
-| `npm run test:smoke` | 45 testes Playwright contra o build (ver lista abaixo) |
+| `npm run test:smoke` | 48 testes Playwright contra o build (ver lista abaixo) |
 
-Os 45 testes cobrem:
+Os 48 testes cobrem:
 
 - as 7 rotas sem erros, com uma descrição por página e sem overflow;
 - a página 404 e os redirecionamentos legados;

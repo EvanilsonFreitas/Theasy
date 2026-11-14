@@ -343,10 +343,21 @@ ficam ocultos para não sobrepor o recorte).
 | Header no scroll             | Ver seção 5                                                                                                                                                          |
 | WhatsApp comercial           | Ver seção 7                                                                                                                                                          |
 
-Validação: lint, typecheck e build sem erros; 45 testes Playwright (24
-anteriores e 21 da V2.2, com axe WCAG 2.2 A/AA nas 7 rotas) aprovados
+Validação: lint, typecheck e build sem erros; 48 testes Playwright (24
+anteriores e 24 da V2.2, com axe WCAG 2.2 A/AA nas 7 rotas) aprovados
 localmente, repetidos sob carga para eliminar instabilidade. As
 verificações são geométricas (indicador dentro do trilho, âncoras sobre as
 bordas, nós sem sobreposição, marcador na posição dos valores, header sem
 deslocar o conteúdo) em vez de comparação de pixels, que falharia entre o
 Windows local e o Linux do CI.
+
+Revisão independente de QA (acessibilidade e UX) antes do PR encontrou e
+corrigiu: lista do `Select` cortada pela moldura das demos (agora em portal
+com posição fixa e rolagem interna), linha do header fora do centro entre o
+topo e o estado compacto (agora acompanha o deslocamento real do sticky e o
+logotipo é alinhado por flex), rodapé coberto pelo botão flutuante em telas
+largas, região viva do detalhe da matriz que remontava, nome do `Select`
+repetindo o valor, painel do menu sem acompanhar redimensionamento e
+contraste do trilho desligado do toggle (agora `rule-strong`, 3,4:1). O
+nome acessível do botão flutuante segue o texto pedido ("Conversar com a
+ThEasy pelo WhatsApp"), com a descrição "Abre em nova aba".
