@@ -41,7 +41,7 @@ export function Symbol({
 }
 
 /**
- * Assinatura completa: símbolo + THEASY (+ descritor opcional).
+ * Assinatura completa: símbolo + THEASY (+ assinatura "Your data analytics").
  * O logotipo tipográfico é composto em Instrument Sans. A entrelinha do
  * nome é ajustada à altura das maiúsculas para que nome e descritor formem
  * um bloco compacto, centrado na altura do símbolo.
@@ -95,12 +95,12 @@ export function Logo({
               'font-normal whitespace-nowrap',
               size === 'lg'
                 ? 'text-[15px] sm:text-[17px]'
-                : 'xs:block hidden text-[10.5px] md:text-[11px]',
+                : 'text-[10.5px] md:text-[11px]',
               'leading-none',
               tone === 'ink' ? 'text-ink-3' : 'text-on-ink-3',
             )}
           >
-            Business Intelligence &amp; Consulting
+            Your data analytics
           </span>
         )}
       </span>

@@ -19,7 +19,7 @@ export function Seo({ title, description, noindex }: SeoProps) {
   const { pathname } = useLocation()
   const fullTitle = title
     ? `${title} | ${site.name}`
-    : `${site.name} | Consultoria em dados, BI e sistemas`
+    : `${site.name} | Your data analytics`
   const desc = description ?? site.description
   const canonical = site.url
     ? `${site.url}${pathname === '/' ? '/' : pathname}`
