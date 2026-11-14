@@ -104,6 +104,8 @@ export function Contact() {
 
           <div className="relative">
             <ContactForm
+              // remonta ao mudar ?assunto ou ?area, para refletir os novos valores
+              key={location.key}
               defaults={{
                 mensagem: stateMessage,
                 assunto: solutionBySlug(assunto) ? assunto : '',

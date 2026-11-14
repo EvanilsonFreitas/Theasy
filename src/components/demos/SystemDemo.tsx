@@ -171,7 +171,7 @@ export function SystemDemo() {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[400px] text-left text-[12.5px]">
+          <table className="w-full text-left text-[12.5px] @md:min-w-[400px]">
             <caption className="sr-only">
               Pedidos demonstrativos; selecione um pedido para ver e editar o
               detalhe.
@@ -182,7 +182,10 @@ export function SystemDemo() {
                   <th
                     key={h}
                     scope="col"
-                    className="type-mono text-ink-3 px-3.5 py-2 text-[9.5px] font-normal"
+                    className={cn(
+                      'type-mono text-ink-3 px-2.5 py-2 text-[9.5px] font-normal @md:px-3.5',
+                      h === 'Etapa' && 'hidden @md:table-cell',
+                    )}
                   >
                     {h}
                   </th>
@@ -200,7 +203,7 @@ export function SystemDemo() {
                       : 'hover:bg-page',
                   )}
                 >
-                  <td className="px-3.5 py-1 tabular-nums">
+                  <td className="px-2.5 py-1 tabular-nums @md:px-3.5">
                     <button
                       type="button"
                       aria-pressed={sel === row.id}
@@ -210,11 +213,13 @@ export function SystemDemo() {
                       {row.id}
                     </button>
                   </td>
-                  <td className="max-w-[150px] truncate px-3.5 py-1">
+                  <td className="max-w-[150px] truncate px-2.5 py-1 @md:px-3.5">
                     {row.client}
                   </td>
-                  <td className="text-ink-2 px-3.5 py-1">{row.stage}</td>
-                  <td className="px-3.5 py-1">
+                  <td className="text-ink-2 hidden px-2.5 py-1 @md:table-cell @md:px-3.5">
+                    {row.stage}
+                  </td>
+                  <td className="px-2.5 py-1 @md:px-3.5">
                     <span
                       className={cn(
                         'rounded-[5px] px-[7px] py-[3px] text-[11px] font-semibold whitespace-nowrap',

@@ -211,7 +211,7 @@ export function PricingDemo() {
                 ? 'Combinação inviável: despesas e margem somam quase todo o preço.'
                 : `Cascata demonstrativa: preço ${brl(price)}, despesas variáveis ${dv}%, despesas fixas ${df}%, custo ${brl(c)} e margem ${mg}%.`
             }
-            className="border-line relative flex h-40 items-end gap-3 border-b px-1"
+            className="border-line relative flex h-40 items-end gap-1.5 border-b px-1 @md:gap-3"
           >
             {isNaN(price) && (
               <p className="text-ink-2 m-auto max-w-[24em] text-center text-[13px]">
@@ -240,13 +240,18 @@ export function PricingDemo() {
               </div>
             ))}
           </div>
-          <div className="mt-1.5 flex gap-3 px-1" aria-hidden="true">
+          <div
+            className="mt-1.5 flex gap-1.5 px-1 @md:gap-3"
+            aria-hidden="true"
+          >
             {steps.map((s) => (
-              <span key={s.label} className="flex-1 text-center">
-                <span className="type-mono text-ink-3 block text-[8.5px]">
+              <span key={s.label} className="min-w-0 flex-1 text-center">
+                <span className="type-mono text-ink-3 block text-[8px] leading-tight @md:text-[8.5px]">
                   {s.label}
                 </span>
-                <span className="text-[11px] tabular-nums">{brl(s.v)}</span>
+                <span className="block text-[10px] tabular-nums @md:text-[11px]">
+                  {brl(s.v)}
+                </span>
               </span>
             ))}
           </div>
