@@ -7,7 +7,7 @@ Data: 13/11/2026. Objetivo: entender **mecanismos** de design que explicam a qua
 - Navegação real em Chrome (headless, Playwright) com viewport **1440 × 900** e **390 × 844** (modo móvel com toque).
 - Nove quadros de viewport distribuídos ao longo da página desktop e três no mobile, rolando em passos para disparar observers e animações de entrada.
 - Estados interativos capturados separadamente: tabs, mega menu e cards em hover.
-- Arquivos: `docs/design/benchmark/refs/` (quadros) e `docs/design/benchmark/_sheet-*.jpg` (pranchas de contato por site). Repositório privado; capturas usadas apenas como material interno de análise.
+- Capturas: as imagens das referências (sites de terceiros) foram usadas apenas como material interno de análise e **não são publicadas** neste repositório público. Ficam em arquivo do responsável pelo projeto e no histórico Git anterior à publicação. As observações abaixo descrevem o que foi visto em cada quadro.
 
 ### Limitações registradas
 
