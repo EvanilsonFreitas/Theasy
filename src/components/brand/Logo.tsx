@@ -67,7 +67,7 @@ export function Logo({
     >
       <Symbol
         className={cn(
-          'text-purple-500',
+          'text-brand',
           size === 'lg' ? 'size-16 sm:size-20' : 'size-8 md:size-9',
         )}
       />

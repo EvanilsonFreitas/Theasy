@@ -34,12 +34,14 @@
   --color-on-ink-2: #c9c5d2;
   --color-on-ink-3: #a9a4b5;
 
-  /* Roxo ThEasy (símbolo #8B6CF0, aproximado da arte institucional) */
+  /* Roxo institucional oficial da ThEasy: #5D3BDA (símbolo e ação).
+     Os demais tons são auxiliares de interface (dados, luz, profundidade). */
+  --color-brand: #5d3bda;
   --color-purple-50: #f6f3ff;
   --color-purple-100: #ece7fe;
   --color-purple-300: #b9a8f8; /* dados secundários; texto sobre tinta 8,7:1 */
-  --color-purple-500: #8b6cf0; /* símbolo e elementos gráficos */
-  --color-purple-600: #5b3cd6; /* ação, conexão ativa, texto: 6,9:1 */
+  --color-purple-500: #8b6cf0; /* auxiliar: elementos gráficos e decorativos */
+  --color-purple-600: #5d3bda; /* oficial: ação, conexão ativa, texto */
   --color-purple-700: #4a2fb8; /* texto sobre roxo 50 */
   --color-purple-800: #3f27a3; /* hover / pressionado */
 
