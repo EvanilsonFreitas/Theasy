@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { Select } from '@/components/ui/Select'
 import { DemoFrame } from './DemoFrame'
 
 type Status = 'ok' | 'risk' | 'late' | 'done'
@@ -264,21 +265,16 @@ export function SystemDemo() {
           <p className="text-ink-2 text-[12px]">
             {r.owner} · prazo {r.due}
           </p>
-          <label className="text-ink-2 flex flex-col gap-1 text-[11.5px]">
-            Etapa
-            <select
-              value={form.stage}
-              onChange={(e) => {
-                setDraft({ ...form, stage: e.target.value })
-                setSaved(false)
-              }}
-              className="border-rule-strong bg-paper text-ink min-h-9 rounded-md border px-2 text-[13px]"
-            >
-              {STAGES.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-          </label>
+          <Select
+            label="Etapa"
+            size="md"
+            value={form.stage}
+            onChange={(stage) => {
+              setDraft({ ...form, stage })
+              setSaved(false)
+            }}
+            options={STAGES.map((s) => ({ value: s, label: s }))}
+          />
           <label className="text-ink-2 flex flex-col gap-1 text-[11.5px]">
             Observação
             <textarea

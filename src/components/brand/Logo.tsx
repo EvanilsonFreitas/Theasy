@@ -16,11 +16,14 @@ export function Symbol({
   className,
   title,
   animated = false,
+  glint = 0,
 }: {
   className?: string
   title?: string
   /** Colchetes se encaixam e a estrela aparece (uma vez, respeita movimento reduzido). */
   animated?: boolean
+  /** Cada incremento dispara um brilho curto sobre a estrela (0 = nenhum). */
+  glint?: number
 }) {
   return (
     <svg
@@ -36,6 +39,9 @@ export function Symbol({
         <path transform="rotate(180 512 512)" d={BRACKET} />
       </g>
       <path className="symbol-star" d={STAR} />
+      {glint > 0 && (
+        <path key={glint} className="symbol-glint" fill="#ffffff" d={STAR} />
+      )}
     </svg>
   )
 }
@@ -51,12 +57,22 @@ export function Logo({
   tone = 'ink',
   tagline = false,
   size = 'md',
+  compact = false,
+  glint = 0,
 }: {
   className?: string
   tone?: 'ink' | 'on-ink'
   tagline?: boolean
   size?: 'md' | 'lg'
+  /**
+   * Estado compacto do header: o símbolo reduz, o descritor esmaece e o
+   * nome se recentra. Só transform e opacity, sem alterar o layout.
+   */
+  compact?: boolean
+  /** Repassado ao símbolo (brilho na troca de estado). */
+  glint?: number
 }) {
+  const motion = 'ease-snap transition-[transform,opacity] duration-[360ms]'
   return (
     <span
       className={cn(
@@ -66,15 +82,26 @@ export function Logo({
       )}
     >
       <Symbol
+        glint={glint}
         className={cn(
-          'text-brand',
+          'text-brand origin-left',
+          motion,
           size === 'lg' ? 'size-16 sm:size-20' : 'size-8 md:size-9',
+          compact && 'scale-[0.86]',
         )}
       />
       <span
+        data-logo-text
         className={cn(
-          'flex flex-col justify-center',
+          'flex origin-left flex-col justify-center',
+          motion,
           size === 'lg' ? 'gap-2.5 sm:gap-3' : 'gap-[4px]',
+          // Recentra o nome na altura do símbolo quando o descritor some e
+          // acompanha a redução do símbolo no eixo horizontal.
+          compact &&
+            tagline &&
+            '-translate-x-[4.5px] translate-y-[6.5px] scale-[0.94] md:-translate-x-[5px] md:translate-y-[7px]',
+          compact && !tagline && '-translate-x-[4.5px] md:-translate-x-[5px]',
         )}
       >
         <span
@@ -98,6 +125,8 @@ export function Logo({
                 : 'text-[10.5px] md:text-[11px]',
               'leading-none',
               tone === 'ink' ? 'text-ink-3' : 'text-on-ink-3',
+              motion,
+              compact ? '-translate-y-0.5 opacity-0' : 'opacity-100',
             )}
           >
             Your data analytics

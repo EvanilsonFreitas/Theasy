@@ -113,6 +113,27 @@
     outline-offset: 3px;
   }
 
+  /*
+   * O preflight do Tailwind v4 usa cursor padrão em botões. Restauramos o
+   * ponteiro só em controles realmente interativos (não em cards estáticos).
+   */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab'],
+  [role='switch'],
+  [role='option'],
+  select:not(:disabled),
+  summary,
+  input[type='range']:not(:disabled),
+  label[for] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
   [tabindex='-1']:focus {
     outline: none;
   }
@@ -274,6 +295,31 @@
     transform-box: fill-box;
     transform-origin: center;
     animation: symbol-star 700ms 450ms var(--ease-snap) both;
+  }
+}
+
+/* Brilho curto da estrela na troca de estado do header (uma vez, sem loop).
+   Com movimento reduzido a regra global zera a duração e nada aparece. */
+.symbol-glint {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  pointer-events: none;
+  animation: symbol-glint 620ms var(--ease-snap) both;
+}
+
+@keyframes symbol-glint {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  35% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
   }
 }
 

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Logo } from '@/components/brand/Logo'
-import { primaryNav, site } from '@/content/site'
+import { primaryNav, site, whatsapp } from '@/content/site'
+import { WhatsAppIcon } from '@/components/contact/WhatsAppIcon'
 import { solutions } from '@/content/solutions'
 import { Star } from '@/components/system/Star'
 
@@ -20,6 +21,24 @@ export function SiteFooter() {
             <Logo size="lg" tagline />
           </Link>
           <p className="text-ink-2 max-w-[24em]">{site.tagline}</p>
+          <a
+            href={whatsapp.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-whatsapp-link="footer"
+            className="group inline-flex min-h-10 items-center gap-2.5 self-start hover:text-purple-600"
+          >
+            <span className="bg-brand flex size-7 items-center justify-center rounded-full text-white">
+              <WhatsAppIcon className="size-3.5" />
+            </span>
+            <span>
+              WhatsApp{' '}
+              <span className="text-ink-2 group-hover:text-purple-600">
+                {whatsapp.display}
+              </span>
+              <span className="sr-only"> (abre em nova aba)</span>
+            </span>
+          </a>
           <ol
             className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1"
             aria-label="Arquitetura de uma solução ThEasy"
@@ -94,8 +113,8 @@ export function SiteFooter() {
           </ul>
         </nav>
       </div>
-      <div className="frame border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t py-6 text-sm">
-        <p>© {year} ThEasy</p>
+      <div className="frame border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t pt-6 pb-24 text-sm">
+        <p>© {year} ThEasy. Todos os direitos reservados.</p>
         <p>Consultoria em dados, tecnologia e gestão</p>
       </div>
     </footer>

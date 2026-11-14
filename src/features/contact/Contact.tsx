@@ -3,6 +3,8 @@ import { Seo } from '@/components/seo/Seo'
 import { Section, SectionHead } from '@/components/system/Section'
 import { areas } from '@/content/problems'
 import { solutionBySlug } from '@/content/solutions'
+import { whatsapp } from '@/content/site'
+import { WhatsAppIcon } from '@/components/contact/WhatsAppIcon'
 import { ContactForm } from './ContactForm'
 
 const steps = [
@@ -100,6 +102,33 @@ export function Contact() {
                 </li>
               ))}
             </ol>
+
+            <div
+              data-testid="contact-whatsapp"
+              className="border-rule bg-paper e1 flex flex-col gap-4 rounded-xl border p-5"
+            >
+              <div>
+                <p className="font-semibold">Prefere conversar agora?</p>
+                <p className="text-ink-2 mt-1 text-[15px] leading-normal">
+                  Fale direto com a equipe comercial pelo WhatsApp{' '}
+                  <span className="text-ink font-medium whitespace-nowrap">
+                    {whatsapp.display}
+                  </span>
+                  .
+                </p>
+              </div>
+              <a
+                href={whatsapp.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-whatsapp-link="contact"
+                className="bg-brand ease-snap inline-flex min-h-11 items-center justify-center gap-2.5 self-start rounded-lg px-4 text-[15px] font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-purple-700"
+              >
+                <WhatsAppIcon className="size-4" />
+                Conversar pelo WhatsApp
+                <span className="sr-only"> (abre em nova aba)</span>
+              </a>
+            </div>
           </div>
 
           <div className="relative">

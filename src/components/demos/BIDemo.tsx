@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { Select } from '@/components/ui/Select'
 import { smoothPath, wave, type Pt } from '@/lib/chart'
 import { DemoFrame, Segmented } from './DemoFrame'
 
@@ -246,19 +247,18 @@ export function BIDemo() {
       title="Painel executivo"
       actions={
         <div className="flex flex-wrap items-center gap-2">
-          <label className="sr-only" htmlFor="bi-unit">
-            Unidade
-          </label>
-          <select
-            id="bi-unit"
+          <Select
+            label="Unidade"
+            hideLabel
             value={unit}
-            onChange={(e) => setUnit(e.target.value as Unit)}
-            className="border-line bg-paper min-h-8 rounded-md border px-2 text-[12.5px]"
-          >
-            <option value="todas">Todas as unidades</option>
-            <option value="sul">Unidade Sul</option>
-            <option value="sudeste">Unidade Sudeste</option>
-          </select>
+            onChange={setUnit}
+            className="min-w-[10.5rem]"
+            options={[
+              { value: 'todas', label: 'Todas as unidades' },
+              { value: 'sul', label: 'Unidade Sul' },
+              { value: 'sudeste', label: 'Unidade Sudeste' },
+            ]}
+          />
           <button
             type="button"
             aria-pressed={compare}

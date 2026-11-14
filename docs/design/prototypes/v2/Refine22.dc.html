@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ThEasy, refinamento V2.2 de componentes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+.br{border-radius:12px 4px 12px 4px}
+.brs{border-radius:9px 3px 9px 3px}
+.e1{box-shadow:0 1px 2px rgba(21,19,27,.05)}
+.e2{box-shadow:0 1px 2px rgba(21,19,27,.05),0 12px 32px -12px rgba(21,19,27,.16)}
+.e3{box-shadow:0 2px 6px rgba(21,19,27,.06),0 24px 48px -16px rgba(63,39,163,.28)}
+.stage{background:radial-gradient(70% 60% at 75% 12%,rgba(139,108,240,.12),transparent 70%),radial-gradient(#DAD6E3 1px,transparent 1.2px) 0 0/18px 18px,#F4F3F7;border:1px solid #E7E5EC;border-radius:18px}
+</style>
+</helmet>
+<div style="width: 1440px; box-sizing: border-box; padding: 56px; background: #FAFAFB; color: #15131B; font-family: 'Instrument Sans', system-ui, sans-serif; display: flex; flex-direction: column; gap: 48px">
+<div><p class="mono" style="margin: 0 0 8px; color: #5D3BDA">Refinamento V2.2 · evolução pontual da V2.1</p><h1 style="margin: 0; font-size: 36px; font-weight: 600">Conectores ancorados, arquitetura com respiro e matriz de priorização</h1></div>
+
+<!-- A · CONECTORES -->
+<section style="display: grid; grid-template-columns: 360px 1fr; gap: 40px; align-items: center">
+<div><p class="mono" style="margin: 0 0 8px; color: #6F6A7A">A · Do problema à solução</p><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4B4756">Conectores medidos a partir das caixas reais: nascem na borda direita do contexto e terminam na borda esquerda de cada frente, com âncoras de 6 px nos dois extremos. A espinha liga a base de uma frente ao topo da seguinte. A saída parte da frente ativa e encontra a borda da solução. Cubicas suaves, traço 1,5, fluxo tracejado só na saída ativa.</p></div>
+<div style="position: relative; height: 330px">
+<svg width="980" height="330" viewBox="0 0 980 330" style="position: absolute; inset: 0" aria-hidden="true">
+<path d="M300 100C340 100 340 64 380 64" fill="none" stroke="#B9A8F8" stroke-width="1.5"/>
+<path d="M300 230C340 230 340 266 380 266" fill="none" stroke="#B9A8F8" stroke-width="1.5"/>
+<path d="M480 104V126" stroke="#5D3BDA" stroke-width="1.5"/><path d="M480 206V226" stroke="#5D3BDA" stroke-width="1.5"/>
+<path d="M580 166C620 166 620 166 660 166" fill="none" stroke="#5D3BDA" stroke-width="1.8" stroke-dasharray="4 6"/>
+<circle cx="300" cy="100" r="3.5" fill="#FFFFFF" stroke="#8B6CF0" stroke-width="1.5"/><circle cx="380" cy="64" r="3.5" fill="#8B6CF0"/>
+<circle cx="300" cy="230" r="3.5" fill="#FFFFFF" stroke="#8B6CF0" stroke-width="1.5"/><circle cx="380" cy="266" r="3.5" fill="#8B6CF0"/>
+<circle cx="580" cy="166" r="3.5" fill="#5D3BDA"/><circle cx="660" cy="166" r="3.5" fill="#FFFFFF" stroke="#5D3BDA" stroke-width="1.5"/>
+</svg>
+<div style="position: absolute; left: 0; top: 20px; width: 300px; height: 290px; background: #F4F3F7; border: 1px solid #E7E5EC; border-radius: 16px"><span class="mono" style="position: absolute; left: 18px; top: 16px; color: #6F6A7A">Contexto · hoje</span></div>
+<div class="br e1" style="position: absolute; left: 380px; top: 24px; width: 200px; height: 80px; background: #FFFFFF; border: 1px solid #D6D2DE; padding: 12px; box-sizing: border-box"><span class="mono" style="font-size: 9.5px; color: #6F6A7A">1 · Dados</span><div style="font-size: 13px; font-weight: 600; margin-top: 4px">Integra ERP e planilhas</div></div>
+<div class="br e3" style="position: absolute; left: 380px; top: 126px; width: 200px; height: 80px; background: #FFFFFF; border: 1px solid #5D3BDA; padding: 12px; box-sizing: border-box"><span class="mono" style="font-size: 9.5px; color: #5D3BDA">2 · BI</span><div style="font-size: 13px; font-weight: 600; margin-top: 4px">Painel de margem</div></div>
+<div class="br e1" style="position: absolute; left: 380px; top: 226px; width: 200px; height: 80px; background: #FFFFFF; border: 1px solid #D6D2DE; padding: 12px; box-sizing: border-box"><span class="mono" style="font-size: 9.5px; color: #6F6A7A">3 · Consultoria</span><div style="font-size: 13px; font-weight: 600; margin-top: 4px">Revisão do preço</div></div>
+<div class="stage" style="position: absolute; left: 660px; top: 20px; width: 320px; height: 290px"><span class="mono" style="position: absolute; left: 18px; top: 16px; color: #5D3BDA">Solução estruturada</span></div>
+</div>
+</section>
+
+<!-- B · ARQUITETURA COMPACTA -->
+<section style="display: grid; grid-template-columns: 360px 560px 1fr; gap: 40px; align-items: start">
+<div><p class="mono" style="margin: 0 0 8px; color: #6F6A7A">B · Consultoria · contexto e direção</p><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4B4756">Cinco camadas rotuladas (Fontes, Processamento, Estruturação, Aplicações, Resultado). Barramentos em vez de traços curtos: cada fonte desce até um barramento, que converge para o processamento; a base se ramifica em duas colunas; as saídas convergem para a decisão. Conectores de 24 a 28 px, âncoras nos pontos de contato, entrada neutra, transformação em superfície rebaixada, base em roxo.</p></div>
+<div class="br" style="border: 1px solid #E7E5EC; background: #FFFFFF; padding: 20px">
+<span class="mono" style="color: #5D3BDA; display: block; padding-bottom: 12px; border-bottom: 1px dashed #D6D2DE">Consultoria · contexto e direção</span>
+<span class="mono" style="display: block; margin-top: 16px; font-size: 9.5px; color: #6F6A7A">Fontes</span>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px"><span class="brs" style="border: 1px solid #D6D2DE; padding: 10px; text-align: center; font-size: 13px; font-weight: 560">ERP</span><span class="brs" style="border: 1px solid #D6D2DE; padding: 10px; text-align: center; font-size: 13px; font-weight: 560">CRM</span><span class="brs" style="border: 1px solid #D6D2DE; padding: 10px; text-align: center; font-size: 13px; font-weight: 560">Planilhas</span><span class="brs" style="border: 1px solid #D6D2DE; padding: 10px; text-align: center; font-size: 13px; font-weight: 560">SQL</span></div>
+<svg width="518" height="30" viewBox="0 0 518 30" style="display: block" aria-hidden="true"><path d="M61 0V12M190 0V12M327 0V12M457 0V12M61 12H457M259 12V30" fill="none" stroke="#B9A8F8" stroke-width="1.5"/><circle cx="259" cy="12" r="3" fill="#5D3BDA"/></svg>
+<span class="mono" style="display: block; font-size: 9.5px; color: #6F6A7A; margin-bottom: 6px">Processamento</span>
+<div class="brs" style="background: #F4F3F7; border: 1px solid #D6D2DE; padding: 12px; text-align: center; font-size: 14px; font-weight: 600">Integração e tratamento</div>
+<svg width="518" height="28" viewBox="0 0 518 28" style="display: block" aria-hidden="true"><path d="M259 0V28" stroke="#5D3BDA" stroke-width="1.5"/></svg>
+<span class="mono" style="display: block; font-size: 9.5px; color: #6F6A7A; margin-bottom: 6px">Estruturação</span>
+<div class="brs e3" style="border: 1px solid #5D3BDA; padding: 12px; text-align: center; font-size: 14px; font-weight: 600">✦ Base estruturada</div>
+<svg width="518" height="30" viewBox="0 0 518 30" style="display: block" aria-hidden="true"><path d="M259 0V12M129 12H389M129 12V30M389 12V30" fill="none" stroke="#5D3BDA" stroke-width="1.5"/><circle cx="259" cy="12" r="3" fill="#5D3BDA"/></svg>
+<span class="mono" style="display: block; font-size: 9.5px; color: #6F6A7A; margin-bottom: 6px">Aplicações</span>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px"><span class="brs" style="border: 1px solid #D6D2DE; padding: 12px; font-size: 13.5px; font-weight: 560">Painéis de BI</span><span class="brs" style="border: 1px solid #D6D2DE; padding: 12px; font-size: 13.5px; font-weight: 560">Sistemas</span><span class="brs" style="border: 1px solid #D6D2DE; padding: 12px; font-size: 13.5px; font-weight: 560">Automações</span><span class="brs" style="border: 1px solid #D6D2DE; padding: 12px; font-size: 13.5px; font-weight: 560">Preço e margem</span></div>
+<svg width="518" height="30" viewBox="0 0 518 30" style="display: block" aria-hidden="true"><path d="M129 0V12M389 0V12M129 12H389M259 12V30" fill="none" stroke="#B9A8F8" stroke-width="1.5"/><circle cx="259" cy="12" r="3" fill="#5D3BDA"/></svg>
+<span class="mono" style="display: block; font-size: 9.5px; color: #6F6A7A; margin-bottom: 6px">Resultado</span>
+<div class="brs" style="border: 1px solid #15131B; padding: 12px; font-size: 14px; font-weight: 600">✦ Decisão com informação confiável</div>
+</div>
+<div style="font-size: 13.5px; line-height: 1.6; color: #4B4756"><p class="mono" style="margin: 0 0 8px; color: #6F6A7A">Mobile</p>A mesma pilha vertical, sem compressão horizontal: fontes 2 × 2 abaixo de 400 px, barramentos recalculados por percentual das colunas, rótulos de camada acima de cada grupo.</div>
+</section>
+
+<!-- C · MATRIZ -->
+<section style="display: grid; grid-template-columns: 360px 1fr; gap: 40px; align-items: start">
+<div><p class="mono" style="margin: 0 0 8px; color: #6F6A7A">C · Mapa de problemas e oportunidades</p><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4B4756">Matriz qualitativa demonstrativa. Posição derivada dos valores (impacto e esforço, escala 1 a 5). Quadrantes nomeados: Ganhos rápidos, Projetos estratégicos, Ajustes pontuais, Reavaliar. Marcadores são botões; a iniciativa selecionada abre o painel de detalhe. No mobile, marcadores numerados e lista abaixo.</p></div>
+<div class="e2" style="background: #FFFFFF; border: 1px solid #D6D2DE; border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 1fr 260px">
+<div style="padding: 18px 18px 30px 48px; position: relative">
+<div style="position: relative; height: 300px; border-left: 1px solid #8E8999; border-bottom: 1px solid #8E8999">
+<div style="position: absolute; left: 0; top: 0; width: 50%; height: 50%; background: #F6F3FF"></div>
+<div style="position: absolute; left: 50%; top: 0; width: 50%; height: 50%; background: #FAFAFB"></div>
+<span style="position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed #D6D2DE"></span><span style="position: absolute; top: 50%; left: 0; right: 0; border-top: 1px dashed #D6D2DE"></span>
+<span class="mono" style="position: absolute; left: 10px; top: 8px; font-size: 9px; color: #5D3BDA">Ganhos rápidos</span>
+<span class="mono" style="position: absolute; right: 10px; top: 8px; font-size: 9px; color: #6F6A7A">Projetos estratégicos</span>
+<span class="mono" style="position: absolute; left: 10px; bottom: 8px; font-size: 9px; color: #6F6A7A">Ajustes pontuais</span>
+<span class="mono" style="position: absolute; right: 10px; bottom: 8px; font-size: 9px; color: #6F6A7A">Reavaliar</span>
+<span style="position: absolute; left: 20%; top: 10%; width: 14px; height: 14px; margin: -7px; border-radius: 50%; background: #5D3BDA; box-shadow: 0 0 0 5px #ECE7FE"></span><span style="position: absolute; left: 20%; top: 10%; margin: -9px 0 0 14px; font-size: 12.5px; font-weight: 600">Base de custos única</span>
+<span style="position: absolute; left: 35%; top: 25%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; background: #8B6CF0"></span><span style="position: absolute; left: 35%; top: 25%; margin: -9px 0 0 12px; font-size: 12px">Painel de margem</span>
+<span style="position: absolute; left: 77%; top: 20%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; border: 2px solid #4B4756; background: #FFFFFF"></span><span style="position: absolute; left: 77%; top: 20%; margin: -9px 0 0 -150px; font-size: 12px; text-align: right; width: 138px">Novo sistema de pedidos</span>
+<span style="position: absolute; left: 22%; top: 60%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; border: 2px solid #4B4756; background: #FFFFFF"></span><span style="position: absolute; left: 22%; top: 60%; margin: -9px 0 0 12px; font-size: 12px">Automatizar fechamento</span>
+<span style="position: absolute; left: 90%; top: 70%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; border: 2px solid #8E8999; background: #FFFFFF"></span><span style="position: absolute; left: 90%; top: 70%; margin: -9px 0 0 -110px; font-size: 12px; color: #6F6A7A; width: 98px; text-align: right">Trocar o ERP</span>
+</div>
+<span class="mono" style="position: absolute; left: 14px; top: 150px; transform: rotate(-90deg); transform-origin: left top; font-size: 9px; color: #4B4756">Impacto →</span>
+<span class="mono" style="position: absolute; right: 18px; bottom: 10px; font-size: 9px; color: #4B4756">Esforço →</span>
+</div>
+<div style="border-left: 1px solid #E7E5EC; background: #FAFAFB; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+<span class="mono" style="font-size: 9.5px; color: #5D3BDA">Ganho rápido</span>
+<strong style="font-size: 16px">Base de custos única</strong>
+<span style="font-size: 13px; line-height: 1.5; color: #4B4756">Consolida custos do ERP e das planilhas em uma base com regras de rateio documentadas.</span>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px"><div style="border: 1px solid #E7E5EC; border-radius: 8px; padding: 8px; background: #FFFFFF"><span class="mono" style="font-size: 8.5px; color: #6F6A7A">Impacto</span><div style="font-weight: 600">Alto</div></div><div style="border: 1px solid #E7E5EC; border-radius: 8px; padding: 8px; background: #FFFFFF"><span class="mono" style="font-size: 8.5px; color: #6F6A7A">Esforço</span><div style="font-weight: 600">Baixo</div></div></div>
+<span style="font-size: 12.5px; line-height: 1.5; color: #4B4756; border-top: 1px dashed #D6D2DE; padding-top: 10px"><strong style="color: #15131B">Por que primeiro:</strong> destrava o painel de margem e a revisão de preço.</span>
+</div>
+</div>
+</section>
+
+<!-- D · HEADER E LOGOTIPO NO SCROLL -->
+<section style="display: grid; grid-template-columns: 360px 1fr; gap: 40px; align-items: start">
+<div><p class="mono" style="margin: 0 0 8px; color: #6F6A7A">D · Header e logotipo no scroll</p><p style="margin: 0; font-size: 15px; line-height: 1.55; color: #4B4756">Topo: identidade completa, 72 px. Após 48 px de rolagem: header compacto de 60 px (deslocamento sticky, sem mudar o layout), sombra ambiente e filete inferior. Símbolo a 86%, assinatura some em 280 ms e o nome se recentra. Na transição, a estrela recebe um brilho único de 600 ms (opacidade e escala), sem giro nem pulsação. Volta ao estado completo abaixo de 16 px (histerese). Com movimento reduzido, estados estáticos.</p></div>
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="height: 72px; background: #FFFFFF; border: 1px solid #E7E5EC; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px">
+<span style="display: flex; align-items: center; gap: 12px"><svg width="36" height="36" viewBox="160 160 704 704" aria-hidden="true"><path fill="#5D3BDA" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"/><path fill="#5D3BDA" transform="rotate(180 512 512)" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"/><path fill="#5D3BDA" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg><span style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600; letter-spacing: .03em; font-size: 23px; line-height: .74">THEASY</span><span style="font-size: 11px; color: #6F6A7A; line-height: 1">Your data analytics</span></span></span>
+<span class="mono" style="color: #6F6A7A">Topo · 72 px · identidade completa</span>
+</div>
+<div style="height: 60px; background: #FFFFFF; border: 1px solid #E7E5EC; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; box-shadow: 0 8px 24px -16px rgba(21,19,27,.35)">
+<span style="display: flex; align-items: center; gap: 10px"><svg width="31" height="31" viewBox="160 160 704 704" aria-hidden="true"><path fill="#5D3BDA" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"/><path fill="#5D3BDA" transform="rotate(180 512 512)" d="M185 672V420A235 235 0 0 1 420 185H725A122 122 0 0 1 603 307H420A113 113 0 0 0 307 420V550A122 122 0 0 1 185 672Z"/><path fill="#5D3BDA" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/><path fill="#ECE7FE" opacity=".55" transform="translate(512 512) scale(.7) translate(-512 -512)" d="M512 347A165 165 0 0 0 677 512A165 165 0 0 0 512 677A165 165 0 0 0 347 512A165 165 0 0 0 512 347Z"/></svg><span style="font-weight: 600; letter-spacing: .03em; font-size: 23px; line-height: .74">THEASY</span></span>
+<span class="mono" style="color: #6F6A7A">Rolagem · 60 px visíveis · brilho único na estrela</span>
+</div>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2050}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

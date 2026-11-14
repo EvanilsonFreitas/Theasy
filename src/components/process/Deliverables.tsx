@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { Star } from '@/components/system/Star'
 import { smoothPath, type Pt } from '@/lib/chart'
+import { PriorityMatrix } from './PriorityMatrix'
 
 /*
  * Entregáveis ilustrativos de cada etapa do método. Cada um usa a mesma
@@ -20,55 +21,9 @@ function Frame({ title, children }: { title: string; children: ReactNode }) {
   )
 }
 
-/** 01 · Mapa de problemas e oportunidades (impacto × esforço). */
+/** 01 · Mapa de problemas e oportunidades: ver PriorityMatrix. */
 export function Matrix() {
-  const items = [
-    { t: 'Base de custos única', x: 14, y: 14, key: true },
-    { t: 'Painel de margem', x: 30, y: 38 },
-    { t: 'Novo sistema de pedidos', x: 58, y: 20 },
-    { t: 'Automatizar fechamento', x: 12, y: 66 },
-    { t: 'Trocar o ERP', x: 60, y: 72, dim: true },
-  ]
-  return (
-    <Frame title="Mapa de problemas e oportunidades">
-      <div className="p-4 pl-9">
-        <div className="border-line relative h-56 border-b border-l sm:h-60">
-          <span className="type-mono text-ink-3 absolute top-1/2 -left-7 -translate-y-1/2 -rotate-90 text-[9px]">
-            Impacto
-          </span>
-          <span className="type-mono text-ink-3 absolute right-0 -bottom-5 text-[9px]">
-            Esforço
-          </span>
-          <span
-            aria-hidden="true"
-            className="border-paper-3 absolute inset-y-0 left-1/2 border-l border-dashed"
-          />
-          <span
-            aria-hidden="true"
-            className="border-paper-3 absolute inset-x-0 top-1/2 border-t border-dashed"
-          />
-          <span className="type-mono absolute top-2 left-2 text-[8.5px] text-purple-600">
-            começar aqui
-          </span>
-          {items.map((it) => (
-            <span
-              key={it.t}
-              className={cn(
-                'bracket-sm absolute max-w-[44%] border px-1.5 py-1 text-[10.5px] leading-tight sm:max-w-none sm:px-2 sm:text-[11.5px] sm:whitespace-nowrap',
-                it.key
-                  ? 'e3 border-purple-600 bg-purple-50 font-semibold'
-                  : 'e1 border-line bg-paper',
-                it.dim && 'text-ink-3',
-              )}
-              style={{ left: `${it.x}%`, top: `${it.y + 8}%` }}
-            >
-              {it.t}
-            </span>
-          ))}
-        </div>
-      </div>
-    </Frame>
-  )
+  return <PriorityMatrix />
 }
 
 /** 02 · Arquitetura da solução. */

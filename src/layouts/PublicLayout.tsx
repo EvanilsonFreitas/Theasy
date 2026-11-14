@@ -3,6 +3,7 @@ import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import { LazyMotion, MotionConfig, domMax } from 'framer-motion'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
+import { WhatsAppFloat } from '@/components/contact/WhatsAppFloat'
 import { useScrollReveal } from '@/hooks/useScrollReveal'
 
 export function PublicLayout() {
@@ -68,6 +69,7 @@ export function PublicLayout() {
           </Suspense>
         </main>
         <SiteFooter />
+        <WhatsAppFloat />
       </LazyMotion>
     </MotionConfig>
   )

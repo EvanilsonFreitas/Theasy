@@ -357,17 +357,21 @@ export function AutomationDemo() {
                 onClick={toggleDiverge}
                 className="border-line hover:border-ink inline-flex min-h-10 items-center gap-2 rounded-lg border px-3 text-[12.5px] font-[560]"
               >
+                {/* Trilho 36 × 20 com recuo de 3 px; botão de 14 px percorre
+                    36 − 2 × 3 − 14 = 16 px. Layout em flex, sem offsets absolutos. */}
                 <span
                   aria-hidden="true"
+                  data-switch-track
                   className={cn(
-                    'relative block h-4 w-7 shrink-0 rounded-full transition-colors',
-                    diverge ? 'bg-warn' : 'bg-line',
+                    'inline-flex h-5 w-9 shrink-0 items-center rounded-full p-[3px] transition-colors duration-200',
+                    diverge ? 'bg-purple-600' : 'bg-rule-strong',
                   )}
                 >
                   <span
+                    data-switch-thumb
                     className={cn(
-                      'absolute top-0.5 size-3 rounded-full bg-white transition-transform',
-                      diverge ? 'translate-x-3.5' : 'translate-x-0.5',
+                      'ease-snap size-3.5 rounded-full bg-white shadow-[0_1px_2px_rgb(21_19_27/0.3)] transition-transform duration-200',
+                      diverge ? 'translate-x-4' : 'translate-x-0',
                     )}
                   />
                 </span>
