@@ -113,7 +113,7 @@ export function SiteFooter() {
           </ul>
         </nav>
       </div>
-      <div className="frame border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t pt-6 pb-24 text-sm sm:pb-6">
+      <div className="frame border-rule text-ink-3 flex flex-wrap justify-between gap-4 border-t pt-6 pb-24 text-sm">
         <p>© {year} ThEasy. Todos os direitos reservados.</p>
         <p>Consultoria em dados, tecnologia e gestão</p>
       </div>
