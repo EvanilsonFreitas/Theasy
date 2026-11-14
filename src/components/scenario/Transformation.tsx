@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState, type RefObject } from 'react'
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion'
 import { scenarios, type Scenario } from '@/content/scenarios'
 import { ServiceGlyph } from '@/components/system/Glyphs'
@@ -24,6 +24,7 @@ export function Transformation({
   const index = value ?? inner
   const select = (i: number) => (onChange ? onChange(i) : setInner(i))
   const sc = scenarios[index]
+  const grid = useRef<HTMLDivElement>(null)
 
   return (
     <div>
@@ -64,10 +65,14 @@ export function Transformation({
         </m.p>
       </AnimatePresence>
 
-      <div className="mt-5 grid gap-4 lg:mt-12 lg:grid-cols-[minmax(0,1fr)_minmax(220px,250px)_minmax(0,1fr)] lg:gap-0">
+      <div
+        ref={grid}
+        className="relative mt-5 grid gap-4 lg:mt-12 lg:grid-cols-[minmax(0,1fr)_minmax(220px,250px)_minmax(0,1fr)] lg:gap-0"
+      >
         <Context sc={sc} />
         <Intervention sc={sc} />
         <Solution sc={sc} />
+        <Wires root={grid} version={sc.slug} />
       </div>
       <p className="text-ink-3 mt-3 text-[13px]">
         Situações ilustrativas, compostas a partir de problemas frequentes. Não
@@ -85,7 +90,10 @@ function Context({ sc }: { sc: Scenario }) {
     'sm:-rotate-[0.8deg]',
   ]
   return (
-    <div className="border-rule bg-paper-2 relative flex flex-col rounded-2xl border p-5 sm:p-6">
+    <div
+      data-wire="ctx"
+      className="border-rule bg-paper-2 relative flex flex-col rounded-2xl border p-5 sm:p-6"
+    >
       <p className="type-mono text-ink-3">Contexto do negócio · hoje</p>
       <AnimatePresence mode="wait" initial={false}>
         <m.ul
@@ -159,57 +167,11 @@ function Context({ sc }: { sc: Scenario }) {
 
 function Intervention({ sc }: { sc: Scenario }) {
   const reduce = useReducedMotion()
-  const draw = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { pathLength: 0 },
-          animate: { pathLength: 1 },
-          transition: { duration: 0.6, delay, ease: EASE },
-        }
   return (
     <div className="relative flex flex-col py-2 lg:px-0">
       <p className="type-mono mb-3 text-center text-purple-600 lg:absolute lg:inset-x-0 lg:-top-6 lg:mb-0">
         Intervenção ThEasy
       </p>
-      {/* Conectores: entram pelo contexto, atravessam as frentes e saem para a solução */}
-      <svg
-        key={sc.slug}
-        viewBox="0 0 240 300"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-        className="absolute inset-0 hidden size-full lg:block"
-      >
-        <m.path
-          d="M0 95C18 95 14 50 30 50"
-          className="stroke-wire fill-none"
-          strokeWidth="1.25"
-          vectorEffect="non-scaling-stroke"
-          {...draw(0)}
-        />
-        <m.path
-          d="M0 205C18 205 14 250 30 250"
-          className="stroke-wire fill-none"
-          strokeWidth="1.25"
-          vectorEffect="non-scaling-stroke"
-          {...draw(0.05)}
-        />
-        <m.path
-          d="M120 70V230"
-          className="fill-none stroke-purple-500"
-          strokeWidth="1.25"
-          strokeDasharray="3 4"
-          vectorEffect="non-scaling-stroke"
-          {...draw(0.15)}
-        />
-        <m.path
-          d="M210 150H240"
-          className="fill-none stroke-purple-600"
-          strokeWidth="1.6"
-          vectorEffect="non-scaling-stroke"
-          {...draw(0.45)}
-        />
-      </svg>
       <ol className="relative grid flex-1 grid-rows-3 gap-3 lg:gap-0 lg:px-[12.5%]">
         <span
           aria-hidden="true"
@@ -228,6 +190,7 @@ function Intervention({ sc }: { sc: Scenario }) {
             className="relative flex items-center"
           >
             <div
+              data-wire={`node-${i}`}
               className={cn(
                 'bracket bg-paper relative w-full border px-3 py-2.5',
                 i === 1 ? 'e3 border-purple-600' : 'e1 border-line',
@@ -255,7 +218,10 @@ function Intervention({ sc }: { sc: Scenario }) {
 
 function Solution({ sc }: { sc: Scenario }) {
   return (
-    <div className="stage flex flex-col gap-3 rounded-2xl p-4 sm:p-5">
+    <div
+      data-wire="sol"
+      className="stage flex flex-col gap-3 rounded-2xl p-4 sm:p-5"
+    >
       <p className="type-mono text-purple-600">Solução estruturada</p>
       <AnimatePresence mode="wait" initial={false}>
         <m.div
@@ -277,5 +243,177 @@ function Solution({ sc }: { sc: Scenario }) {
         </m.div>
       </AnimatePresence>
     </div>
+  )
+}
+
+/** Retângulo de layout relativo à raiz (ignora transforms de animação). */
+function layoutRect(el: HTMLElement, root: HTMLElement) {
+  let x = 0
+  let y = 0
+  let n: HTMLElement | null = el
+  while (n && n !== root) {
+    x += n.offsetLeft
+    y += n.offsetTop
+    n = n.offsetParent as HTMLElement | null
+  }
+  return { x, y, w: el.offsetWidth, h: el.offsetHeight }
+}
+
+interface WireGeometry {
+  w: number
+  h: number
+  inputs: string[]
+  spine: string[]
+  output: string
+  anchors: { x: number; y: number; end: boolean; strong: boolean }[]
+}
+
+const curve = (x1: number, y1: number, x2: number, y2: number) => {
+  const dx = (x2 - x1) / 2
+  return `M${x1} ${y1}C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}`
+}
+
+/**
+ * Conectores medidos a partir das caixas reais (contexto, frentes e
+ * solução). Recalculados quando o layout muda de fato (ResizeObserver),
+ * nascem e terminam nas bordas, com âncoras nos dois extremos. Só no
+ * layout de três colunas; no empilhado, a espinha tracejada da lista
+ * cumpre o papel.
+ */
+function Wires({
+  root,
+  version,
+}: {
+  root: RefObject<HTMLDivElement | null>
+  version: string
+}) {
+  const reduce = useReducedMotion()
+  const [geo, setGeo] = useState<WireGeometry | null>(null)
+
+  // useEffect (não layout): o ref da grade pai só existe depois do commit
+  // completo; efeitos de layout do filho rodam antes da ligação do ref.
+  useEffect(() => {
+    const el = root.current
+    if (!el) return
+    const wide = window.matchMedia('(min-width: 64rem)')
+    const measure = () => {
+      const pick = (k: string) =>
+        el.querySelector<HTMLElement>(`[data-wire="${k}"]`)
+      const ctx = pick('ctx')
+      const sol = pick('sol')
+      const nodes = [0, 1, 2].map((i) => pick(`node-${i}`))
+      if (!wide.matches || !ctx || !sol || nodes.some((n) => !n)) {
+        setGeo(null)
+        return
+      }
+      const C = layoutRect(ctx, el)
+      const S = layoutRect(sol, el)
+      const N = nodes.map((n) => layoutRect(n!, el))
+      const cx = (r: typeof C) => r.x + r.w / 2
+      const cy = (r: typeof C) => r.y + r.h / 2
+      const right = C.x + C.w
+      const yIn = [C.y + C.h * 0.32, C.y + C.h * 0.68]
+      setGeo({
+        w: el.offsetWidth,
+        h: el.offsetHeight,
+        inputs: [
+          curve(right, yIn[0], N[0].x, cy(N[0])),
+          curve(right, yIn[1], N[2].x, cy(N[2])),
+        ],
+        spine: [
+          `M${cx(N[0])} ${N[0].y + N[0].h}V${N[1].y}`,
+          `M${cx(N[1])} ${N[1].y + N[1].h}V${N[2].y}`,
+        ],
+        output: `M${N[1].x + N[1].w} ${cy(N[1])}H${S.x}`,
+        anchors: [
+          { x: right, y: yIn[0], end: false, strong: false },
+          { x: N[0].x, y: cy(N[0]), end: true, strong: false },
+          { x: right, y: yIn[1], end: false, strong: false },
+          { x: N[2].x, y: cy(N[2]), end: true, strong: false },
+          { x: N[1].x + N[1].w, y: cy(N[1]), end: false, strong: true },
+          { x: S.x, y: cy(N[1]), end: true, strong: true },
+        ],
+      })
+    }
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    el.querySelectorAll<HTMLElement>('[data-wire]').forEach((n) =>
+      ro.observe(n),
+    )
+    wide.addEventListener('change', measure)
+    return () => {
+      ro.disconnect()
+      wide.removeEventListener('change', measure)
+    }
+  }, [root, version])
+
+  if (!geo) return null
+  const draw = (delay: number) =>
+    reduce
+      ? {}
+      : {
+          initial: { pathLength: 0 },
+          animate: { pathLength: 1 },
+          transition: { duration: 0.55, delay, ease: EASE },
+        }
+  return (
+    <svg
+      key={version}
+      data-testid="scenario-wires"
+      width={geo.w}
+      height={geo.h}
+      viewBox={`0 0 ${geo.w} ${geo.h}`}
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-10 overflow-visible"
+    >
+      {geo.inputs.map((d, i) => (
+        <m.path
+          key={`in${i}`}
+          data-wire-path="input"
+          d={d}
+          className="fill-none stroke-purple-300"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          {...draw(0.05 * i)}
+        />
+      ))}
+      {geo.spine.map((d, i) => (
+        <m.path
+          key={`sp${i}`}
+          data-wire-path="spine"
+          d={d}
+          className="fill-none stroke-purple-500"
+          strokeWidth="1.5"
+          {...draw(0.2 + 0.08 * i)}
+        />
+      ))}
+      <path
+        data-wire-path="output"
+        d={geo.output}
+        className="wire-flow fill-none stroke-purple-600"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+      />
+      {geo.anchors.map((a, i) => (
+        <circle
+          key={i}
+          data-wire-anchor
+          cx={a.x}
+          cy={a.y}
+          r="3.5"
+          strokeWidth="1.5"
+          className={cn(
+            a.end
+              ? a.strong
+                ? 'fill-paper stroke-purple-600'
+                : 'fill-purple-500 stroke-purple-500'
+              : a.strong
+                ? 'fill-purple-600 stroke-purple-600'
+                : 'fill-paper stroke-purple-500',
+          )}
+        />
+      ))}
+    </svg>
   )
 }
