@@ -139,6 +139,7 @@ usam "·", fórmulas são escritas por extenso e "e-mail" vira "email".
 | Interface | 240 a 280 ms                           | Troca de painel, menu, filtros                                  |
 | Encaixe   | spring (rigidez 260, amortecimento 30) | Fontes → modelo na folha de trabalho                            |
 | Narrativo | 520 a 900 ms                           | Revelação por máscara dos títulos de seção, montagem do símbolo |
+| Estado    | 300 a 380 ms                           | Header compacto no scroll, brilho da estrela (620 ms, uma vez)  |
 
 Regras: só `transform` e `opacity`; curva `cubic-bezier(.2,.8,.2,1)`; sem
 sequestro de scroll (o trilho da Abordagem só **reflete** o scroll);
@@ -146,6 +147,20 @@ avanço automático da folha de trabalho com botão Pausar, pausado no hover,
 no foco e fora da viewport; `prefers-reduced-motion` mostra tudo no estado
 final e desliga o avanço automático. Sem JS, nada fica escondido (estados
 iniciais só existem sob `.js`).
+
+**Header no scroll (V2.2).** Estado discreto, não contínuo: compacta acima
+de 48 px de rolagem e só volta abaixo de 16 px (histerese), com leitura
+limitada a um quadro (`requestAnimationFrame`) e mudança de estado apenas ao
+cruzar um limiar, então não há renderização por pixel nem oscilação. A
+altura do header no fluxo não muda: ele fica preso 12 px (8 px no mobile)
+acima da viewport, a faixa visível passa de 72 para 60 px (64 para 56 no
+mobile) e a linha interna se recentra com `transform`. No compacto o símbolo
+vai a 86%, o descritor "Your data analytics" esmaece, o nome THEASY se
+recentra e entram sombra ambiente e separador. A estrela recebe um brilho
+curto (opacidade e escala, 620 ms, uma vez por troca de estado; não toca na
+montagem). Com o menu mobile aberto o estado fica congelado e o painel começa
+exatamente na borda visível do header. Com movimento reduzido, as mudanças
+são instantâneas e o brilho não aparece.
 
 ## 6. Arquitetura da informação
 
@@ -188,13 +203,29 @@ própria). Sem a variável, o formulário valida normalmente, mas informa que
 Testado localmente: sucesso (endpoint simulado recebeu o JSON), erro HTTP 500
 (dados mantidos, alerta focado) e ambiente sem endpoint.
 
+**WhatsApp comercial (V2.2).** Canal direto informado pela ThEasy:
++55 (11) 96463-9228. Configuração única em `src/content/site.ts`
+(`whatsapp`: número internacional, exibição, mensagem inicial e URL
+`https://wa.me/5511964639228?text=...` com a mensagem codificada). Sem SDK,
+scripts ou cookies de terceiros, sem encurtadores; links com
+`target="_blank"` e `rel="noopener noreferrer"`. Pontos de contato: botão
+flutuante em todas as páginas (nome acessível "Conversar com a ThEasy pelo
+WhatsApp", dica "Falar pelo WhatsApp" no hover e no foco, áreas seguras do
+mobile, inerte atrás do menu mobile), cartão "Conversar pelo WhatsApp" na
+página de contato e canal no rodapé. O CTA do header continua levando a
+`/contato`: a página oferece as duas jornadas (formulário e WhatsApp) lado a
+lado, sem mudar o layout aprovado do header. O formulário não foi alterado e
+continua informando que a mensagem não foi enviada enquanto não houver
+endpoint.
+
 ## 8. Pendências que dependem da ThEasy
 
 1. Arquivos vetoriais oficiais do logotipo (SVG) e confirmação da fonte do
    nome "THEASY"; hoje o símbolo é uma vetorização fiel da arte enviada.
 2. ~~HEX oficial do roxo~~: resolvido, `#5D3BDA` (ver seção 12).
 3. Endpoint ou serviço de recebimento do formulário (`VITE_CONTACT_ENDPOINT`)
-   e um email de contato para exibir no site.
+   e um email de contato para exibir no site. O WhatsApp comercial já está
+   ativo (seção 7).
 4. Imagem `og-image.png` (1200×630); a tag `og:image` só deve ser reativada
    em `Seo.tsx` quando o arquivo existir. A URL pública já está definida
    (`VITE_SITE_URL` no `deploy.yml`).
@@ -290,3 +321,32 @@ Capturas: `docs/screenshots/v1-antes/` (antes), `docs/screenshots/v2-depois/`
   repositório público.
 - Handoff do projeto: `docs/handoff/PROJECT_HANDOFF.md`; instruções para o
   Claude Code: `CLAUDE.md`.
+
+## 13. Refinamento V2.2 (evolução pontual da v2.1)
+
+Correções de interface depois da publicação, sem reabrir conceito, layout
+ou identidade. Especificação visual no board "Refino V2.2" do canvas
+(`docs/design/prototypes/v2/Refine22.dc.html`). Evidências em
+`docs/screenshots/v2.2-antes/` (produção) e `docs/screenshots/v2.2-depois/`
+(build local; nas capturas de componentes o header fixo e o botão flutuante
+ficam ocultos para não sobrepor o recorte).
+
+| Item                         | Correção                                                                                                                                                             |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Toggle "Simular divergência" | Trilho 36 × 20 com respiro de 3 px; indicador de 14 px desloca 16 px. Fica contido nos dois estados                                                                  |
+| Do problema à solução        | Conectores medidos nas caixas reais (ResizeObserver), nascem e terminam nas bordas, com âncoras; só no layout de três colunas                                        |
+| Seletor de unidade           | `Select` do design system (combobox WAI-ARIA: setas, Home, End, Enter, Espaço, Esc, busca por letra, abre para cima quando falta espaço). Também na demo de sistemas |
+| Arquitetura compacta         | Camadas com respiro, rótulos de camada e barramentos alinhados à grade (descidas no centro de cada caixa)                                                            |
+| Rodapé                       | "© {ano} ThEasy. Todos os direitos reservados." com ano dinâmico                                                                                                     |
+| Cursor e affordance          | `cursor: pointer` só em botões, abas, switches, opções, `summary` e `label[for]`; `not-allowed` em desabilitados. Cards estáticos sem mão                            |
+| Matriz impacto × esforço     | Quadrantes nomeados, posição derivada dos valores (`src/content/initiatives.ts`), marcadores selecionáveis, painel de detalhe e lista numerada em contêiner estreito |
+| Header no scroll             | Ver seção 5                                                                                                                                                          |
+| WhatsApp comercial           | Ver seção 7                                                                                                                                                          |
+
+Validação: lint, typecheck e build sem erros; 45 testes Playwright (24
+anteriores e 21 da V2.2, com axe WCAG 2.2 A/AA nas 7 rotas) aprovados
+localmente, repetidos sob carga para eliminar instabilidade. As
+verificações são geométricas (indicador dentro do trilho, âncoras sobre as
+bordas, nós sem sobreposição, marcador na posição dos valores, header sem
+deslocar o conteúdo) em vez de comparação de pixels, que falharia entre o
+Windows local e o Linux do CI.

@@ -68,6 +68,11 @@ Direção **v2.1 "Arquitetura conectada"**:
 Registro completo em `docs/design/refinamento-v2.1.md`, benchmark em
 `docs/design/benchmark-v2.md`, protótipos em `docs/design/prototypes/`.
 
+**V2.2 (polimento pós publicação):** toggle, conectores medidos, `Select`
+do design system, arquitetura compacta, rodapé, cursor, matriz de
+priorização, header compacto no scroll e WhatsApp comercial. Registro em
+`DESIGN.md` (seção 13).
+
 ## 5. Funcionalidades
 
 - **Rotas:** `/`, `/solucoes`, `/aplicacoes` (`?area=` compartilhável),
@@ -79,6 +84,13 @@ Registro completo em `docs/design/refinamento-v2.1.md`, benchmark em
 - **Formulário:** validação (zod), honeypot, tempo limite de 15 s e mensagens
   de erro. Sem `VITE_CONTACT_ENDPOINT`, informa que **não** enviou e oferece
   copiar o texto.
+- **WhatsApp comercial:** +55 (11) 96463-9228, link `wa.me` com mensagem
+  inicial codificada. Fonte única em `src/content/site.ts` (`whatsapp`);
+  para trocar número ou mensagem, altere só esse objeto. Aparece no botão
+  flutuante (todas as páginas), na página de contato e no rodapé. Sem SDK,
+  scripts ou cookies de terceiros.
+- **Header:** compacta no scroll com histerese (48 px para compactar, 16 px
+  para voltar), sem deslocar o conteúdo; congelado com o menu mobile aberto.
 
 ## 6. Testes
 
@@ -87,9 +99,9 @@ Registro completo em `docs/design/refinamento-v2.1.md`, benchmark em
 | `npm run lint`       | ESLint, inclusive acessibilidade estática              |
 | `npm run typecheck`  | TypeScript em app, config e testes                     |
 | `npm run build`      | build de produção                                      |
-| `npm run test:smoke` | 24 testes Playwright contra o build (ver lista abaixo) |
+| `npm run test:smoke` | 45 testes Playwright contra o build (ver lista abaixo) |
 
-Os 24 testes cobrem:
+Os 45 testes cobrem:
 
 - as 7 rotas sem erros, com uma descrição por página e sem overflow;
 - a página 404 e os redirecionamentos legados;
@@ -99,7 +111,14 @@ Os 24 testes cobrem:
 - as abas e as etapas;
 - o formulário sem sucesso falso;
 - o movimento reduzido;
-- axe WCAG 2.2 A/AA nas 7 rotas.
+- axe WCAG 2.2 A/AA nas 7 rotas;
+- V2.2: indicador do toggle contido no trilho, âncoras dos conectores sobre
+  as bordas (e recálculo ao mudar a largura), `Select` por mouse e teclado,
+  nós da arquitetura compacta sem sobreposição, matriz (posição pelos
+  valores, seleção e detalhe), texto do rodapé, cursor, header compacto
+  (histerese, sem deslocamento, retorno, troca de rota, âncoras, menu
+  mobile, movimento reduzido) e WhatsApp (todas as rotas, número e mensagem
+  corretos, nome acessível, teclado, sem sobreposição no mobile).
 
 Não há testes unitários nem testes com leitores de tela reais.
 
@@ -147,9 +166,10 @@ Ver `docs/deployment/GITHUB_PAGES.md`.
 **Resolvidas:** redesign, identidade, cor oficial, CI, auditorias,
 publicação no Pages, documentação e handoff.
 
-**Impeditivas (só para o canal de contato):** serviço de recebimento do
+**Impeditivas (só para o formulário):** serviço de recebimento do
 formulário (`VITE_CONTACT_ENDPOINT`) com um envio real validado. Enquanto
-isso, o site informa que a mensagem não foi enviada.
+isso, o site informa que a mensagem não foi enviada. O WhatsApp comercial
+já funciona como canal direto e não depende dessa configuração.
 
 **Não impeditivas:**
 

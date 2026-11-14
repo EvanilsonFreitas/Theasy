@@ -18,8 +18,12 @@ gestão (controladoria, custos, precificação, rentabilidade).
 - Redesign **v2.1 "Arquitetura conectada" aprovado e encerrado**. Não reabrir
   conceito, layout, identidade ou animações sem pedido explícito.
 - Publicado em GitHub Pages: https://evanilsonfreitas.github.io/Theasy/
+- Polimento **V2.2** (componentes, header compacto no scroll e WhatsApp
+  comercial) registrado em `DESIGN.md` (seção 13).
 - Formulário de contato sem serviço de recebimento configurado: informa que a
   mensagem **não** foi enviada. Nunca simular sucesso.
+- WhatsApp comercial ativo: +55 (11) 96463-9228. Fonte única em
+  `src/content/site.ts` (`whatsapp`); não duplicar número ou mensagem.
 
 ## Stack
 
@@ -34,7 +38,11 @@ Playwright + axe-core (testes de fumaça).
 - `src/components/system/`: gramática visual (mapa, estrela, glifos, seções, `PageHero`).
 - `src/components/demos/`: as cinco demonstrações interativas.
 - `src/components/{scenario,process,areas}/`: seções reutilizadas na home e nas páginas.
-- `src/components/brand/Logo.tsx`: símbolo e assinatura (componente único).
+- `src/components/brand/Logo.tsx`: símbolo e assinatura (componente único,
+  com estado `compact` usado pelo header).
+- `src/components/ui/Select.tsx`: seletor acessível do design system (não
+  usar `<select>` nativo nas demos).
+- `src/components/contact/`: botão flutuante e glifo do WhatsApp.
 - `src/features/`: páginas. `src/routes/index.tsx`: rotas e redirecionamentos legados.
 - `e2e/smoke.spec.ts`: testes de fumaça. `docs/`: design, deploy e handoff.
 

@@ -28,6 +28,9 @@ entregue ao navegador: nunca use secrets nelas.
 | `VITE_SITE_URL`         | `deploy.yml`       | URL pública sem barra final. Gera canonical, `og:url` e `sitemap.xml`                                      |
 | `VITE_CONTACT_ENDPOINT` | ainda não definida | Endpoint que recebe o formulário (POST JSON). Sem ela, o formulário informa que a mensagem não foi enviada |
 
+O WhatsApp comercial não depende de variável de ambiente: o número e a
+mensagem ficam em `src/content/site.ts`.
+
 Para ativar o formulário: contrate ou configure um serviço que aceite POST
 JSON de origem pública (por exemplo Formspree, Getform ou uma função própria),
 adicione `VITE_CONTACT_ENDPOINT` ao passo de build do `deploy.yml` (via PR) e
