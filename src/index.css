@@ -113,6 +113,27 @@
     outline-offset: 3px;
   }
 
+  /*
+   * O preflight do Tailwind v4 usa cursor padrão em botões. Restauramos o
+   * ponteiro só em controles realmente interativos (não em cards estáticos).
+   */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab'],
+  [role='switch'],
+  [role='option'],
+  select:not(:disabled),
+  summary,
+  input[type='range']:not(:disabled),
+  label[for] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
   [tabindex='-1']:focus {
     outline: none;
   }
