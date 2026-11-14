@@ -49,6 +49,7 @@ valide um envio real antes de anunciar o canal.
    `assets/index-<hash>.js` referenciado em
    https://evanilsonfreitas.github.io/Theasy/ deve ser igual ao gerado por
    `GITHUB_PAGES=true VITE_SITE_URL=https://evanilsonfreitas.github.io/Theasy npm run build`
+   (PowerShell: `$env:GITHUB_PAGES='true'; $env:VITE_SITE_URL='https://evanilsonfreitas.github.io/Theasy'; npm run build`)
    no mesmo commit.
 3. Rode os testes de fumaça contra o build local (`npm run test:smoke`) e
    confira em produção, nas larguras 390, 768, 1024, 1440 e 1920 px:

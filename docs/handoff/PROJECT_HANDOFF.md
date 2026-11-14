@@ -63,7 +63,7 @@ Direção **v2.1 "Arquitetura conectada"**:
 - método em cinco etapas com entregáveis;
 - áreas e setores com fotos reais;
 - composição institucional derivada do símbolo;
-- profundidade suave (cinco níveis), guias contínuas, nós em colchete e estrela de junção.
+- profundidade suave (níveis E0 a E4; utilitários `e1` a `e4`), guias contínuas, nós em colchete e estrela de junção.
 
 Registro completo em `docs/design/refinamento-v2.1.md`, benchmark em
 `docs/design/benchmark-v2.md`, protótipos em `docs/design/prototypes/`.
@@ -112,7 +112,7 @@ Não há testes unitários nem testes com leitores de tela reais.
   Conventional Commits, sem atribuições automáticas (`.claude/settings.json`).
 - **PRs relevantes:**
   - #1 redesign v2.1, assinatura, CI (merge `72bbdb9`).
-  - PR de encerramento com cor oficial, publicação e documentação.
+  - #2 encerramento: cor oficial, publicação e documentação.
 - A proteção de branch não estava disponível quando o repositório era privado
   no plano gratuito; reavaliar agora que é público.
 

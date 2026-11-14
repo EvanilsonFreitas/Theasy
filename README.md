@@ -34,21 +34,23 @@ React Hook Form + Zod · Framer Motion · Instrument Sans e IBM Plex Mono
 
 ## Começando
 
-Node.js 20 ou superior.
+Node.js 22 (o CI usa 22; o Vite 8 exige 20.19 ou mais recente).
 
 ```bash
-npm install
+npm ci
+npx playwright install chromium
 npm run dev
 ```
 
-| Comando             | Descrição                                |
-| ------------------- | ---------------------------------------- |
-| `npm run dev`       | Servidor de desenvolvimento              |
-| `npm run build`     | Typecheck e build de produção em `dist/` |
-| `npm run typecheck` | Verificação de tipos                     |
-| `npm run lint`      | ESLint (inclui jsx-a11y)                 |
-| `npm run format`    | Prettier                                 |
-| `npm run preview`   | Pré-visualização do build                |
+| Comando              | Descrição                                    |
+| -------------------- | -------------------------------------------- |
+| `npm run dev`        | Servidor de desenvolvimento                  |
+| `npm run build`      | Typecheck e build de produção em `dist/`     |
+| `npm run typecheck`  | Verificação de tipos                         |
+| `npm run lint`       | ESLint (inclui jsx-a11y); `lint:fix` corrige |
+| `npm run test:smoke` | Testes de fumaça Playwright contra o build   |
+| `npm run format`     | Prettier; `format:check` apenas verifica     |
+| `npm run preview`    | Pré-visualização do build                    |
 
 ## Configuração
 

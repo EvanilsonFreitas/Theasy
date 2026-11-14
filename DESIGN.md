@@ -1,7 +1,7 @@
 # ThEasy · Design e decisões técnicas
 
-Documento de referência do redesign do site institucional (branch
-`feat/theasy-redesign`).
+Documento de referência do redesign do site institucional (integrado à
+`main` pelos PRs #1 e #2).
 
 > **Versão atual: v2.1 "Arquitetura conectada".** A direção v1 ("Caderno de
 > decisão", seções 1 a 7 abaixo) foi reprovada e substituída. Decisões da
@@ -9,7 +9,7 @@ Documento de referência do redesign do site institucional (branch
 > (benchmark visual) e
 > [docs/design/refinamento-v2.1.md](docs/design/refinamento-v2.1.md)
 > (direção, sistema visual, componentes, movimento). As seções 1 a 7 ficam
-> como histórico da v1; as seções 8 e 10 valem para a versão atual.
+> como histórico da v1; as seções 8, 10, 11 e 12 valem para a versão atual.
 
 ## 1. Diagnóstico do site anterior (ONEB)
 
@@ -281,8 +281,8 @@ Capturas: `docs/screenshots/v1-antes/` (antes), `docs/screenshots/v2-depois/`
 - Cor institucional oficial: **`#5D3BDA`** (token `brand` e `purple-600`),
   aplicada ao símbolo, favicon, ações e conexões ativas. `#8B6CF0`
   (`purple-500`) permanece como tom auxiliar de gráficos e efeitos. Contraste
-  de `#5D3BDA` sobre as superfícies do site: 6,1:1 a 6,8:1. As seções 4 e 8
-  acima registram o valor provisório da v1.
+  de `#5D3BDA` sobre as superfícies do site: 6,1:1 a 6,8:1. A seção 4
+  acima registra o valor provisório da v1.
 - Publicação: GitHub Pages com fonte GitHub Actions, deploy manual, URL
   https://evanilsonfreitas.github.io/Theasy/. Procedimento e evidências em
   `docs/deployment/GITHUB_PAGES.md`.
