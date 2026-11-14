@@ -425,71 +425,171 @@ function AppNode({
   )
 }
 
+/*
+ * Barramentos da versão vertical. Cada linha usa a mesma grade das caixas
+ * que conecta, então as descidas caem exatamente no centro de cada caixa.
+ * Os segmentos horizontais avançam metade do vão (gap) para os lados,
+ * fechando o barramento sem depender de medidas em pixels.
+ */
+const GAP = { 4: 6, 2: 24 } as const
+
+function Drops({ cols, tone }: { cols: 2 | 4; tone: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn('grid h-3', cols === 4 ? 'grid-cols-4' : 'grid-cols-2')}
+      style={{ columnGap: GAP[cols] }}
+    >
+      {Array.from({ length: cols }, (_, i) => (
+        <span key={i} className="flex justify-center">
+          <span className={cn('h-full w-[1.5px]', tone)} />
+        </span>
+      ))}
+    </div>
+  )
+}
+
+function Bar({ cols, tone }: { cols: 2 | 4; tone: string }) {
+  const half = GAP[cols] / 2
+  return (
+    <div
+      aria-hidden="true"
+      className={cn(
+        'relative grid h-[1.5px]',
+        cols === 4 ? 'grid-cols-4' : 'grid-cols-2',
+      )}
+      style={{ columnGap: GAP[cols] }}
+    >
+      {Array.from({ length: cols }, (_, i) => {
+        const first = i === 0
+        const last = i === cols - 1
+        return (
+          <span
+            key={i}
+            className={cn('h-full', tone)}
+            style={{
+              marginLeft: first ? '50%' : -half,
+              marginRight: last ? '50%' : -half,
+            }}
+          />
+        )
+      })}
+      <span className="ring-paper absolute top-1/2 left-1/2 size-[7px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600 ring-2" />
+    </div>
+  )
+}
+
+/** Haste central com o rótulo da camada seguinte à esquerda. */
+function Stem({ label, h = 'h-6' }: { label?: string; h?: string }) {
+  return (
+    <div className={cn('relative flex justify-center', h)}>
+      <span aria-hidden="true" className="h-full w-[1.5px] bg-purple-600" />
+      {label && (
+        <span className="type-mono text-ink-3 absolute bottom-1 left-0 text-[9.5px]">
+          {label}
+        </span>
+      )}
+    </div>
+  )
+}
+
 /**
- * Versão vertical do mapa para telas estreitas: a mesma sequência de
- * camadas, empilhada, em vez de uma redução ilegível do desenho largo.
+ * Versão vertical do mapa para telas estreitas e colunas laterais: as mesmas
+ * cinco camadas (fontes, processamento, estruturação, aplicações e
+ * resultado), com barramentos que convergem e se ramificam em vez de
+ * traços curtos entre caixas.
  */
 export function SystemMapCompact({ active }: { active: SolutionSlug | null }) {
   const lit = (p: Part) => !active || LIT[active].includes(p)
   const box = (p: Part, extra?: string) =>
     cn(
-      'bracket-sm border bg-paper px-2.5 py-2 text-[13px] font-[560] transition-[opacity,border-color] duration-300',
+      'bracket-sm border bg-paper px-2.5 py-2.5 text-[13px] font-[560] transition-[opacity,border-color,box-shadow] duration-300',
       active && LIT[active].includes(p) ? 'border-purple-600' : 'border-line',
       lit(p) ? 'opacity-100' : 'opacity-40',
       extra,
     )
-  const wire = (
-    <span
-      aria-hidden="true"
-      className="mx-auto block h-3.5 w-[1.25px] bg-purple-600"
-    />
-  )
+  const input = 'bg-purple-300'
+  const output = 'bg-purple-300'
   return (
     <div
       role="img"
       aria-label={DESCRIPTION}
+      data-testid="system-map-compact"
       className={cn(
-        'bracket border p-3.5 transition-colors',
+        'bracket border p-4 transition-colors sm:p-5',
         active === 'consultoria'
           ? 'border-purple-600 bg-purple-50/60'
           : 'border-rule bg-paper',
       )}
     >
-      <p className="type-mono border-line border-b border-dashed pb-2.5 text-[10px] text-purple-600">
+      <p className="type-mono border-line border-b border-dashed pb-3 text-[10px] text-purple-600">
         Consultoria · contexto e direção
       </p>
-      <p className="type-mono text-ink-3 mt-3 text-[10px]">Fontes</p>
-      <div className="mt-1.5 grid grid-cols-4 gap-1.5">
+
+      <p className="type-mono text-ink-3 mt-4 mb-2 text-[9.5px]">Fontes</p>
+      <div className="grid grid-cols-4" style={{ columnGap: GAP[4] }}>
         {['ERP', 'CRM', 'Planilhas', 'SQL'].map((s) => (
           <span
             key={s}
-            className={box('src', 'px-1 text-center text-[11.5px]')}
+            data-map-node="source"
+            className={box('src', 'px-1 text-center text-[12px]')}
           >
             {s}
           </span>
         ))}
       </div>
-      {wire}
-      <p className={box('int', 'text-center')}>Integração e tratamento</p>
-      {wire}
+      <Drops cols={4} tone={input} />
+      <Bar cols={4} tone={input} />
+      <Stem label="Processamento" />
       <p
+        data-map-node="process"
+        className={box('int', 'bg-paper-2 text-center text-[13.5px]')}
+      >
+        Integração e tratamento
+      </p>
+      <Stem label="Estruturação" h="h-7" />
+      <p
+        data-map-node="base"
         className={box(
           'base',
-          'flex items-center justify-center gap-2 border-purple-600',
+          'e3 flex items-center justify-center gap-2 border-purple-600 text-[13.5px] font-semibold',
         )}
       >
         <Star size={11} className="text-purple-600" />
         Base estruturada
       </p>
-      {wire}
-      <div className="grid grid-cols-2 gap-1.5">
-        <span className={box('bi')}>Painéis de BI</span>
-        <span className={box('sis')}>Sistemas</span>
-        <span className={box('aut')}>Automações</span>
-        <span className={box('pre')}>Preço e margem</span>
+      <Stem label="Aplicações" h="h-5" />
+      <Bar cols={2} tone="bg-purple-600" />
+      <Drops cols={2} tone="bg-purple-600" />
+      <div className="grid grid-cols-2" style={{ columnGap: GAP[2] }}>
+        {[
+          ['bi', 'Painéis de BI', 'aut', 'Automações'],
+          ['sis', 'Sistemas', 'pre', 'Preço e margem'],
+        ].map(([a, la, b, lb]) => (
+          <div key={a} className="flex flex-col items-stretch">
+            <span data-map-node="app" className={box(a as Part)}>
+              {la}
+            </span>
+            <span
+              aria-hidden="true"
+              className={cn('mx-auto block h-2.5 w-[1.5px]', output)}
+            />
+            <span data-map-node="app" className={box(b as Part)}>
+              {lb}
+            </span>
+          </div>
+        ))}
       </div>
-      {wire}
-      <p className={box('dec', 'border-ink flex items-center gap-2')}>
+      <Drops cols={2} tone={output} />
+      <Bar cols={2} tone={output} />
+      <Stem label="Resultado" />
+      <p
+        data-map-node="decision"
+        className={box(
+          'dec',
+          'border-ink flex items-center gap-2 text-[13.5px] font-semibold',
+        )}
+      >
         <Star size={12} className="text-purple-600" />
         Decisão com informação confiável
       </p>
