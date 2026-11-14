@@ -78,6 +78,7 @@ export function SiteHeader() {
       document.getElementById('conteudo'),
       document.querySelector('body footer'),
       document.querySelector<HTMLElement>('a[href="#conteudo"]'),
+      document.querySelector<HTMLElement>('[data-whatsapp-float]'),
     ].filter((el): el is HTMLElement => !!el)
     behind.forEach((el) => (el.inert = true))
 
