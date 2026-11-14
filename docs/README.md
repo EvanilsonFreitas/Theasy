@@ -1,14 +1,17 @@
-# Documentação — OneB
+# Documentação · ThEasy
 
-Índice da documentação técnica e de produto da plataforma institucional OneB.
+Índice de `docs/`. A porta de entrada do projeto é o
+[`CLAUDE.md`](../CLAUDE.md) na raiz.
 
-| Documento                                              | Conteúdo                                                     |
-| ------------------------------------------------------ | ------------------------------------------------------------ |
-| [01-visao-e-identidade.md](./01-visao-e-identidade.md) | Missão, visão, valores, posicionamento e identidade da marca |
-| [02-design-system.md](./02-design-system.md)           | Paleta de cores, tipografia, tokens e decisões visuais       |
-| [03-arquitetura.md](./03-arquitetura.md)               | Stack, estrutura de pastas e decisões técnicas               |
-| [04-roadmap.md](./04-roadmap.md)                       | Fases do projeto                                             |
-| [05-backlog.md](./05-backlog.md)                       | Backlog de funcionalidades futuras                           |
-| [06-fase-1-tasks.md](./06-fase-1-tasks.md)             | Checklist da Fase 1 (fundação técnica)                       |
+| Caminho                                                      | Conteúdo                                                                                        |
+| ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| [handoff/PROJECT_HANDOFF.md](handoff/PROJECT_HANDOFF.md)     | estado, arquitetura, histórico das frentes, pendências e recuperação                            |
+| [handoff/NEW_SESSION_START.md](handoff/NEW_SESSION_START.md) | prompt curto para iniciar uma nova sessão do Claude Code                                        |
+| [deployment/GITHUB_PAGES.md](deployment/GITHUB_PAGES.md)     | publicação, validação, rollback e limites do GitHub Pages                                       |
+| [design/benchmark-v2.md](design/benchmark-v2.md)             | benchmark visual da v2 (capturas de terceiros não publicadas)                                   |
+| [design/refinamento-v2.1.md](design/refinamento-v2.1.md)     | sistema visual, componentes, movimento e decisões por seção                                     |
+| [design/prototypes/](design/prototypes/)                     | fontes exportadas dos protótipos: `v1` (reprovada) e `v2` (aprovada, inclui refino v2.1 e V2.2) |
+| [screenshots/](screenshots/)                                 | capturas: site anterior, v1, v2, assinatura e V2.2 antes e depois                               |
+| [historico/oneb/](historico/oneb/)                           | planejamento do site anterior (OneB); **histórico, não vigente**                                |
 
-Toda documentação do projeto deve permanecer nesta pasta — nenhuma documentação solta em outras partes do repositório.
+Decisões de design e validações por versão: [`DESIGN.md`](../DESIGN.md).
