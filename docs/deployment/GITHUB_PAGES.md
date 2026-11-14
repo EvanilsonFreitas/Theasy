@@ -9,7 +9,7 @@
 | Branch de origem      | `main`                                                                                                         |
 | Fonte do Pages        | GitHub Actions (`build_type: workflow`)                                                                        |
 | Workflow              | [`.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml), **somente manual** (`workflow_dispatch`) |
-| Ambiente              | `github-pages` (branches permitidas: `main` e `feat/theasy-redesign`)                                          |
+| Ambiente              | `github-pages` (branches permitidas: `main` e a antiga `feat/theasy-redesign`; publicar só da `main`)          |
 | Base path             | `/Theasy/` (definido quando `GITHUB_PAGES=true`, em `vite.config.ts`)                                          |
 | Domínio personalizado | nenhum (sem CNAME)                                                                                             |
 | HTTPS                 | ativo e forçado pelo GitHub (`*.github.io`)                                                                    |
@@ -60,7 +60,9 @@ valide um envio real antes de anunciar o canal.
      `/Theasy/solucoes`, `/Theasy/aplicacoes`, `/Theasy/abordagem`,
      `/Theasy/sobre`, `/Theasy/contato` e `/Theasy/privacidade`;
    - assinatura "Your data analytics", favicon e menu mobile;
-   - console sem erros e nenhum asset respondendo 404;
+   - nenhum asset (JS, CSS, imagem, fonte) respondendo 404. O documento
+     das rotas internas responde 404 por causa do fallback (seção abaixo) e
+     isso aparece no console como "Failed to load resource": é esperado;
    - `robots.txt` e `sitemap.xml` em `/Theasy/`.
 
 ## Rollback
@@ -77,9 +79,12 @@ valide um envio real antes de anunciar o canal.
 - GitHub Pages não tem reescrita de rotas. Um acesso direto a uma rota
   interna recebe `public/404.html` (status HTTP 404), que redireciona para
   `index.html` com o caminho codificado; o script em `index.html` restaura a
-  URL e o React Router renderiza a página. Para o usuário a navegação é normal;
-  para robôs, a resposta inicial dessas URLs é 404. Mitigação: sitemap com as
-  URLs canônicas e, no futuro, pré renderização ou hospedagem com reescrita.
+  URL e o React Router renderiza a página. Para o usuário a navegação é
+  normal; para robôs, a resposta inicial dessas URLs é **404, e isso não
+  equivale a uma resposta 200 para SEO**. Limitação conhecida e aceita nesta
+  versão. Mitigação atual: sitemap com as URLs canônicas. Melhoria futura:
+  pré renderização das rotas ou hospedagem com reescrita (não iniciar uma
+  reestruturação de roteamento sem uma frente própria).
 - `robots.txt` só é lido na raiz do domínio (`evanilsonfreitas.github.io`);
   em um site de projeto o arquivo em `/Theasy/` não tem efeito. Use o
   `sitemap.xml` no Google Search Console.
@@ -87,6 +92,14 @@ valide um envio real antes de anunciar o canal.
   (`VITE_CONTACT_ENDPOINT`).
 - Sem imagem de compartilhamento (`og:image`) até existir `og-image.png`
   (1200 × 630). A tag só deve ser reativada em `Seo.tsx` com o arquivo publicado.
+
+## SEO e HTTPS
+
+- Cada página define título, descrição, canonical e Open Graph
+  (`src/components/seo/Seo.tsx`); canonical e `og:url` dependem de
+  `VITE_SITE_URL`.
+- `sitemap.xml` com as 7 rotas é gerado no build (`vite.config.ts`).
+- HTTPS é servido e forçado pelo GitHub em `*.github.io`.
 
 ## Erros frequentes
 
@@ -111,5 +124,9 @@ Nenhuma em tempo de execução: fontes e imagens são servidas pelo próprio sit
   em branco). A fonte foi trocada para GitHub Actions e a versão aprovada
   `72bbdb9` foi publicada pela execução
   https://github.com/EvanilsonFreitas/Theasy/actions/runs/43549168656.
+- 14/11/2026: encerramento de produção (PR #2), `a9ced32`.
+- 14/11/2026: **V2.2** (PR #3), `a1c36d1`, execução
+  https://github.com/EvanilsonFreitas/Theasy/actions/runs/43561362769.
+  Homologado nas 7 rotas, WhatsApp verificado, nenhum asset com 404.
 - Implantações seguintes: Settings → Environments → `github-pages` ou
   https://github.com/EvanilsonFreitas/Theasy/deployments.

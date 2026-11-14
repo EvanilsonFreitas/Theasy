@@ -2,11 +2,11 @@
 
 ## Tema
 
-Dark Theme obrigatório — não existe versão Light. `<html class="dark">` é fixo em [index.html](../index.html).
+Dark Theme obrigatório — não existe versão Light. `<html class="dark">` é fixo em [index.html](../../../index.html).
 
 ## Cores
 
-Definidas como tokens Tailwind v4 (`@theme`) em [src/index.css](../src/index.css).
+Definidas como tokens Tailwind v4 (`@theme`) em [src/index.css](../../../src/index.css).
 
 ### Primary — `#3EF0AA`
 
@@ -22,7 +22,7 @@ Cor única de marca — não existe mais uma segunda cor (roxo/violeta). Convert
 
 Fonte oficial: **Plus Jakarta Sans**, carregada via `@fontsource/plus-jakarta-sans` (self-hosted, sem dependência de Google Fonts em runtime — melhor performance e privacidade).
 
-Decisão de performance: apenas o subset **latin** e os pesos 400/500/600/700/800 são importados (ver [src/main.tsx](../src/main.tsx)). Os demais subsets (latin-ext, vietnamese) e o peso italic não são usados pelo site institucional e foram excluídos do bundle.
+Decisão de performance: apenas o subset **latin** e os pesos 400/500/600/700/800 são importados (ver [src/main.tsx](../../../src/main.tsx)). Os demais subsets (latin-ext, vietnamese) e o peso italic não são usados pelo site institucional e foram excluídos do bundle.
 
 Fallback: `"Plus Jakarta Sans Fallback", system-ui, sans-serif`.
 

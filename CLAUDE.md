@@ -1,89 +1,114 @@
 # CLAUDE.md · ThEasy
 
-Instruções do projeto para sessões do Claude Code. Contexto completo em
-[docs/handoff/PROJECT_HANDOFF.md](docs/handoff/PROJECT_HANDOFF.md).
+Porta de entrada para sessões do Claude Code. Índice operacional: o detalhe
+fica nos documentos linkados. Para retomar o projeto do zero, siga
+[docs/handoff/NEW_SESSION_START.md](docs/handoff/NEW_SESSION_START.md).
 
-## Produto
+## Identificação
 
-Site institucional da **ThEasy**, consultoria em dados, tecnologia e gestão.
-Assinatura da marca: **THEASY · Your data analytics** (texto exato, com "Your"
-em maiúscula e "data analytics" em minúsculas).
-
-Competências apresentadas: BI e Analytics (Power BI), engenharia de dados,
-sistemas sob medida, automação de processos e consultoria financeira e de
-gestão (controladoria, custos, precificação, rentabilidade).
+- **Produto:** site institucional da **ThEasy**, consultoria em dados,
+  tecnologia e gestão. Apresenta as competências e capta contatos.
+- **Assinatura:** **THEASY · Your data analytics** (texto exato: "Your" com
+  maiúscula, "data analytics" em minúsculas).
+- **Repositório:** https://github.com/EvanilsonFreitas/Theasy (público).
+- **Produção:** https://evanilsonfreitas.github.io/Theasy/ (GitHub Pages).
+- **Competências:** BI e Analytics (Power BI), engenharia de dados, sistemas
+  sob medida, automação de processos, consultoria financeira e de gestão.
 
 ## Estado
 
-- Redesign **v2.1 "Arquitetura conectada" aprovado e encerrado**. Não reabrir
-  conceito, layout, identidade ou animações sem pedido explícito.
-- Publicado em GitHub Pages: https://evanilsonfreitas.github.io/Theasy/
-- Polimento **V2.2** (componentes, header compacto no scroll e WhatsApp
-  comercial) registrado em `DESIGN.md` (seção 13).
-- Formulário de contato sem serviço de recebimento configurado: informa que a
-  mensagem **não** foi enviada. Nunca simular sucesso.
-- WhatsApp comercial ativo: +55 (11) 96463-9228. Fonte única em
-  `src/content/site.ts` (`whatsapp`); não duplicar número ou mensagem.
+- **V2.2 publicada** (PR #3, merge `a1c36d1`, deploy manual em 14/11/2026).
+  Direção visual v2.1 "Arquitetura conectada" **aprovada e encerrada**: não
+  reabrir conceito, layout, identidade ou animações sem pedido explícito.
+- **WhatsApp comercial operacional:** +55 (11) 96463-9228, fonte única em
+  `src/content/site.ts` (`whatsapp`).
+- **Formulário tradicional pendente:** sem `VITE_CONTACT_ENDPOINT`, informa
+  que a mensagem **não** foi enviada. Nunca simular sucesso nem declarar o
+  formulário operacional.
+- Histórico das frentes e pendências:
+  [docs/handoff/PROJECT_HANDOFF.md](docs/handoff/PROJECT_HANDOFF.md).
 
-## Stack
+## Arquitetura (resumo)
 
 React 19 · TypeScript strict · Vite 8 · Tailwind CSS v4 (CSS first, tokens em
 `src/index.css`) · React Router 7 · framer-motion (`LazyMotion` + `m`) ·
 react-hook-form + zod · Instrument Sans e IBM Plex Mono (Fontsource) ·
-Playwright + axe-core (testes de fumaça).
+Playwright + axe-core.
 
-## Estrutura
+| Caminho                                    | Conteúdo                                                        |
+| ------------------------------------------ | --------------------------------------------------------------- |
+| `src/routes/index.tsx`                     | 7 rotas, 404 e 14 redirecionamentos legados                     |
+| `src/features/`                            | páginas: home, soluções, aplicações, abordagem, sobre, contato… |
+| `src/content/`                             | todo o texto e dados tipados (incluindo `site.ts`)              |
+| `src/components/system/`                   | gramática visual: mapa, estrela, glifos, seções, `PageHero`     |
+| `src/components/demos/`                    | as cinco demonstrações interativas                              |
+| `src/components/{scenario,process,areas}/` | seções reutilizadas (conectores, matriz, etapas, áreas)         |
+| `src/components/brand/Logo.tsx`            | símbolo e assinatura (componente único, estado `compact`)       |
+| `src/components/navigation/`               | header compacto no scroll, menu mobile, rodapé                  |
+| `src/components/contact/`                  | botão flutuante e glifo do WhatsApp                             |
+| `src/components/ui/Select.tsx`             | seletor acessível (não usar `<select>` nativo nas demos)        |
+| `e2e/smoke.spec.ts`                        | 48 testes de fumaça (Playwright + axe)                          |
 
-- `src/content/`: todo o texto e dados tipados (serviços, cenários, áreas, etapas).
-- `src/components/system/`: gramática visual (mapa, estrela, glifos, seções, `PageHero`).
-- `src/components/demos/`: as cinco demonstrações interativas.
-- `src/components/{scenario,process,areas}/`: seções reutilizadas na home e nas páginas.
-- `src/components/brand/Logo.tsx`: símbolo e assinatura (componente único,
-  com estado `compact` usado pelo header).
-- `src/components/ui/Select.tsx`: seletor acessível do design system (não
-  usar `<select>` nativo nas demos).
-- `src/components/contact/`: botão flutuante e glifo do WhatsApp.
-- `src/features/`: páginas. `src/routes/index.tsx`: rotas e redirecionamentos legados.
-- `e2e/smoke.spec.ts`: testes de fumaça. `docs/`: design, deploy e handoff.
+Detalhes: handoff, seção 2. Design: [DESIGN.md](DESIGN.md) e
+[docs/design/refinamento-v2.1.md](docs/design/refinamento-v2.1.md).
 
 ## Comandos
 
 ```bash
-npm ci                # instalação reproduzível (Node 22 no CI)
-npm run dev           # desenvolvimento (porta 5173)
-npm run lint          # ESLint com jsx-a11y
-npm run typecheck     # tsc -b
-npm run build         # typecheck + build em dist/
+npm ci                            # Node 22 (o CI usa 22)
+npm run dev                       # desenvolvimento, porta 5173
+npm run lint                      # ESLint com jsx-a11y
+npm run typecheck                 # tsc -b
+npm run build                     # typecheck + build em dist/
 npx playwright install chromium   # uma vez por máquina
-npm run test:smoke    # Playwright contra o build (rode npm run build antes)
+npm run test:smoke                # 48 testes contra o build (rode o build antes)
 ```
+
+No Windows com Chrome instalado: `PW_CHANNEL=chrome npm run test:smoke`.
 
 ## Regras
 
-- **Git:** nunca push direto na `main`. Trabalhe em branch, abra PR, espere o
-  CI (`.github/workflows/ci.yml`) verde e faça merge commit. Conventional
-  Commits. Não reescrever histórico da `main`; não excluir branches de segurança.
+- **Git:** nunca push direto na `main`. Branch curta, PR, CI verde
+  (`.github/workflows/ci.yml`) e **merge commit**. Conventional Commits. Não
+  reescrever o histórico da `main`, sem force push, não excluir branches de
+  segurança.
 - **Atribuição:** `.claude/settings.json` desativa atribuições automáticas em
   commits e PRs. Não adicionar trailers ou rodapés de ferramentas.
-- **Deploy:** somente manual (`deploy.yml`, `workflow_dispatch`), depois do
-  merge na `main`. Procedimento em
+- **Deploy:** somente manual (`deploy.yml`, `workflow_dispatch`, branch
+  `main`), depois do merge e com autorização do responsável. Procedimento em
   [docs/deployment/GITHUB_PAGES.md](docs/deployment/GITHUB_PAGES.md).
 - **Segurança:** nada de secrets no repositório. Variáveis `VITE_*` vão para o
-  JavaScript público. `.env` e `.env.*` são ignorados (só `.env.example` é versionado).
-- **Conteúdo:** sem clientes, números, cases, depoimentos ou certificações
-  inventados. Números de demonstração sempre rotulados como demonstrativos.
-  Textos visíveis sem travessões ou hífens decorativos. Sem amarelo na interface.
+  JavaScript público. `.env` e `.env.*` são ignorados (só `.env.example` é
+  versionado). Não expor nem alterar credenciais.
+- **Conteúdo:** sem clientes, números, cases, depoimentos, certificações ou
+  dados oficiais inventados. Números de demonstração sempre rotulados como
+  demonstrativos. Textos visíveis sem travessões ou hífens decorativos. Sem
+  amarelo na interface.
 - **Identidade:** roxo oficial `#5D3BDA` (token `brand`/`purple-600`). Tons
-  auxiliares (`purple-300`, `purple-500`) só em gráficos e efeitos. Não alterar
-  a geometria do símbolo nem a estrela central. Detalhes em
-  [docs/design/refinamento-v2.1.md](docs/design/refinamento-v2.1.md).
-- **Acessibilidade:** manter WCAG 2.2 AA, `prefers-reduced-motion`, teclado e
-  alvos de 24 px ou mais. Os testes de fumaça rodam axe em todas as rotas.
+  auxiliares (`purple-300`, `purple-500`) só em gráficos e efeitos. Não
+  alterar a geometria do símbolo nem a estrela central.
+- **Acessibilidade:** WCAG 2.2 AA, `prefers-reduced-motion`, teclado, foco
+  visível, alvos de 24 px ou mais. Os testes rodam axe em todas as rotas.
 - **GitHub Pages:** `base` `/Theasy/` só quando `GITHUB_PAGES=true`; links e
   assets usam `import.meta.env.BASE_URL` (`asset()` em `src/lib/utils.ts`).
+  Não mudar `base`, roteamento ou `public/404.html` sem testar acesso direto
+  às rotas em produção.
 
 ## Documentação
 
-`README.md` (visão geral) · `DESIGN.md` (decisões e validações) ·
-`docs/design/` (benchmark, refinamento, protótipos) ·
-`docs/deployment/GITHUB_PAGES.md` · `docs/handoff/PROJECT_HANDOFF.md`.
+| Documento                                                              | Para quê                                                |
+| ---------------------------------------------------------------------- | ------------------------------------------------------- |
+| [docs/handoff/NEW_SESSION_START.md](docs/handoff/NEW_SESSION_START.md) | prompt curto para iniciar uma nova sessão               |
+| [docs/handoff/PROJECT_HANDOFF.md](docs/handoff/PROJECT_HANDOFF.md)     | estado, arquitetura, histórico, pendências, recuperação |
+| [DESIGN.md](DESIGN.md)                                                 | direção aprovada, decisões, validações, V2.2            |
+| [docs/design/refinamento-v2.1.md](docs/design/refinamento-v2.1.md)     | sistema visual, componentes e movimento por seção       |
+| [docs/deployment/GITHUB_PAGES.md](docs/deployment/GITHUB_PAGES.md)     | publicação, validação, rollback, limites do Pages       |
+| [docs/README.md](docs/README.md)                                       | índice de `docs/` (protótipos, capturas, histórico)     |
+| [README.md](README.md)                                                 | visão geral e primeiros passos                          |
+
+## Retomada
+
+1. Leia este arquivo e o handoff. 2. Confira `git status`, `git log` e o
+   último deploy. 3. Não altere código sem uma solicitação nova. 4. Toda
+   mudança: branch, PR, CI verde, merge commit e, se afetar o site, deploy
+   manual autorizado e homologação.

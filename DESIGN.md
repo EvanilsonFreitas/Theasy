@@ -1,15 +1,37 @@
 # ThEasy · Design e decisões técnicas
 
-Documento de referência do redesign do site institucional (integrado à
-`main` pelos PRs #1 e #2).
+Documento de referência do design e das decisões técnicas do site
+institucional (integrado à `main` pelos PRs #1, #2 e #3).
 
-> **Versão atual: v2.1 "Arquitetura conectada".** A direção v1 ("Caderno de
-> decisão", seções 1 a 7 abaixo) foi reprovada e substituída. Decisões da
-> versão atual: [docs/design/benchmark-v2.md](docs/design/benchmark-v2.md)
-> (benchmark visual) e
+> **Versão atual: V2.2**, evolução pontual da v2.1 "Arquitetura conectada"
+> (seção 13). A direção v1 ("Caderno de decisão", seções 1 a 7) foi
+> reprovada e fica só como histórico. Valem para a versão atual as seções 8,
+> 10 a 13 e os documentos
+> [docs/design/benchmark-v2.md](docs/design/benchmark-v2.md) (benchmark) e
 > [docs/design/refinamento-v2.1.md](docs/design/refinamento-v2.1.md)
-> (direção, sistema visual, componentes, movimento). As seções 1 a 7 ficam
-> como histórico da v1; as seções 8, 10, 11 e 12 valem para a versão atual.
+> (direção, sistema visual, componentes e movimento).
+
+**Direção aprovada (não reabrir sem pedido explícito):**
+
+- site institucional corporativo, base clara, estética limpa com
+  sofisticação técnica;
+- arquitetura conectada: o mapa fontes, integração, base, aplicações e
+  decisão organiza a narrativa;
+- interfaces demonstrativas plausíveis (cinco demos), sempre rotuladas como
+  demonstrativas;
+- vetores e conectores com critério: guias contínuas, nós em colchete,
+  estrela de junção, conectores ancorados nas bordas;
+- profundidade visual controlada (níveis E0 a E4, utilitários `e1` a `e4`);
+- motion funcional: só `transform` e `opacity`, estados que explicam,
+  `prefers-reduced-motion` respeitado;
+- identidade roxa oficial `#5D3BDA`, sem amarelo, assinatura
+  "Your data analytics";
+- header responsivo ao scroll e componentes interativos acessíveis
+  (teclado, foco visível, alvos de 24 px ou mais).
+
+**Descartado:** a v1 editorial (tipografia gigante, galerias de fotos), o
+tema escuro do site ONEB, gradientes e vidro decorativos, números ou casos
+inventados.
 
 ## 1. Diagnóstico do site anterior (ONEB)
 
@@ -148,20 +170,6 @@ no foco e fora da viewport; `prefers-reduced-motion` mostra tudo no estado
 final e desliga o avanço automático. Sem JS, nada fica escondido (estados
 iniciais só existem sob `.js`).
 
-**Header no scroll (V2.2).** Estado discreto, não contínuo: compacta acima
-de 48 px de rolagem e só volta abaixo de 16 px (histerese), com leitura
-limitada a um quadro (`requestAnimationFrame`) e mudança de estado apenas ao
-cruzar um limiar, então não há renderização por pixel nem oscilação. A
-altura do header no fluxo não muda: ele fica preso 12 px (8 px no mobile)
-acima da viewport, a faixa visível passa de 72 para 60 px (64 para 56 no
-mobile) e a linha interna se recentra com `transform`. No compacto o símbolo
-vai a 86%, o descritor "Your data analytics" esmaece, o nome THEASY se
-recentra e entram sombra ambiente e separador. A estrela recebe um brilho
-curto (opacidade e escala, 620 ms, uma vez por troca de estado; não toca na
-montagem). Com o menu mobile aberto o estado fica congelado e o painel começa
-exatamente na borda visível do header. Com movimento reduzido, as mudanças
-são instantâneas e o brilho não aparece.
-
 ## 6. Arquitetura da informação
 
 | Rota           | Papel na jornada                                                                                                  |
@@ -203,21 +211,6 @@ própria). Sem a variável, o formulário valida normalmente, mas informa que
 Testado localmente: sucesso (endpoint simulado recebeu o JSON), erro HTTP 500
 (dados mantidos, alerta focado) e ambiente sem endpoint.
 
-**WhatsApp comercial (V2.2).** Canal direto informado pela ThEasy:
-+55 (11) 96463-9228. Configuração única em `src/content/site.ts`
-(`whatsapp`: número internacional, exibição, mensagem inicial e URL
-`https://wa.me/5511964639228?text=...` com a mensagem codificada). Sem SDK,
-scripts ou cookies de terceiros, sem encurtadores; links com
-`target="_blank"` e `rel="noopener noreferrer"`. Pontos de contato: botão
-flutuante em todas as páginas (nome acessível "Falar pelo WhatsApp com a
-ThEasy", que contém o texto da dica, conforme WCAG 2.5.3; dica "Falar pelo WhatsApp" no hover e no foco, áreas seguras do
-mobile, inerte atrás do menu mobile), cartão "Conversar pelo WhatsApp" na
-página de contato e canal no rodapé. O CTA do header continua levando a
-`/contato`: a página oferece as duas jornadas (formulário e WhatsApp) lado a
-lado, sem mudar o layout aprovado do header. O formulário não foi alterado e
-continua informando que a mensagem não foi enviada enquanto não houver
-endpoint.
-
 ## 8. Pendências que dependem da ThEasy
 
 1. Arquivos vetoriais oficiais do logotipo (SVG) e confirmação da fonte do
@@ -225,7 +218,7 @@ endpoint.
 2. ~~HEX oficial do roxo~~: resolvido, `#5D3BDA` (ver seção 12).
 3. Endpoint ou serviço de recebimento do formulário (`VITE_CONTACT_ENDPOINT`)
    e um email de contato para exibir no site. O WhatsApp comercial já está
-   ativo (seção 7).
+   ativo (seção 13).
 4. Imagem `og-image.png` (1200×630); a tag `og:image` só deve ser reativada
    em `Seo.tsx` quando o arquivo existir. A URL pública já está definida
    (`VITE_SITE_URL` no `deploy.yml`).
@@ -340,16 +333,54 @@ ficam ocultos para não sobrepor o recorte).
 | Rodapé                       | "© {ano} ThEasy. Todos os direitos reservados." com ano dinâmico                                                                                                     |
 | Cursor e affordance          | `cursor: pointer` só em botões, abas, switches, opções, `summary` e `label[for]`; `not-allowed` em desabilitados. Cards estáticos sem mão                            |
 | Matriz impacto × esforço     | Quadrantes nomeados, posição derivada dos valores (`src/content/initiatives.ts`), marcadores selecionáveis, painel de detalhe e lista numerada em contêiner estreito |
-| Header no scroll             | Ver seção 5                                                                                                                                                          |
-| WhatsApp comercial           | Ver seção 7                                                                                                                                                          |
+| Header no scroll             | Ver abaixo                                                                                                                                                           |
+| WhatsApp comercial           | Ver abaixo                                                                                                                                                           |
 
-Validação: lint, typecheck e build sem erros; 48 testes Playwright (24
+### Validação
+
+Lint, typecheck e build sem erros; 48 testes Playwright (24
 anteriores e 24 da V2.2, com axe WCAG 2.2 A/AA nas 7 rotas) aprovados
 localmente, repetidos sob carga para eliminar instabilidade. As
 verificações são geométricas (indicador dentro do trilho, âncoras sobre as
 bordas, nós sem sobreposição, marcador na posição dos valores, header sem
 deslocar o conteúdo) em vez de comparação de pixels, que falharia entre o
 Windows local e o Linux do CI.
+
+### Header no scroll
+
+Estado discreto, não contínuo: compacta acima
+de 48 px de rolagem e só volta abaixo de 16 px (histerese), com leitura
+limitada a um quadro (`requestAnimationFrame`) e mudança de estado apenas ao
+cruzar um limiar, então não há renderização por pixel nem oscilação. A
+altura do header no fluxo não muda: ele fica preso 12 px (8 px no mobile)
+acima da viewport, a faixa visível passa de 72 para 60 px (64 para 56 no
+mobile) e a linha interna acompanha esse deslocamento real (metade da
+parte escondida, por `transform`), ficando centrada em qualquer posição. No compacto o símbolo
+vai a 86%, o descritor "Your data analytics" esmaece, o nome THEASY se
+recentra e entram sombra ambiente e separador. A estrela recebe um brilho
+curto (opacidade e escala, 620 ms, uma vez por troca de estado; não toca na
+montagem). Com o menu mobile aberto o estado fica congelado e o painel começa
+exatamente na borda visível do header. Com movimento reduzido, as mudanças
+são instantâneas e o brilho não aparece.
+
+### WhatsApp comercial
+
+Canal direto informado pela ThEasy:
++55 (11) 96463-9228. Configuração única em `src/content/site.ts`
+(`whatsapp`: número internacional, exibição, mensagem inicial e URL
+`https://wa.me/5511964639228?text=...` com a mensagem codificada). Sem SDK,
+scripts ou cookies de terceiros, sem encurtadores; links com
+`target="_blank"` e `rel="noopener noreferrer"`. Pontos de contato: botão
+flutuante em todas as páginas (nome acessível "Falar pelo WhatsApp com a
+ThEasy", que contém o texto da dica, conforme WCAG 2.5.3; dica "Falar pelo WhatsApp" no hover e no foco, áreas seguras do
+mobile, inerte atrás do menu mobile), cartão "Conversar pelo WhatsApp" na
+página de contato e canal no rodapé. O CTA do header continua levando a
+`/contato`: a página oferece as duas jornadas (formulário e WhatsApp) lado a
+lado, sem mudar o layout aprovado do header. O formulário não foi alterado e
+continua informando que a mensagem não foi enviada enquanto não houver
+endpoint.
+
+### Revisão de QA
 
 Revisão independente de QA (acessibilidade e UX) antes do PR encontrou e
 corrigiu: lista do `Select` cortada pela moldura das demos (agora em portal
@@ -361,3 +392,8 @@ repetindo o valor, painel do menu sem acompanhar redimensionamento e
 contraste do trilho desligado do toggle (agora `rule-strong`, 3,4:1). O
 nome acessível do botão flutuante foi alinhado à dica: "Falar pelo WhatsApp
 com a ThEasy" (WCAG 2.5.3), com a descrição "Abre em nova aba".
+
+O canvas do Claude Design usado nos protótipos é privado da conta de origem
+e não é necessário para manter o site: as fontes exportadas dos boards
+(v1, v2, refino v2.1 e V2.2) estão em `docs/design/prototypes/` e as
+capturas em `docs/screenshots/`.
