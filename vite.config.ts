@@ -49,13 +49,12 @@ function seoFiles(siteUrl: string): Plugin {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_')
   return {
-    // Identificador técnico do deploy no GitHub Pages — não renomear sem
-    // renomear o repositório remoto.
+    // Caminho do deploy no GitHub Pages: igual ao nome do repositório.
     base: process.env.GITHUB_PAGES ? '/Theasy/' : '/',
     plugins: [react(), tailwindcss(), seoFiles(env.VITE_SITE_URL ?? '')],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(import.meta.dirname, './src'),
       },
     },
     server: {
