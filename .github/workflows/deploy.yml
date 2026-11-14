@@ -43,6 +43,9 @@ jobs:
       - name: Build
         env:
           GITHUB_PAGES: true
+          # URL pública confirmada pelo GitHub Pages (não é segredo):
+          # ativa canonical, og:url e sitemap.xml.
+          VITE_SITE_URL: https://evanilsonfreitas.github.io/Theasy
         run: npm run build
 
       - name: Upload Pages artifact
