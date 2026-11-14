@@ -1,3 +1,3 @@
 # assets/illustrations
 
-Ilustrações vetoriais e composições gráficas (SVGs decorativos, elementos do universo visual OneB: nebulosas, constelações, conexões).
+Ilustrações vetoriais e composições gráficas da ThEasy (nós em colchete, conectores e estrela de junção).

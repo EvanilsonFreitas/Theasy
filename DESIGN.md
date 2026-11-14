@@ -24,13 +24,13 @@ Documento de referência do redesign do site institucional (branch
 | Lenis (scroll suavizado), Three.js, GSAP, axios, react-query sem uso real                  | 621 kB de JS (193 kB gzip) e scroll fora do padrão nativo |
 | Contato, redes sociais e e-mails fictícios                                                 | Links que não levavam a lugar nenhum                      |
 
-## 2. Claude Design
+## 2. Prototipação (v1)
 
-O design foi concebido no **Claude Design** (tipo de artefato "Design", o
-canvas do Claude) antes da implementação:
+Os protótipos foram desenhados em canvas (Claude Design) antes da
+implementação:
 
-- Canvas: `ThEasy — Redesign do site` (artefato privado do proprietário).
-- Fontes dos artboards versionadas em `docs/design/claude-design/`.
+- Canvas privado do proprietário.
+- Fontes dos artboards versionadas em `docs/design/prototypes/v1/`.
 - Artboards: três direções exploratórias (A: relatório editorial,
   B: estúdio de produto, C: mapa de decisão), a síntese escolhida (Home
   desktop interativa), Home mobile com menu e o design system.
@@ -40,13 +40,9 @@ canvas do Claude) antes da implementação:
 - Depois que a ThEasy enviou a arte institucional, o canvas recebeu o
   logotipo oficial, a paleta derivada do símbolo e a remoção de travessões.
 
-**Limitações registradas.** A sincronização automática `/design-sync`
-(ferramenta DesignSync) serve para bibliotecas de design system e não estava
-habilitada como skill nesta sessão; o handoff foi feito pelos arquivos dos
-artboards e por este documento. O plugin `frontend-design` não estava
-disponível no ambiente. A pré-visualização renderizada do canvas exige login
-no claude.ai no navegador da sessão, então a crítica visual final foi feita
-sobre o site implementado.
+**Limitações registradas.** Não houve sincronização automática entre canvas
+e código: a transferência foi feita pelos arquivos dos artboards e por este
+documento. A crítica visual final foi feita sobre o site implementado.
 
 ## 3. Conceito: "Caderno de decisão"
 
@@ -181,8 +177,8 @@ Rotas antigas da ONEB redirecionam para o conteúdo equivalente
   React 19 (`components/seo/Seo.tsx`). Canonical, `og:url`, `og:image` e
   `sitemap.xml` só são gerados com `VITE_SITE_URL` definido; `robots.txt`
   sempre. Nenhum structured data, porque não há dados verificados.
-- Deploy: o `base` `/oneb-website/` do GitHub Pages foi mantido (identificador
-  técnico, não renomeado).
+- Deploy: `base` `/Theasy/` no GitHub Pages, igual ao nome do repositório
+  (renomeado de `oneb-website` para `Theasy`).
 
 ### Contato
 
@@ -265,3 +261,16 @@ amplo, mas não foi inspecionado nesses motores).
 Capturas: `docs/screenshots/v1-antes/` (antes), `docs/screenshots/v2-depois/`
 (home em seis larguras e páginas internas em 1440 e 390 px) e as comparações
 `docs/screenshots/comparacao-home-1440.jpg` e `comparacao-home-390.jpg`.
+
+## 11. Assinatura e repositório (finalização)
+
+- Assinatura da marca: **THEASY** com a legenda **Your data analytics**, em
+  substituição a "Business Intelligence & Consulting". Aplicada no componente
+  único `components/brand/Logo.tsx`, que atende cabeçalho (desktop e mobile)
+  e rodapé. O símbolo, a estrela central e a cor `#8B6CF0` não mudaram.
+- Título padrão da home: `ThEasy | Your data analytics`. As demais páginas
+  mantêm títulos e descrições próprios dos serviços.
+- Repositório renomeado de `oneb-website` para `Theasy`; o `base` do build de
+  GitHub Pages passou a `/Theasy/`.
+- As referências à ONEB nas seções 1 a 7 e em `docs/01` a `docs/06` são
+  registro histórico do site anterior e foram mantidas.

@@ -1,6 +1,6 @@
 # ThEasy v2 e v2.1 · Arquitetura conectada
 
-Registro das decisões da direção v2 ("Connected Intelligence", escolhida) e do refino v2.1 ("Soft Technical Depth"). Benchmark em [benchmark-v2.md](benchmark-v2.md). Canvas do Claude Design: `https://claude.ai/artifact/2Pr62NYKHndPZ8QeUppLhk` (privado; cópia dos arquivos em `claude-design-v2/`).
+Registro das decisões da direção v2 ("Connected Intelligence", escolhida) e do refino v2.1 ("Soft Technical Depth"). Benchmark em [benchmark-v2.md](benchmark-v2.md). Protótipos em canvas privado (Claude Design); cópia dos arquivos em `prototypes/v2/`.
 
 ## 1. Por que a v1 parecia genérica
 
@@ -9,7 +9,7 @@ Registro das decisões da direção v2 ("Connected Intelligence", escolhida) e d
 - Seções sem relação gráfica entre si; fotos de setores como linguagem principal.
 - Demonstrações pequenas, ícones de biblioteca como ilustração, movimento só de entrada.
 
-## 2. Exploração v2 no Claude Design
+## 2. Exploração v2
 
 | Direção                           | Ideia                              | Por que não sozinha                                   |
 | --------------------------------- | ---------------------------------- | ----------------------------------------------------- |

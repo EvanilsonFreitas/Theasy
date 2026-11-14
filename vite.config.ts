@@ -51,7 +51,7 @@ export default defineConfig(({ mode }) => {
   return {
     // Identificador técnico do deploy no GitHub Pages — não renomear sem
     // renomear o repositório remoto.
-    base: process.env.GITHUB_PAGES ? '/oneb-website/' : '/',
+    base: process.env.GITHUB_PAGES ? '/Theasy/' : '/',
     plugins: [react(), tailwindcss(), seoFiles(env.VITE_SITE_URL ?? '')],
     resolve: {
       alias: {
