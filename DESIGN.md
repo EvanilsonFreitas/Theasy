@@ -192,12 +192,12 @@ Testado localmente: sucesso (endpoint simulado recebeu o JSON), erro HTTP 500
 
 1. Arquivos vetoriais oficiais do logotipo (SVG) e confirmação da fonte do
    nome "THEASY"; hoje o símbolo é uma vetorização fiel da arte enviada.
-2. HEX oficial do roxo (usado `#8B6CF0`, aproximado da arte).
+2. ~~HEX oficial do roxo~~: resolvido, `#5D3BDA` (ver seção 12).
 3. Endpoint ou serviço de recebimento do formulário (`VITE_CONTACT_ENDPOINT`)
    e um email de contato para exibir no site.
-4. Domínio público (`VITE_SITE_URL`) para canonical, sitemap e Open Graph,
-   e uma imagem `og-image.png` (1200×630); a tag `og:image` só deve ser
-   reativada em `Seo.tsx` quando o arquivo existir.
+4. Imagem `og-image.png` (1200×630); a tag `og:image` só deve ser reativada
+   em `Seo.tsx` quando o arquivo existir. A URL pública já está definida
+   (`VITE_SITE_URL` no `deploy.yml`).
 5. Dados institucionais (razão social, CNPJ, endereço) para rodapé e página
    de privacidade, e validação jurídica do texto de privacidade.
 6. Cases, depoimentos ou números reais, se houver, para substituir os
@@ -267,10 +267,26 @@ Capturas: `docs/screenshots/v1-antes/` (antes), `docs/screenshots/v2-depois/`
 - Assinatura da marca: **THEASY** com a legenda **Your data analytics**, em
   substituição a "Business Intelligence & Consulting". Aplicada no componente
   único `components/brand/Logo.tsx`, que atende cabeçalho (desktop e mobile)
-  e rodapé. O símbolo, a estrela central e a cor `#8B6CF0` não mudaram.
+  e rodapé. O símbolo e a estrela central não mudaram (a cor foi atualizada
+  depois para o HEX oficial; ver seção 12).
 - Título padrão da home: `ThEasy | Your data analytics`. As demais páginas
   mantêm títulos e descrições próprios dos serviços.
 - Repositório renomeado de `oneb-website` para `Theasy`; o `base` do build de
   GitHub Pages passou a `/Theasy/`.
 - As referências à ONEB nas seções 1 a 7 e em `docs/01` a `docs/06` são
   registro histórico do site anterior e foram mantidas.
+
+## 12. Publicação e cor oficial (encerramento)
+
+- Cor institucional oficial: **`#5D3BDA`** (token `brand` e `purple-600`),
+  aplicada ao símbolo, favicon, ações e conexões ativas. `#8B6CF0`
+  (`purple-500`) permanece como tom auxiliar de gráficos e efeitos. Contraste
+  de `#5D3BDA` sobre as superfícies do site: 6,1:1 a 6,8:1. As seções 4 e 8
+  acima registram o valor provisório da v1.
+- Publicação: GitHub Pages com fonte GitHub Actions, deploy manual, URL
+  https://evanilsonfreitas.github.io/Theasy/. Procedimento e evidências em
+  `docs/deployment/GITHUB_PAGES.md`.
+- Capturas de sites de terceiros usadas no benchmark não são publicadas no
+  repositório público.
+- Handoff do projeto: `docs/handoff/PROJECT_HANDOFF.md`; instruções para o
+  Claude Code: `CLAUDE.md`.
