@@ -31,8 +31,12 @@ export const whatsapp = {
   display: '+55 (11) 96463-9228',
   message: WHATSAPP_MESSAGE,
   url: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
-  /** Nome acessível do botão flutuante. */
-  label: 'Conversar com a ThEasy pelo WhatsApp',
+  /**
+   * Nome acessível do botão flutuante. Contém o texto visível da dica
+   * ("Falar pelo WhatsApp"), como pede a WCAG 2.5.3 (rótulo no nome).
+   */
+  tooltip: 'Falar pelo WhatsApp',
+  label: 'Falar pelo WhatsApp com a ThEasy',
 } as const
 
 export interface NavItem {

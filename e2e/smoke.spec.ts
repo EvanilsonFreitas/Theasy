@@ -606,7 +606,7 @@ test.describe('V2.2 · WhatsApp comercial', () => {
     test(`botão flutuante em ${route.path}`, async ({ page }) => {
       await page.goto(route.path)
       const link = page.getByRole('link', {
-        name: 'Conversar com a ThEasy pelo WhatsApp',
+        name: 'Falar pelo WhatsApp com a ThEasy',
         exact: true,
       })
       await expect(link).toHaveCount(1)
@@ -637,6 +637,9 @@ test.describe('V2.2 · WhatsApp comercial', () => {
     ).toHaveAttribute('href', WA_URL)
 
     const float = page.locator('[data-whatsapp-float]')
+    // Rótulo no nome (WCAG 2.5.3): o nome acessível contém o texto da dica.
+    await expect(float).toContainText('Falar pelo WhatsApp')
+    await expect(float).toHaveAccessibleName('Falar pelo WhatsApp com a ThEasy')
     await float.focus()
     await expect(float).toBeFocused()
     await expect(float).toHaveCSS('outline-style', 'solid')

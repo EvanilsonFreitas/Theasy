@@ -32,7 +32,7 @@ export function WhatsAppFloat() {
         aria-hidden="true"
         className="bg-ink ease-snap pointer-events-none absolute right-full mr-3 hidden translate-x-1 rounded-md px-2.5 py-1.5 text-[13px] font-medium whitespace-nowrap text-white opacity-0 shadow-[0_6px_18px_-8px_rgb(21_19_27/0.4)] transition-[opacity,transform] duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 sm:block"
       >
-        Falar pelo WhatsApp
+        {whatsapp.tooltip}
       </span>
       <span id="whatsapp-float-hint" className="sr-only">
         Abre em nova aba

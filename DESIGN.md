@@ -209,8 +209,8 @@ Testado localmente: sucesso (endpoint simulado recebeu o JSON), erro HTTP 500
 `https://wa.me/5511964639228?text=...` com a mensagem codificada). Sem SDK,
 scripts ou cookies de terceiros, sem encurtadores; links com
 `target="_blank"` e `rel="noopener noreferrer"`. Pontos de contato: botão
-flutuante em todas as páginas (nome acessível "Conversar com a ThEasy pelo
-WhatsApp", dica "Falar pelo WhatsApp" no hover e no foco, áreas seguras do
+flutuante em todas as páginas (nome acessível "Falar pelo WhatsApp com a
+ThEasy", que contém o texto da dica, conforme WCAG 2.5.3; dica "Falar pelo WhatsApp" no hover e no foco, áreas seguras do
 mobile, inerte atrás do menu mobile), cartão "Conversar pelo WhatsApp" na
 página de contato e canal no rodapé. O CTA do header continua levando a
 `/contato`: a página oferece as duas jornadas (formulário e WhatsApp) lado a
@@ -359,5 +359,5 @@ logotipo é alinhado por flex), rodapé coberto pelo botão flutuante em telas
 largas, região viva do detalhe da matriz que remontava, nome do `Select`
 repetindo o valor, painel do menu sem acompanhar redimensionamento e
 contraste do trilho desligado do toggle (agora `rule-strong`, 3,4:1). O
-nome acessível do botão flutuante segue o texto pedido ("Conversar com a
-ThEasy pelo WhatsApp"), com a descrição "Abre em nova aba".
+nome acessível do botão flutuante foi alinhado à dica: "Falar pelo WhatsApp
+com a ThEasy" (WCAG 2.5.3), com a descrição "Abre em nova aba".
