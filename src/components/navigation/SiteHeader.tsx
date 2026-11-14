@@ -17,6 +17,7 @@ export function SiteHeader() {
   const [glint, setGlint] = useState(0)
   const [panelTop, setPanelTop] = useState<number | null>(null)
   const header = useRef<HTMLElement>(null)
+  const row = useRef<HTMLDivElement>(null)
   const menuButton = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
   const openRef = useRef(open)
@@ -37,12 +38,28 @@ export function SiteHeader() {
   // um quadro por vez (rAF) e o estado só muda ao cruzar um limiar, então
   // não há renderização por pixel nem oscilação perto do limite. Com o menu
   // aberto o estado fica congelado.
+  //
+  // O header fica preso alguns pixels acima da viewport (top negativo). A
+  // linha interna acompanha esse deslocamento real (metade da parte já
+  // escondida, até o limite do top), direto no DOM e sem estado React, então
+  // fica centrada na faixa visível em qualquer posição e não salta ao
+  // compactar.
   useEffect(() => {
     let raf = 0
+    let shift = -1
     const update = () => {
       raf = 0
-      if (openRef.current) return
+      const h = header.current
       const y = window.scrollY
+      if (h && row.current) {
+        const offset = Math.max(0, -parseFloat(getComputedStyle(h).top) || 0)
+        const next = Math.min(y, offset) / 2
+        if (next !== shift) {
+          shift = next
+          row.current.style.transform = `translateY(${next}px)`
+        }
+      }
+      if (openRef.current) return
       setCompact((c) => (c ? y > EXPAND_AT : y > COMPACT_AT))
     }
     const onScroll = () => {
@@ -50,8 +67,10 @@ export function SiteHeader() {
     }
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
     return () => {
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
       cancelAnimationFrame(raf)
     }
   }, [])
@@ -89,6 +108,11 @@ export function SiteHeader() {
     }
     desktop.addEventListener('change', onDesktop)
 
+    // O painel acompanha a borda do header se a largura mudar com ele aberto.
+    const onResize = () =>
+      setPanelTop(header.current?.getBoundingClientRect().bottom ?? null)
+    window.addEventListener('resize', onResize)
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setOpen(false)
@@ -117,6 +141,7 @@ export function SiteHeader() {
       root.style.overflow = prev
       document.removeEventListener('keydown', onKey)
       desktop.removeEventListener('change', onDesktop)
+      window.removeEventListener('resize', onResize)
       behind.forEach((el) => (el.inert = false))
     }
   }, [open])
@@ -137,12 +162,14 @@ export function SiteHeader() {
       )}
     >
       <div
-        className={cn(
-          'frame ease-snap flex h-16 items-center justify-between gap-6 transition-transform duration-[360ms] md:h-[4.5rem]',
-          compact ? 'translate-y-1 md:translate-y-1.5' : 'translate-y-0',
-        )}
+        ref={row}
+        className="frame flex h-16 items-center justify-between gap-6 md:h-[4.5rem]"
       >
-        <Link to="/" className="-m-2 p-2" aria-label="ThEasy, página inicial">
+        <Link
+          to="/"
+          className="-m-2 flex items-center p-2"
+          aria-label="ThEasy, página inicial"
+        >
           <Logo tagline compact={compact} glint={glint} />
         </Link>
 
